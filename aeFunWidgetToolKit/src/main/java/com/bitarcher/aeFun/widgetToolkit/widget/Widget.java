@@ -11,12 +11,15 @@ import com.bitarcher.aeFun.interfaces.gui.theme.context.setter.ISizeSetter;
 import com.bitarcher.aeFun.interfaces.gui.widgets.IWidget;
 import com.bitarcher.aeFun.interfaces.gui.widgets.IWidgetListener;
 import com.bitarcher.aeFun.interfaces.resourcemanagement.EResourceNotFound;
+
 import com.bitarcher.aeFun.widgetToolkit.widget.Tools.WidgetManagerSingleton;
 
 import org.andengine.entity.IEntity;
+
 import org.andengine.entity.clip.ClipEntity;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.util.adt.color.Color;
+
 
 import java.util.ArrayList;
 

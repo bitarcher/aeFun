@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/home/michel/mainPrivate/Sources/AndroidStudioProjects/Abc/aeFunSceneManagement/src/main/assets"/></dataSet><dataSet config="debug"><source path="/home/michel/mainPrivate/Sources/AndroidStudioProjects/Abc/aeFunSceneManagement/src/debug/assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/home/michel/mainPrivate/Sources/AndroidStudioProjects/Abc/aeFun/aeFunSceneManagement/src/main/assets"/></dataSet><dataSet config="debug"><source path="/home/michel/mainPrivate/Sources/AndroidStudioProjects/Abc/aeFun/aeFunSceneManagement/src/debug/assets"/></dataSet></merger>

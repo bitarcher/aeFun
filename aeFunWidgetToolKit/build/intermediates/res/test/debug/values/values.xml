@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/home/michel/mainPrivate/Sources/AndroidStudioProjects/Abc/aeFunWidgetToolKit/build/intermediates/bundles/debug/res/values/values.xml -->
+    <!-- From: file:/home/michel/mainPrivate/Sources/AndroidStudioProjects/Abc/aeFun/aeFunWidgetToolKit/build/intermediates/bundles/debug/res/values/values.xml -->
     <eat-comment/>
     <string name="app_name">widgetToolKit</string>
 </resources>

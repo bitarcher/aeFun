@@ -22,8 +22,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     //compile 'com.android.support:appcompat-v7:21.0.3'
-    compile project(':andEngine')
-    compile project(':andEnginePhysicsBox2DExtension')
+    compile project(':AndEngine')
 
     compile project(':aeFun:aeFunInterfaces')
     compile project(':aeFun:aeFunResourceManagement')

@@ -35,7 +35,7 @@ public class DefaultRadioButtonSection implements IRadioButtonSection {
 
     @Override
     public float getSideLength() {
-        return 20;
+        return 30;
     }
 
     @Override

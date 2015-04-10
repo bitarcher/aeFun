@@ -16,11 +16,11 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 public class DiskOrXGon extends Mesh {
 
     public DiskOrXGon(float x, float y, float width, float height, int numOfFanSectors, VertexBufferObjectManager pVertexBufferObjectManager) {
-        super(x, y, width, height, DiskOrXGon.getCoordinates(width, height, numOfFanSectors), numOfFanSectors + 2, DrawMode.TRIANGLE_FAN, pVertexBufferObjectManager);
-
+        super(x, y, DiskOrXGon.getCoordinates(width, height, numOfFanSectors), numOfFanSectors + 2, DrawMode.TRIANGLE_FAN, pVertexBufferObjectManager);
 
         // blue by default, but the color has to be set by the container
         this.setColor(0, 0, 1);
+        this.setAnchorCenter(width / 2, height / 2);
     }
 
     static float[] getCoordinates(float width, float height, int numOfFanSectors)
@@ -36,26 +36,28 @@ public class DiskOrXGon extends Mesh {
         float h2 = height / 2;
 
         // p0 = center
-        retval[0] = w2;
-        retval[1] = h2;
+        retval[0] = 0;
+        retval[1] = 0;
         retval[2] = UNUSED;
 
+        
         int i3;
         for(int i= 1 ; i <= numOfFanSectors ; i++)
         {
             i3 = i*3;
             double angle = (i - 1) * 2 * Math.PI / numOfFanSectors ;
-            retval[i3] = (float)Math.cos(angle) * w2 + w2;
-            retval[i3 + 1] = (float)Math.sin(angle) * h2 + h2;
+            retval[i3] = (float)Math.cos(angle) * w2;
+            retval[i3 + 1] = (float)Math.sin(angle) * h2;
             retval[i3 + 2] = UNUSED;
         }
 
         i3 = (numOfFanSectors+1) * 3;
         // close the disk
-        retval[i3] = width;
-        retval[i3 + 1] = h2;
+        retval[i3] = w2;
+        retval[i3 + 1] = 0;
         retval[i3 + 2] = UNUSED;
 
         return retval;
     }
 }
+

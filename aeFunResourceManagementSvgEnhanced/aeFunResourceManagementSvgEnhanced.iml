@@ -89,7 +89,7 @@
     <orderEntry type="library" exported="" name="annotations-12.0" level="project" />
     <orderEntry type="module" module-name="aeFunInterfaces" exported="" />
     <orderEntry type="module" module-name="aeFunResourceManagement" exported="" />
-    <orderEntry type="module" module-name="andEngine" exported="" />
+    <orderEntry type="module" module-name="AndEngine" exported="" />
   </component>
 </module>
 

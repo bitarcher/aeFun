@@ -16,7 +16,7 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 public class CheckSymbol extends Mesh {
 
     public CheckSymbol(float x, float y, float width, float height, VertexBufferObjectManager pVertexBufferObjectManager) {
-        super(x, y, width, height, CheckSymbol.getCoordinates(width, height), 6, DrawMode.TRIANGLE_STRIP, pVertexBufferObjectManager);
+        super(x, y, CheckSymbol.getCoordinates(width, height), 6, DrawMode.TRIANGLE_STRIP, pVertexBufferObjectManager);
 
 
         // blue by default, but the color has to be set by the container
@@ -27,20 +27,23 @@ public class CheckSymbol extends Mesh {
     {
         float UNUSED = 0;
 
+        float w2 = width/2;
+        float h2 = height/2;
+
         // coordinates for triangle_strip
         float[] retval = new float[]{
             // p0
-            0.05f * width, 0.6f * height, UNUSED,
+            0.05f * width - w2, 0.6f * height - h2, UNUSED,
             // p1
-            0, 0.5f * height, UNUSED,
+            0 - w2, 0.5f * height - h2, UNUSED,
             // p2
-            0.4f * width, 0, UNUSED,
+            0.4f * width - w2, 0 - h2, UNUSED,
             // p3
-            0.4f * width, 0.15f * height, UNUSED,
+            0.4f * width - w2, 0.15f * height - h2, UNUSED,
             // p4
-            1f * width, 0.95f * height, UNUSED,
+            1f * width - w2, 0.95f * height - h2, UNUSED,
             // p5
-            0.9f * width, 1 * height, UNUSED
+            0.9f * width - w2, 1 * height - h2, UNUSED
         };
 
         return retval;
