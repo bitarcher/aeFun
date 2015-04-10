@@ -1,0 +1,15 @@
+/home/michel/mainPrivate/Sources/AndroidStudioProjects/Abc/aeFun/aeFunExamples/build/intermediates/classes/debug
+/home/michel/mainPrivate/Sources/AndroidStudioProjects/Abc/aeFun/aeFunExamples/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-11ddfb13c1222cf222dbc16a6df17942bc0cc8c1.jar
+/home/michel/mainPrivate/Sources/AndroidStudioProjects/Abc/aeFun/aeFunExamples/build/intermediates/pre-dexed/debug/annotations-12.0-1055e2592d1b04e27229c36c224efb595d918bde.jar
+/home/michel/mainPrivate/Sources/AndroidStudioProjects/Abc/aeFun/aeFunExamples/build/intermediates/pre-dexed/debug/classes-5939d4c476d993440b9071505e1866a6122aa4d6.jar
+/home/michel/mainPrivate/Sources/AndroidStudioProjects/Abc/aeFun/aeFunExamples/build/intermediates/pre-dexed/debug/classes-54e2377820bdf6469bd7a18a489914909a4ebf6e.jar
+/home/michel/mainPrivate/Sources/AndroidStudioProjects/Abc/aeFun/aeFunExamples/build/intermediates/pre-dexed/debug/classes-f832fd81243f89cb883d758572cdbcd0c3e53059.jar
+/home/michel/mainPrivate/Sources/AndroidStudioProjects/Abc/aeFun/aeFunExamples/build/intermediates/pre-dexed/debug/classes-d51d6a8519986347ed72ae182528110104e7a0d0.jar
+/home/michel/mainPrivate/Sources/AndroidStudioProjects/Abc/aeFun/aeFunExamples/build/intermediates/pre-dexed/debug/classes-7f29bf3aca8b8d925020ca2963075d3c2be4f949.jar
+/home/michel/mainPrivate/Sources/AndroidStudioProjects/Abc/aeFun/aeFunExamples/build/intermediates/pre-dexed/debug/classes-aac792c76de8778ac185ff3cb848a9729065500c.jar
+/home/michel/mainPrivate/Sources/AndroidStudioProjects/Abc/aeFun/aeFunExamples/build/intermediates/pre-dexed/debug/classes-408fbf5c4f5c9cbfa4f98f73496505a44391214c.jar
+/home/michel/mainPrivate/Sources/AndroidStudioProjects/Abc/aeFun/aeFunExamples/build/intermediates/pre-dexed/debug/classes-df87d2da5f63b0457ee9d3878e099b50934ce5a5.jar
+/home/michel/mainPrivate/Sources/AndroidStudioProjects/Abc/aeFun/aeFunExamples/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-b0414e69a69b10254c1703fbdedfa1fa31764184.jar
+/home/michel/mainPrivate/Sources/AndroidStudioProjects/Abc/aeFun/aeFunExamples/build/intermediates/pre-dexed/debug/classes-234b986e1c1c2a0cf526e15a995a714ac2905fc9.jar
+/home/michel/mainPrivate/Sources/AndroidStudioProjects/Abc/aeFun/aeFunExamples/build/intermediates/pre-dexed/debug/classes-5dc4f6071776729d4bfa99d6f7cf66b9f2d5aee2.jar
+/home/michel/mainPrivate/Sources/AndroidStudioProjects/Abc/aeFun/aeFunExamples/build/intermediates/pre-dexed/debug/classes-12e08b9135c8f14953556bab1a1929a11b448090.jar
