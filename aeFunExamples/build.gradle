@@ -34,4 +34,7 @@ dependencies {
     compile project(':aeFun:aeFunWidgetLayout')
     compile project(':aeFun:aeFunWidgetToolKit')
     compile project(':aeFun:aeFunSceneManagement')
+    compile project(':aeFun:aeFunDrawablesCharacters')
+    compile project(':aeFun:aeFunDrawablesCharactersAnimalsDog')
+
 }

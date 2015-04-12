@@ -1299,7 +1299,23 @@ containing a value of this type.
         public static final int abc_textfield_search_activated_mtrl_alpha=0x7f020030;
         public static final int abc_textfield_search_default_mtrl_alpha=0x7f020031;
         public static final int abc_textfield_search_material=0x7f020032;
-        public static final int ic_launcher=0x7f020033;
+        public static final int dog_right_look_player=0x7f020033;
+        public static final int dog_right_run1=0x7f020034;
+        public static final int dog_right_run2=0x7f020035;
+        public static final int dog_right_run3=0x7f020036;
+        public static final int dog_right_run4=0x7f020037;
+        public static final int dog_right_run5=0x7f020038;
+        public static final int dog_right_sit=0x7f020039;
+        public static final int dog_right_straight=0x7f02003a;
+        public static final int dog_right_straight_back_mouth_opened=0x7f02003b;
+        public static final int dog_right_straight_front_closed_eyes=0x7f02003c;
+        public static final int dog_right_straight_front_closed_eyes_smile_tail_lifted=0x7f02003d;
+        public static final int dog_right_straight_front_mouth_wide_opened=0x7f02003e;
+        public static final int dog_right_straight_middle_mouth_opened=0x7f02003f;
+        public static final int dog_right_uturn=0x7f020040;
+        public static final int dog_right_walk1=0x7f020041;
+        public static final int dog_right_walk2=0x7f020042;
+        public static final int ic_launcher=0x7f020043;
     }
     public static final class id {
         public static final int action_bar=0x7f0a0031;

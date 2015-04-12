@@ -90,7 +90,9 @@
     <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="support-v4-21.0.3" level="project" />
     <orderEntry type="module" module-name="aeFunInterfaces" exported="" />
+    <orderEntry type="module" module-name="aeFunDrawablesCharacters" exported="" />
     <orderEntry type="module" module-name="aeFunResourceManagement" exported="" />
+    <orderEntry type="module" module-name="aeFunDrawablesCharactersAnimalsDog" exported="" />
     <orderEntry type="module" module-name="aeFunWidgetLayout" exported="" />
     <orderEntry type="module" module-name="aeFunWidgetToolKit" exported="" />
     <orderEntry type="module" module-name="aeFunSceneManagement" exported="" />
