@@ -43,7 +43,6 @@ public class RunResourceInfos extends RIBase {
         return side;
     }
 
-
     /**
      *
      * @param sidedImage

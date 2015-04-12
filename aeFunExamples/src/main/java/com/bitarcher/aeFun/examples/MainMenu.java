@@ -105,6 +105,18 @@ public class MainMenu extends ManagedMenuScene implements IMainMenu{
             }
         });
 
+
+        this.characterTextButton = new TextButton(this.getSceneManager().getTheme(), 0, 0, 10, 10, "Character");
+        this.table.attachChild(this.characterTextButton);
+        this.characterTextButton.addButtonListener(new IButtonListener() {
+            @Override
+            public void onClicked(IButton button) {
+                CharactersScene charactersScene = new CharactersScene(sceneManager);
+
+                sceneManager.showScene(charactersScene);
+            }
+        });
+
         this.attachChild(this.table);
     }
 
