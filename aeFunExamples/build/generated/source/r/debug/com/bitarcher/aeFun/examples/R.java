@@ -1316,6 +1316,8 @@ containing a value of this type.
         public static final int dog_right_walk1=0x7f020041;
         public static final int dog_right_walk2=0x7f020042;
         public static final int ic_launcher=0x7f020043;
+        public static final int onscreen_control_base=0x7f020044;
+        public static final int onscreen_control_knob=0x7f020045;
     }
     public static final class id {
         public static final int action_bar=0x7f0a0031;

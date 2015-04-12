@@ -6,7 +6,10 @@ package com.bitarcher.aeFun.widgetLayout.porcelain;
  * bitarcher.com
  */
 
+import android.content.Context;
+
 import com.bitarcher.aeFun.interfaces.gui.theme.ITheme;
+import com.bitarcher.aeFun.interfaces.gui.theme.widgetSections.IAnalogOnScreenControlSection;
 import com.bitarcher.aeFun.interfaces.gui.theme.widgetSections.ICheckButtonSection;
 import com.bitarcher.aeFun.interfaces.gui.theme.widgetSections.IImageButtonSection;
 import com.bitarcher.aeFun.interfaces.gui.theme.widgetSections.IImageSection;
@@ -14,6 +17,7 @@ import com.bitarcher.aeFun.interfaces.gui.theme.widgetSections.ILabelSection;
 import com.bitarcher.aeFun.interfaces.gui.theme.widgetSections.IRadioButtonSection;
 import com.bitarcher.aeFun.interfaces.gui.theme.widgetSections.ITextButtonSection;
 import com.bitarcher.aeFun.interfaces.gui.theme.widgetSections.IWidgetSections;
+import com.bitarcher.aeFun.widgetLayout.porcelain.WidgetSections.DefaultAnalogOnScreenControlSection;
 import com.bitarcher.aeFun.widgetLayout.porcelain.WidgetSections.DefaultCheckButtonSection;
 import com.bitarcher.aeFun.widgetLayout.porcelain.WidgetSections.DefaultImageButtonSection;
 import com.bitarcher.aeFun.widgetLayout.porcelain.WidgetSections.DefaultRadioButtonSection;
@@ -30,9 +34,11 @@ public class DefaultWidgetSections implements IWidgetSections {
     IRadioButtonSection radioButtonSection;
     IImageSection imageSection;
     ILabelSection labelSection;
+    IAnalogOnScreenControlSection analogOnScreenControlSection;
 
 
     public DefaultWidgetSections(ITheme theme) {
+
         this.theme = theme;
     }
 
@@ -84,6 +90,17 @@ public class DefaultWidgetSections implements IWidgetSections {
     @Override
     public ILabelSection getLabelSection() {
         return labelSection;
+    }
+
+
+    @Override
+    public IAnalogOnScreenControlSection getAnalogOnScreenControlSection() {
+        if(this.analogOnScreenControlSection == null)
+        {
+            this.analogOnScreenControlSection = new DefaultAnalogOnScreenControlSection(this.theme.getThemeManager().getResourceManager().getContext());
+        }
+
+        return this.analogOnScreenControlSection;
     }
 }
 

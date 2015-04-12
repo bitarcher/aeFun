@@ -16,4 +16,5 @@ public interface IWidgetSections {
     IRadioButtonSection getRadioButtonSection();
     IImageSection getImageSection();
     ILabelSection getLabelSection();
+    IAnalogOnScreenControlSection getAnalogOnScreenControlSection();
 }
