@@ -40,7 +40,7 @@ public class DiskOrXGon extends Mesh {
         retval[1] = 0;
         retval[2] = UNUSED;
 
-        
+
         int i3;
         for(int i= 1 ; i <= numOfFanSectors ; i++)
         {
