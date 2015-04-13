@@ -6,6 +6,7 @@ package com.bitarcher.aeFun.widgetLayout.layouts;
  * bitarcher.com
  */
 
+import android.opengl.GLES20;
 import android.util.Log;
 
 import com.bitarcher.aeFun.interfaces.geometry.ISize;
@@ -70,29 +71,7 @@ public class AnalogOnScreenControlLayout implements IAnalogOnScreenControlLayout
     @Override
     public void onPopulate() {
 
-        ITheme theme = this.getWidget().getTheme();
-        IResourceManager resourceManager = theme.getThemeManager().getResourceManager();
-        IAnalogOnScreenControlSection section = theme.getWidgetSections().getAnalogOnScreenControlSection();
 
-        ITextureRegion baseTextureRegion = resourceManager.getTextureRegionFromTextureSetByName(
-                section.getBaseImage().getTextureSetResourceInfo(),
-                section.getBaseImage().getTextureName());
-
-        ITextureRegion knobTextureRegion = resourceManager.getTextureRegionFromTextureSetByName(
-                section.getKnobImage().getTextureSetResourceInfo(),
-                section.getKnobImage().getTextureName());
-
-
-        Engine engine =resourceManager.getEngine();
-
-        this.aeAnalogOnScreenControl = new AnalogOnScreenControl(this.getWidget().getWidth() / 2, this.getWidget().getHeight() / 2,
-                engine.getCamera(), baseTextureRegion,
-                knobTextureRegion,  0.1f, 200,
-                engine.getVertexBufferObjectManager(),
-                this
-                );
-
-        this.getWidget().attachChild(this.aeAnalogOnScreenControl);
     }
 
     @Override
@@ -113,10 +92,46 @@ public class AnalogOnScreenControlLayout implements IAnalogOnScreenControlLayout
     @Override
     public void pushResourceRequirements() {
         this.getWidget().getTheme().getThemeManager().getResourceManager().pushRequirement(this);
+
+        ITheme theme = this.getWidget().getTheme();
+        IResourceManager resourceManager = theme.getThemeManager().getResourceManager();
+        IAnalogOnScreenControlSection section = theme.getWidgetSections().getAnalogOnScreenControlSection();
+
+        ITextureRegion baseTextureRegion = resourceManager.getTextureRegionFromTextureSetByName(
+                section.getBaseImage().getTextureSetResourceInfo(),
+                section.getBaseImage().getTextureName());
+
+        ITextureRegion knobTextureRegion = resourceManager.getTextureRegionFromTextureSetByName(
+                section.getKnobImage().getTextureSetResourceInfo(),
+                section.getKnobImage().getTextureName());
+
+
+        Engine engine =resourceManager.getEngine();
+
+        this.aeAnalogOnScreenControl = new AnalogOnScreenControl(this.getWidget().getWidth() / 2, this.getWidget().getHeight() / 2,
+                engine.getCamera(), baseTextureRegion,
+                knobTextureRegion,  0.1f, 200,
+                engine.getVertexBufferObjectManager(),
+                this
+        );
+
+        this.getWidget().attachChild(this.aeAnalogOnScreenControl);
+
+        this.aeAnalogOnScreenControl.getControlBase().setBlendFunction(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
+        this.aeAnalogOnScreenControl.getControlBase().setAlpha(0.5f);
+        /*this.aeAnalogOnScreenControl.getControlBase().setScaleCenter(0, 128);
+        this.aeAnalogOnScreenControl.getControlBase().setScale(1.25f);
+        this.aeAnalogOnScreenControl.getControlKnob().setScale(1.25f);*/
+        this.aeAnalogOnScreenControl.refreshControlKnobPosition();
+
+        engine.getScene().setChildScene(this.aeAnalogOnScreenControl);
     }
 
     @Override
     public void popResourceRequirements() {
+        this.getWidget().detachChild(this.aeAnalogOnScreenControl);
+        this.aeAnalogOnScreenControl = null;
+
         this.getWidget().getTheme().getThemeManager().getResourceManager().popRequirement(this);
     }
 

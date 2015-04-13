@@ -9,8 +9,6 @@ package com.bitarcher.aefun.widgetLayout;
 public final class R {
 	public static final class drawable {
 		public static final int ic_launcher = 0x7f020043;
-		public static final int onscreen_control_base = 0x7f020044;
-		public static final int onscreen_control_knob = 0x7f020045;
 	}
 	public static final class string {
 		public static final int app_name = 0x7f0c0011;

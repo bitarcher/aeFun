@@ -7,6 +7,8 @@ import com.bitarcher.aeFun.interfaces.gui.theme.EnumFontSize;
 import com.bitarcher.aeFun.interfaces.gui.theme.ITheme;
 import com.bitarcher.aeFun.interfaces.sceneManagement.ITSceneManager;
 import com.bitarcher.aeFun.sceneManagement.ManagedGameScene;
+import com.bitarcher.aeFun.widgetToolkit.widget.AnalogOnScreenControl;
+import com.bitarcher.aeFun.widgetToolkit.widget.Image;
 
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.scene.background.Background;
@@ -24,6 +26,7 @@ import org.andengine.util.adt.color.Color;
 public class CharactersScene extends ManagedGameScene {
 
     BannerCtrl bannerCtrl;
+    AnalogOnScreenControl analogOnScreenControl;
 
 
 	public CharactersScene(ITSceneManager sceneManager) {
@@ -63,6 +66,11 @@ public class CharactersScene extends ManagedGameScene {
         this.bannerCtrl = new BannerCtrl(theme, camera.getWidth() / 2,  camera.getHeight() * 5 / 6, camera.getWidth(), camera.getHeight() / 3, "Characters");
         this.attachChild(this.bannerCtrl); // two columns span
 
+        Image image = new Image(theme, 300, 300, 128, 128, theme.getWidgetSections().getAnalogOnScreenControlSection().getBaseImage());
+        this.attachChild(image);
+
+        this.analogOnScreenControl = new AnalogOnScreenControl(theme, 100, 100, 200, 200);
+        this.attachChild(this.analogOnScreenControl);
 
     }
 

@@ -1,4 +1,5 @@
 int drawable ic_launcher 0x7f020000
 int drawable onscreen_control_base 0x7f020001
-int drawable onscreen_control_knob 0x7f020002
+int drawable onscreen_control_base_b 0x7f020002
+int drawable onscreen_control_knob 0x7f020003
 int string app_name 0x7f030000

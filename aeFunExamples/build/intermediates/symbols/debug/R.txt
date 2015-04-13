@@ -350,8 +350,6 @@ int drawable dog_right_uturn 0x7f020040
 int drawable dog_right_walk1 0x7f020041
 int drawable dog_right_walk2 0x7f020042
 int drawable ic_launcher 0x7f020043
-int drawable onscreen_control_base 0x7f020044
-int drawable onscreen_control_knob 0x7f020045
 int id action_bar 0x7f0a0031
 int id action_bar_activity_content 0x7f0a0000
 int id action_bar_container 0x7f0a0030
