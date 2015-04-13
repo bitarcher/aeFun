@@ -45,7 +45,7 @@ public class AnalogOnScreenControl extends Widget<IAnalogOnScreenControlContext>
     public void onControlClick(org.andengine.engine.camera.hud.controls.AnalogOnScreenControl pAnalogOnScreenControl) {
         if(this.isEnabled()) {
             for (org.andengine.engine.camera.hud.controls.AnalogOnScreenControl.IAnalogOnScreenControlListener analogOnScreenControlListener : this.analogOnScreenControlListenerArrayList) {
-                this.onControlClick(pAnalogOnScreenControl);
+                analogOnScreenControlListener.onControlClick(pAnalogOnScreenControl);
             }
         }
     }
@@ -54,7 +54,7 @@ public class AnalogOnScreenControl extends Widget<IAnalogOnScreenControlContext>
     public void onControlChange(BaseOnScreenControl pBaseOnScreenControl, float pValueX, float pValueY) {
         if(this.isEnabled()) {
             for (org.andengine.engine.camera.hud.controls.AnalogOnScreenControl.IAnalogOnScreenControlListener analogOnScreenControlListener : this.analogOnScreenControlListenerArrayList) {
-                this.onControlChange(pBaseOnScreenControl, pValueX, pValueY);
+                analogOnScreenControlListener.onControlChange(pBaseOnScreenControl, pValueX, pValueY);
             }
         }
     }
