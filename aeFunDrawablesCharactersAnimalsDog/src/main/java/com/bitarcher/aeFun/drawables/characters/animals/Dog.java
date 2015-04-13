@@ -61,6 +61,7 @@ public class Dog extends com.bitarcher.aeFun.drawables.characters.Character impl
             retval.add(sideResourceInfos.getUTurn().getTextureSetResourceInfo());
             retval.add(sideResourceInfos.getWalk1().getTextureSetResourceInfo());
             retval.add(sideResourceInfos.getWalk2().getTextureSetResourceInfo());
+            retval.add(sideResourceInfos.getSit().getTextureSetResourceInfo());
         }
 
         return retval;
@@ -102,23 +103,28 @@ public class Dog extends com.bitarcher.aeFun.drawables.characters.Character impl
         {
             case Run:
                 // 6 frames / per seconds
-                sideResourceInfos.getRun().getNextSidedImage((int)(secondsElapsedSinceMainPositionChanged * 6));
+                retval = sideResourceInfos.getRun().getNextSidedImage((int)(secondsElapsedSinceMainPositionChanged * 6));
                 break;
             case Idle:
-                sideResourceInfos.getSit();
+                retval = sideResourceInfos.getSit();
                 break;
             case Straight:
                 // 0,2 frame per second
-                sideResourceInfos.getNextTalkSidedImage((int)(secondsElapsedSinceMainPositionChanged * 0.2f));
+                retval = sideResourceInfos.getNextTalkSidedImage((int)(secondsElapsedSinceMainPositionChanged * 0.2f));
                 break;
             case Talk:
                 // 1 frame per second
-                sideResourceInfos.getNextTalkSidedImage((int)secondsElapsedSinceMainPositionChanged);
+                retval = sideResourceInfos.getNextTalkSidedImage((int)secondsElapsedSinceMainPositionChanged);
                 break;
             case Walk:
                 // 1 frame per second
-                sideResourceInfos.getNextWalkSidedImage((int)secondsElapsedSinceMainPositionChanged);
+                retval = sideResourceInfos.getNextWalkSidedImage((int)secondsElapsedSinceMainPositionChanged);
                 break;
+        }
+
+        if(retval == null)
+        {
+            throw new RuntimeException("No sided image for " + side + " " + mainPosition);
         }
 
         return retval;

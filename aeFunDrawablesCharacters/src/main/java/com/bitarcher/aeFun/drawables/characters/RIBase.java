@@ -7,6 +7,7 @@ package com.bitarcher.aeFun.drawables.characters;
  */
 
 import com.bitarcher.aeFun.interfaces.drawables.characters.EnumSide;
+import com.bitarcher.aeFun.resourceManagement.ResourcesInfos.SingleBitmapTextureSetFromAssetResourceInfo;
 import com.bitarcher.aeFun.resourceManagement.ResourcesInfos.SingleBitmapTextureSetFromResIdsResourceInfo;
 
 import org.andengine.opengl.texture.TextureOptions;
@@ -23,11 +24,14 @@ public class RIBase {
     com.bitarcher.aeFun.drawables.characters.Character character;
 
     Map<String, SingleBitmapTextureSetFromResIdsResourceInfo> map = new Hashtable<>();
+    Map<String, SingleBitmapTextureSetFromAssetResourceInfo> mapAsset = new Hashtable<>();
+    String assetBase;
 
 
-    public RIBase(com.bitarcher.aeFun.drawables.characters.Character character)
+    public RIBase(com.bitarcher.aeFun.drawables.characters.Character character, String assetBase)
     {
         this.character = character;
+        this.assetBase = assetBase;
     }
 
     protected CharacterSidedImage getNewSidedBitmapImageByResId(String positionName, int resId, EnumSide side)
@@ -59,6 +63,37 @@ public class RIBase {
 
         return retval;
     }
+
+
+    protected CharacterSidedImage getNewSidedBitmapImageByAssetFileRadical(String positionName, EnumSide side)
+    {
+        CharacterSidedImage retval = null;
+
+        SingleBitmapTextureSetFromAssetResourceInfo singleBitmapTextureSetFromAssetResourceInfo;
+
+        if(this.mapAsset.containsKey(positionName))
+        {
+            // texture is share for left and right, we use sprite set horizontal flip,
+            // texture has to be provided with the character looking to the right side
+
+            singleBitmapTextureSetFromAssetResourceInfo = this.mapAsset.get(positionName);
+        }
+        else
+        {
+            singleBitmapTextureSetFromAssetResourceInfo = new SingleBitmapTextureSetFromAssetResourceInfo(positionName + ".png",
+                    this.getTextureWidth(), this.getTextureHeight(), this.getBitmapTextureFormat(),
+                    this.getTextureOptions(),
+                    this.assetBase, this.character.getAspectRatio());
+
+            this.mapAsset.put(positionName, singleBitmapTextureSetFromAssetResourceInfo);
+        }
+
+
+        retval = new CharacterSidedImage(singleBitmapTextureSetFromAssetResourceInfo, side, this.character);
+
+        return retval;
+    }
+
 
     protected BitmapTextureFormat getBitmapTextureFormat()
     {

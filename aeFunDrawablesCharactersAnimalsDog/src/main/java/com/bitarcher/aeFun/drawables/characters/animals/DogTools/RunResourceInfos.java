@@ -16,7 +16,7 @@ import com.bitarcher.aeFun.interfaces.drawables.characters.EnumSide;
 /**
  * Created by michel on 16/03/15.
  */
-public class RunResourceInfos extends RIBase {
+public class RunResourceInfos extends DogRIBase {
 
     EnumSide side;
     CharacterSidedImage runs[];
@@ -31,11 +31,18 @@ public class RunResourceInfos extends RIBase {
 
         this.runs = new CharacterSidedImage[5];
 
+/*
         this.runs[0] = this.getNewSidedBitmapImageByResId("run1", com.bitarcher.aeFun.drawables.characters.animals.dog.R.drawable.dog_right_run1, side);
         this.runs[1] = this.getNewSidedBitmapImageByResId("run2", com.bitarcher.aeFun.drawables.characters.animals.dog.R.drawable.dog_right_run2, side);
         this.runs[2] = this.getNewSidedBitmapImageByResId("run3", com.bitarcher.aeFun.drawables.characters.animals.dog.R.drawable.dog_right_run3, side);
         this.runs[3] = this.getNewSidedBitmapImageByResId("run4", com.bitarcher.aeFun.drawables.characters.animals.dog.R.drawable.dog_right_run4, side);
         this.runs[4] = this.getNewSidedBitmapImageByResId("run5", com.bitarcher.aeFun.drawables.characters.animals.dog.R.drawable.dog_right_run5, side);
+*/
+
+        for(int i = 0 ; i < 5 ; i++)
+        {
+            this.runs[i] = this.getNewSidedBitmapImageByAssetFileRadical("dog_right_run" + (new Integer(i + 1)).toString(), side);
+        }
 
     }
 

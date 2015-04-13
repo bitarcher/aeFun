@@ -1,5 +1,6 @@
 package com.bitarcher.aeFun.examples;
 
+import com.bitarcher.aeFun.drawables.characters.animals.Dog;
 import com.bitarcher.aeFun.geometry.primitives.CheckSymbol;
 import com.bitarcher.aeFun.geometry.primitives.DiskOrXGon;
 import com.bitarcher.aeFun.interfaces.gui.andEngine.IScene;
@@ -27,6 +28,7 @@ public class CharactersScene extends ManagedGameScene {
 
     BannerCtrl bannerCtrl;
     AnalogOnScreenControl analogOnScreenControl;
+    Dog dog;
 
 
 	public CharactersScene(ITSceneManager sceneManager) {
@@ -66,11 +68,13 @@ public class CharactersScene extends ManagedGameScene {
         this.bannerCtrl = new BannerCtrl(theme, camera.getWidth() / 2,  camera.getHeight() * 5 / 6, camera.getWidth(), camera.getHeight() / 3, "Characters");
         this.attachChild(this.bannerCtrl); // two columns span
 
-        Image image = new Image(theme, 300, 300, 128, 128, theme.getWidgetSections().getAnalogOnScreenControlSection().getBaseImage());
-        this.attachChild(image);
-
         this.analogOnScreenControl = new AnalogOnScreenControl(theme, 100, 100, 200, 200);
         this.attachChild(this.analogOnScreenControl);
+
+        this.dog = new Dog(theme.getThemeManager().getResourceManager());
+        this.dog.setPosition(400, 200);
+        this.dog.start();
+        this.attachChild(this.dog);
 
     }
 

@@ -6,6 +6,8 @@ package com.bitarcher.aeFun.drawables.characters;
  * bitarcher.com
  */
 
+import android.util.Log;
+
 import com.bitarcher.aeFun.interfaces.drawables.characters.EnumMainPosition;
 import com.bitarcher.aeFun.interfaces.drawables.characters.EnumSide;
 import com.bitarcher.aeFun.interfaces.drawables.characters.ICharacter;
@@ -17,6 +19,8 @@ import com.bitarcher.aeFun.interfaces.resourcemanagement.IResourceManager;
 import org.andengine.entity.Entity;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.texture.region.ITextureRegion;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Date;
 import java.util.List;
@@ -31,11 +35,13 @@ public abstract class Character extends Entity implements ICharacter {
     boolean isStarted = false;
     String name;
     IResourceManager resourceManager;
-    EnumSide currentSide;
-    EnumMainPosition currentMainPosition;
+    EnumSide currentSide = EnumSide.Right;
+    EnumMainPosition currentMainPosition = EnumMainPosition.Idle;
     ICharacterSidedImage currentSidedImage;
     float lastMainPositionChangedSecondsElapsed = -1; // if -1 just started
+    @NotNull
     Queue<ICharacterSidedImage> transitionImages = new LinkedBlockingQueue<>();
+    @Nullable
     Sprite sprite;
     int counter = 0;
 
@@ -59,6 +65,8 @@ public abstract class Character extends Entity implements ICharacter {
 
     public Character(IResourceManager resourceManager, String name)
     {
+        // don't let zero size
+        this.setSize(100, 100);
         this.setIgnoreUpdate(true);
         this.resourceManager = resourceManager;
         this.name = name;
@@ -110,8 +118,10 @@ public abstract class Character extends Entity implements ICharacter {
                 this.lastMainPositionChangedSecondsElapsed = pSecondsElapsed;
             }
 
-            this.currentSidedImage = characterSidedImage;
-            this.setSpriteImage();
+            if(characterSidedImage != null) {
+                this.currentSidedImage = characterSidedImage;
+                this.setSpriteImage();
+            }
         }
         else
         {
@@ -139,12 +149,19 @@ public abstract class Character extends Entity implements ICharacter {
             this.sprite = null;
         }
 
-        ITextureRegion textureRegion = this.resourceManager.getTextureRegionFromTextureSetByName(this.currentSidedImage.getTextureSetResourceInfo(), this.currentSidedImage.getTextureName());
-        this.sprite = new Sprite(this.getWidth() / 2, this.getHeight() / 2, this.getWidth(), this.getHeight(), textureRegion,  this.resourceManager.getEngine().getVertexBufferObjectManager());
-        if(this.currentSidedImage.getSide() == EnumSide.Left) {
-            this.sprite.setFlippedHorizontal(true);
+        if(this.currentSidedImage == null)
+        {
+            Log.d("aeFun:Character", "this.currentSidedImage == null");
         }
-        this.attachChild(this.sprite);
+        else {
+
+            ITextureRegion textureRegion = this.resourceManager.getTextureRegionFromTextureSetByName(this.currentSidedImage.getTextureSetResourceInfo(), this.currentSidedImage.getTextureName());
+            this.sprite = new Sprite(this.getWidth() / 2, this.getHeight() / 2, this.getWidth(), this.getHeight(), textureRegion, this.resourceManager.getEngine().getVertexBufferObjectManager());
+            if (this.currentSidedImage.getSide() == EnumSide.Left) {
+                this.sprite.setFlippedHorizontal(true);
+            }
+            this.attachChild(this.sprite);
+        }
     }
 
     @Override
@@ -156,6 +173,12 @@ public abstract class Character extends Entity implements ICharacter {
         this.pushResourceRequirements();
 
         this.currentSidedImage = this.getInitialSidedImage();
+
+        if(this.currentSidedImage == null)
+        {
+            throw new RuntimeException("initial sided image is null");
+        }
+
 
         this.setSpriteImage();
         this.setIgnoreUpdate(false);

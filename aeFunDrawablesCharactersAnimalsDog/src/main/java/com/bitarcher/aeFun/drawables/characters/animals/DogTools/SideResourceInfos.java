@@ -18,7 +18,7 @@ import java.util.NoSuchElementException;
 /**
  * Created by michel on 16/03/15.
  */
-public class SideResourceInfos extends RIBase {
+public class SideResourceInfos extends DogRIBase {
 
     EnumSide side;
     RunResourceInfos run;
@@ -69,12 +69,18 @@ public class SideResourceInfos extends RIBase {
         this.run = new RunResourceInfos(dog, side);
         this.straightResourceInfos = new StraightResourceInfos(dog, side);
 
-        this.lookPlayer = this.getNewSidedBitmapImageByResId("lookPlayer", com.bitarcher.aeFun.drawables.characters.animals.dog.R.drawable.dog_right_look_player, side);
+        /*this.lookPlayer = this.getNewSidedBitmapImageByResId("lookPlayer", com.bitarcher.aeFun.drawables.characters.animals.dog.R.drawable.dog_right_look_player, side);
         this.uTurn = this.getNewSidedBitmapImageByResId("uTurn", com.bitarcher.aeFun.drawables.characters.animals.dog.R.drawable.dog_right_uturn, side);
         this.walk1 = this.getNewSidedBitmapImageByResId("walk1", com.bitarcher.aeFun.drawables.characters.animals.dog.R.drawable.dog_right_walk1, side);
         this.walk2 = this.getNewSidedBitmapImageByResId("walk2", com.bitarcher.aeFun.drawables.characters.animals.dog.R.drawable.dog_right_walk2, side);
-        this.sit = this.getNewSidedBitmapImageByResId("sit", com.bitarcher.aeFun.drawables.characters.animals.dog.R.drawable.dog_right_sit, side);
+        this.sit = this.getNewSidedBitmapImageByResId("sit", com.bitarcher.aeFun.drawables.characters.animals.dog.R.drawable.dog_right_sit, side);*/
 
+
+        this.lookPlayer = this.getNewSidedBitmapImageByAssetFileRadical("dog_right_look_player", side);
+        this.uTurn = this.getNewSidedBitmapImageByAssetFileRadical("dog_right_uturn", side);
+        this.walk1 = this.getNewSidedBitmapImageByAssetFileRadical("dog_right_walk1", side);
+        this.walk2 = this.getNewSidedBitmapImageByAssetFileRadical("dog_right_walk2", side);
+        this.sit = this.getNewSidedBitmapImageByAssetFileRadical("dog_right_sit", side);
     }
 
     public ICharacterSidedImage getNextWalkSidedImage(int counter)
