@@ -127,7 +127,8 @@ public abstract class Character extends Entity implements ICharacter {
         {
             // normal case
 
-            ICharacterSidedImage characterSidedImage = this.getSidedImage(pSecondsElapsed - this.lastMainPositionChangedSecondsElapsed, this.currentSide, this.currentMainPosition);
+            float secondsElapsed = pSecondsElapsed - this.lastMainPositionChangedSecondsElapsed;
+            ICharacterSidedImage characterSidedImage = this.getSidedImage(secondsElapsed, this.currentSide, this.currentMainPosition);
 
             if(characterSidedImage != this.currentSidedImage)
             {
