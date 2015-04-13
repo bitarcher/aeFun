@@ -9,6 +9,7 @@ package com.bitarcher.aeFun.widgetLayout;
 import com.bitarcher.aeFun.interfaces.gui.theme.ILayout;
 import com.bitarcher.aeFun.interfaces.gui.theme.ILayoutFactory;
 import com.bitarcher.aeFun.interfaces.gui.theme.context.IContext;
+import com.bitarcher.aeFun.interfaces.gui.widgets.IAnalogOnScreenControl;
 import com.bitarcher.aeFun.interfaces.gui.widgets.ICheckButton;
 import com.bitarcher.aeFun.interfaces.gui.widgets.IImage;
 import com.bitarcher.aeFun.interfaces.gui.widgets.IImageButton;
@@ -16,6 +17,7 @@ import com.bitarcher.aeFun.interfaces.gui.widgets.ILabel;
 import com.bitarcher.aeFun.interfaces.gui.widgets.IRadioButton;
 import com.bitarcher.aeFun.interfaces.gui.widgets.ITextButton;
 import com.bitarcher.aeFun.interfaces.gui.widgets.IWidget;
+import com.bitarcher.aeFun.widgetLayout.layouts.AnalogOnScreenControlLayout;
 import com.bitarcher.aeFun.widgetLayout.layouts.CheckButtonLayout;
 import com.bitarcher.aeFun.widgetLayout.layouts.ImageButtonLayout;
 import com.bitarcher.aeFun.widgetLayout.layouts.ImageLayout;
@@ -65,6 +67,12 @@ public class DefaultLayoutFactory implements ILayoutFactory {
         {
             IRadioButton keyS = (IRadioButton)key;
             RadioButtonLayout retS = new RadioButtonLayout(keyS);
+            retval = (ILayout<TContext>)retS;
+        }
+        else if(key instanceof IAnalogOnScreenControl)
+        {
+            IAnalogOnScreenControl keyS = (IAnalogOnScreenControl)key;
+            AnalogOnScreenControlLayout retS = new AnalogOnScreenControlLayout(keyS);
             retval = (ILayout<TContext>)retS;
         }
 
