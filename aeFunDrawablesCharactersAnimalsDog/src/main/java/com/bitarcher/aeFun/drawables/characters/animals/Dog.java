@@ -26,6 +26,7 @@ import java.util.List;
 public class Dog extends com.bitarcher.aeFun.drawables.characters.Character implements IResourceInfoListGotter {
 
     ResourceInfos resourceInfos;
+    ArrayList<EnumMainPosition> supportedMainPositions;
 
     public ResourceInfos getResourceInfos()
     {
@@ -46,31 +47,49 @@ public class Dog extends com.bitarcher.aeFun.drawables.characters.Character impl
         for(EnumSide side : EnumSide.values()) {
             SideResourceInfos sideResourceInfos = this.resourceInfos.getSide(side);
 
-            for (int i = 0; i < 5; i++) {
-                retval.add(sideResourceInfos.getRun().getRuns()[i].getTextureSetResourceInfo());
+            if(this.supportedMainPositions.contains(EnumMainPosition.Run)) {
+                for (int i = 0; i < 5; i++) {
+                    retval.add(sideResourceInfos.getRun().getRuns()[i].getTextureSetResourceInfo());
+                }
             }
 
-            retval.add(sideResourceInfos.getStraightResourceInfos().getStraight().getTextureSetResourceInfo());
-            retval.add(sideResourceInfos.getStraightResourceInfos().getStraightBackMouthOpened().getTextureSetResourceInfo());
-            retval.add(sideResourceInfos.getStraightResourceInfos().getStraightFrontClosedEyes().getTextureSetResourceInfo());
-            retval.add(sideResourceInfos.getStraightResourceInfos().getStraightFrontClosedEyesSmileTailLifted().getTextureSetResourceInfo());
-            retval.add(sideResourceInfos.getStraightResourceInfos().getStraightFrontMouthWideOpened().getTextureSetResourceInfo());
-            retval.add(sideResourceInfos.getStraightResourceInfos().getStraightMiddleMouthOpened().getTextureSetResourceInfo());
+            if(this.supportedMainPositions.contains(EnumMainPosition.Straight)) {
+                retval.add(sideResourceInfos.getStraightResourceInfos().getStraightBackMouthOpened().getTextureSetResourceInfo());
+                retval.add(sideResourceInfos.getStraightResourceInfos().getStraightFrontClosedEyes().getTextureSetResourceInfo());
+                retval.add(sideResourceInfos.getStraightResourceInfos().getStraightFrontClosedEyesSmileTailLifted().getTextureSetResourceInfo());
+                retval.add(sideResourceInfos.getStraightResourceInfos().getStraightFrontMouthWideOpened().getTextureSetResourceInfo());
+            }
+
+            if(this.supportedMainPositions.contains(EnumMainPosition.Straight) || this.supportedMainPositions.contains(EnumMainPosition.Walk))
+            {
+                retval.add(sideResourceInfos.getStraightResourceInfos().getStraight().getTextureSetResourceInfo());
+            }
+
+            if(this.supportedMainPositions.contains(EnumMainPosition.Walk) || this.supportedMainPositions.contains(EnumMainPosition.Straight)) {
+                retval.add(sideResourceInfos.getStraightResourceInfos().getStraightMiddleMouthOpened().getTextureSetResourceInfo());
+            }
 
             retval.add(sideResourceInfos.getLookPlayer().getTextureSetResourceInfo());
             retval.add(sideResourceInfos.getUTurn().getTextureSetResourceInfo());
-            retval.add(sideResourceInfos.getWalk1().getTextureSetResourceInfo());
-            retval.add(sideResourceInfos.getWalk2().getTextureSetResourceInfo());
-            retval.add(sideResourceInfos.getSit().getTextureSetResourceInfo());
+
+            if(this.supportedMainPositions.contains(EnumMainPosition.Walk)) {
+                retval.add(sideResourceInfos.getWalk1().getTextureSetResourceInfo());
+                retval.add(sideResourceInfos.getWalk2().getTextureSetResourceInfo());
+            }
+
+            if(this.supportedMainPositions.contains(EnumMainPosition.Idle)) {
+                retval.add(sideResourceInfos.getSit().getTextureSetResourceInfo());
+            }
         }
 
         return retval;
     }
 
-    public Dog(IResourceManager resourceManager) {
+    public Dog(IResourceManager resourceManager, List<EnumMainPosition> supportedMainPositions) {
         super(resourceManager, "dog");
 
         this.resourceInfos = new ResourceInfos(this);
+        this.supportedMainPositions = new ArrayList<>(supportedMainPositions);
     }
 
     @Override
@@ -85,7 +104,20 @@ public class Dog extends com.bitarcher.aeFun.drawables.characters.Character impl
 
     @Override
     protected ICharacterSidedImage getInitialSidedImage() {
-        return this.resourceInfos.getRightSide().getStraightResourceInfos().getStraight();
+        ICharacterSidedImage retval = null;
+
+        if(this.supportedMainPositions.contains(EnumMainPosition.Straight))
+        {
+            retval =this.resourceInfos.getRightSide().getStraightResourceInfos().getStraight();
+        }
+
+        if(this.supportedMainPositions.contains(EnumMainPosition.Idle))
+        {
+            retval = this.resourceInfos.getRightSide().getSit();
+        }
+
+
+        return retval;
     }
 
     @Override
@@ -103,7 +135,7 @@ public class Dog extends com.bitarcher.aeFun.drawables.characters.Character impl
         {
             case Run:
                 // 6 frames / per seconds
-                retval = sideResourceInfos.getRun().getNextSidedImage((int)(secondsElapsedSinceMainPositionChanged * 6));
+                retval = sideResourceInfos.getRun().getNextSidedImage((int)(secondsElapsedSinceMainPositionChanged * 10));
                 break;
             case Idle:
                 retval = sideResourceInfos.getSit();
@@ -117,8 +149,8 @@ public class Dog extends com.bitarcher.aeFun.drawables.characters.Character impl
                 retval = sideResourceInfos.getNextTalkSidedImage((int)secondsElapsedSinceMainPositionChanged);
                 break;
             case Walk:
-                // 1 frame per second
-                retval = sideResourceInfos.getNextWalkSidedImage((int)secondsElapsedSinceMainPositionChanged);
+                // 4 frame per second
+                retval = sideResourceInfos.getNextWalkSidedImage((int)(secondsElapsedSinceMainPositionChanged * 4));
                 break;
         }
 

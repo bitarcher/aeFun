@@ -38,7 +38,7 @@ public abstract class Character extends Entity implements ICharacter {
     EnumSide currentSide = EnumSide.Right;
     EnumMainPosition currentMainPosition = EnumMainPosition.Idle;
     ICharacterSidedImage currentSidedImage;
-    float lastMainPositionChangedSecondsElapsed = -1; // if -1 just started
+    float lastMainPositionChangedSecondsElapsed = 0;
     @NotNull
     Queue<ICharacterSidedImage> transitionImages = new LinkedBlockingQueue<>();
     @Nullable
@@ -80,7 +80,7 @@ public abstract class Character extends Entity implements ICharacter {
 
             this.currentSide = side;
             this.currentMainPosition = mainPosition;
-            this.lastMainPositionChangedSecondsElapsed = -1;
+            this.lastMainPositionChangedSecondsElapsed = 0;
         }
     }
 
@@ -102,11 +102,9 @@ public abstract class Character extends Entity implements ICharacter {
     protected void onManagedUpdate(float pSecondsElapsed) {
         super.onManagedUpdate(pSecondsElapsed);
 
-        if(this.lastMainPositionChangedSecondsElapsed < 0)
-        {
-            // service just started
-            this.lastMainPositionChangedSecondsElapsed = pSecondsElapsed;
-        }
+
+        this.lastMainPositionChangedSecondsElapsed += pSecondsElapsed;
+
 
         if(this.transitionImages.size() > 0)
         {
@@ -115,7 +113,8 @@ public abstract class Character extends Entity implements ICharacter {
             if(this.transitionImages.size() == 0)
             {
                 // it was the last
-                this.lastMainPositionChangedSecondsElapsed = pSecondsElapsed;
+                this.lastMainPositionChangedSecondsElapsed = 0;
+                Log.v("aeFun:Character", "last transition");
             }
 
             if(characterSidedImage != null) {
@@ -127,8 +126,7 @@ public abstract class Character extends Entity implements ICharacter {
         {
             // normal case
 
-            float secondsElapsed = pSecondsElapsed - this.lastMainPositionChangedSecondsElapsed;
-            ICharacterSidedImage characterSidedImage = this.getSidedImage(secondsElapsed, this.currentSide, this.currentMainPosition);
+            ICharacterSidedImage characterSidedImage = this.getSidedImage(this.lastMainPositionChangedSecondsElapsed, this.currentSide, this.currentMainPosition);
 
             if(characterSidedImage != this.currentSidedImage)
             {
