@@ -6,6 +6,8 @@ package com.bitarcher.aeFun.interfaces.drawables.characters;
  * bitarcher.com
  */
 
+import com.bitarcher.aeFun.interfaces.geometry.EnumSide;
+
 /**
  * Created by michel on 18/03/15.
  */

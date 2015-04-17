@@ -1,4 +1,4 @@
-package com.bitarcher.aeFun.interfaces.drawables.characters;
+package com.bitarcher.aeFun.interfaces.geometry;
 
 /*
  * Copyright (c) 2015.

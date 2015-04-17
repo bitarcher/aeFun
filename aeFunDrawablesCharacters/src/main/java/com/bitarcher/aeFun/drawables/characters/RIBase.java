@@ -6,7 +6,7 @@ package com.bitarcher.aeFun.drawables.characters;
  * bitarcher.com
  */
 
-import com.bitarcher.aeFun.interfaces.drawables.characters.EnumSide;
+import com.bitarcher.aeFun.interfaces.geometry.EnumSide;
 import com.bitarcher.aeFun.resourceManagement.ResourcesInfos.SingleBitmapTextureSetFromAssetResourceInfo;
 import com.bitarcher.aeFun.resourceManagement.ResourcesInfos.SingleBitmapTextureSetFromResIdsResourceInfo;
 

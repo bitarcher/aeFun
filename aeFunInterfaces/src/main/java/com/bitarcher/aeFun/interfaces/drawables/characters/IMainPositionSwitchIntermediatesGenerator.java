@@ -6,6 +6,8 @@ package com.bitarcher.aeFun.interfaces.drawables.characters;
  * bitarcher.com
  */
 
+import com.bitarcher.aeFun.interfaces.geometry.EnumSide;
+
 import java.util.List;
 
 /**

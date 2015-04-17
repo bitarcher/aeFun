@@ -3,7 +3,7 @@ package com.bitarcher.aeFun.examples;
 import com.bitarcher.aeFun.drawables.characters.animals.Dog;
 
 import com.bitarcher.aeFun.interfaces.drawables.characters.EnumMainPosition;
-import com.bitarcher.aeFun.interfaces.drawables.characters.EnumSide;
+import com.bitarcher.aeFun.interfaces.geometry.EnumSide;
 import com.bitarcher.aeFun.interfaces.gui.andEngine.IScene;
 
 import com.bitarcher.aeFun.interfaces.gui.theme.ITheme;

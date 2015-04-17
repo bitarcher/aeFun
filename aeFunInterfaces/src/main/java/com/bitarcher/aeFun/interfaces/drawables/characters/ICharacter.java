@@ -8,6 +8,7 @@ package com.bitarcher.aeFun.interfaces.drawables.characters;
 
 import com.bitarcher.aeFun.interfaces.basicioc.INamed;
 import com.bitarcher.aeFun.interfaces.basicioc.IService;
+import com.bitarcher.aeFun.interfaces.geometry.EnumSide;
 import com.bitarcher.aeFun.interfaces.geometry.IAspectRatioOwner;
 import com.bitarcher.aeFun.interfaces.resourcemanagement.IResourceManagerLinked;
 import com.bitarcher.aeFun.interfaces.resourcemanagement.IResourceRequirementsStackUser;

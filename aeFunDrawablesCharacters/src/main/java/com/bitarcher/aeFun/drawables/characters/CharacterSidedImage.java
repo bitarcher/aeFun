@@ -6,7 +6,7 @@ package com.bitarcher.aeFun.drawables.characters;
  * bitarcher.com
  */
 
-import com.bitarcher.aeFun.interfaces.drawables.characters.EnumSide;
+import com.bitarcher.aeFun.interfaces.geometry.EnumSide;
 import com.bitarcher.aeFun.interfaces.drawables.characters.ICharacter;
 import com.bitarcher.aeFun.interfaces.drawables.characters.ICharacterSidedImage;
 import com.bitarcher.aeFun.interfaces.mvc.IImage;

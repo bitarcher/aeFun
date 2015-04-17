@@ -7,11 +7,10 @@ package com.bitarcher.aeFun.drawables.characters.animals.DogTools;
  */
 
 import com.bitarcher.aeFun.drawables.characters.CharacterSidedImage;
-import com.bitarcher.aeFun.drawables.characters.RIBase;
 import com.bitarcher.aeFun.drawables.characters.animals.Dog;
 import com.bitarcher.aeFun.interfaces.drawables.characters.ICharacterSidedImage;
 
-import com.bitarcher.aeFun.interfaces.drawables.characters.EnumSide;
+import com.bitarcher.aeFun.interfaces.geometry.EnumSide;
 
 /**
  * Created by michel on 16/03/15.

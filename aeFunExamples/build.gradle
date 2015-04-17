@@ -36,5 +36,5 @@ dependencies {
     compile project(':aeFun:aeFunSceneManagement')
     compile project(':aeFun:aeFunDrawablesCharacters')
     compile project(':aeFun:aeFunDrawablesCharactersAnimalsDog')
-
+    compile project(':aeFun:aeFunDrawablesAnimatedMeshed')
 }

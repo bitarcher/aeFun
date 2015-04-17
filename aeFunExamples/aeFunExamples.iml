@@ -96,6 +96,7 @@
     <orderEntry type="module" module-name="aeFunWidgetLayout" exported="" />
     <orderEntry type="module" module-name="aeFunWidgetToolKit" exported="" />
     <orderEntry type="module" module-name="aeFunSceneManagement" exported="" />
+    <orderEntry type="module" module-name="aeFunDrawablesAnimatedMeshed" exported="" />
   </component>
 </module>
 
