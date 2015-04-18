@@ -10,6 +10,7 @@ package com.bitarcher.aeFun.drawables.animatedMeshed.Tools;
 import com.bitarcher.aeFun.geometry.Size;
 import com.bitarcher.aeFun.geometry.pointsTransformation.Pipeline;
 import com.bitarcher.aeFun.geometry.pointsTransformation.WindFunction;
+import com.bitarcher.aeFun.interfaces.drawables.animatedMeshed.IWindStrength;
 import com.bitarcher.aeFun.interfaces.geometry.EnumSide;
 import com.bitarcher.aeFun.interfaces.geometry.ISize;
 
@@ -18,14 +19,16 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 /**
  * Created by michel on 17/04/15.
  */
-public abstract class WindElasticCompositeMeshes extends CompositeMeshesBase {
+public abstract class WindElasticCompositeMeshes extends CompositeMeshesBase implements IWindStrength {
     float windStrength = 0;
     EnumSide windSide = EnumSide.Right;
 
+    @Override
     public float getWindStrength() {
         return windStrength;
     }
 
+    @Override
     public void setWindStrength(float windStrength) {
 
         this.windStrength = windStrength;

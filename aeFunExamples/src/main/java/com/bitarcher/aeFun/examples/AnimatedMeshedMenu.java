@@ -24,7 +24,7 @@ public class AnimatedMeshedMenu extends ManagedMenuScene implements IManagedMenu
     Table table;
     BannerCtrl bannerCtrl;
     TextButton windTree1Button;
-
+    TextButton windMillButton;
 
 	public AnimatedMeshedMenu(ITSceneManager sceneManager) {
         super(sceneManager);
@@ -76,6 +76,16 @@ public class AnimatedMeshedMenu extends ManagedMenuScene implements IManagedMenu
             @Override
             public void onClicked(IButton button) {
                 animatedMeshedMenu.getSceneManager().showScene(new WindElasticTreeScene(animatedMeshedMenu.getSceneManager()));
+            }
+        });
+
+
+        this.windMillButton = new TextButton(this.getSceneManager().getTheme(), 0, 0, 10, 10, "Windmill");
+        this.table.attachChild(this.windMillButton);
+        this.windMillButton.addButtonListener(new IButtonListener() {
+            @Override
+            public void onClicked(IButton button) {
+                animatedMeshedMenu.getSceneManager().showScene(new WindMillScene(animatedMeshedMenu.getSceneManager()));
             }
         });
 
