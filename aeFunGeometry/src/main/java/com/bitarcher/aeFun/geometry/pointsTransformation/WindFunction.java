@@ -45,7 +45,7 @@ public class WindFunction implements IPointToPointFunction {
         float yRR = yRatio * yRatio;
         float ss = this.windStrength * this.windStrength;
 
-        double v = Math.sqrt(yRatio + this.windStrength);
+        double v = Math.sqrt(yRatio * yRatio + this.windStrength);
         double radius = xValue.getY();
 
 
@@ -57,10 +57,10 @@ public class WindFunction implements IPointToPointFunction {
         double y3 = Math.sin(v2) * radius;
         double invWindStrength = 1 - this.windStrength;
 
-        double newX = (xValue.getX() / 2 + (float)xDiff / 4) * 1.5;
+        double newX = xValue.getX() + (float)xDiff / 2;
         if(windSide == EnumSide.Left)
         {
-            newX = (xValue.getX() / 2 - (float)xDiff / 4) * 1.5;
+            newX = xValue.getX() - (float)xDiff / 2;
         }
 
         double newY = (xValue.getY() / 2 + (float)y3 / 3) * 1.5;
