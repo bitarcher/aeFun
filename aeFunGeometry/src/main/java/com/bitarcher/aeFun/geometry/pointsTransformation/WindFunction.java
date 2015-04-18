@@ -65,7 +65,10 @@ public class WindFunction implements IPointToPointFunction {
 
         double newY = (xValue.getY() / 2 + (float)y3 / 3) * 1.5;
 
-        Point retval = new Point((float)newX , (float)newY);
+        double newX2 = newX * this.windStrength + xValue.getX() * invWindStrength;
+        double newY2 = newY * this.windStrength + xValue.getY() * invWindStrength;
+
+        Point retval = new Point((float)newX2 , (float)newY2);
 
         return retval;
     }

@@ -74,7 +74,7 @@ public class WindElasticTreeScene extends ManagedGameScene {
         Font textFont = theme.getFontThemeSection().getFont(EnumFontSize.Medium);
 
         this.treeA = new WindElasticTree1(150, 150, 200, 300, vertexBufferObjectManager);
-        this.treeA.setWindSide(EnumSide.Left);
+        //this.treeA.setWindSide(EnumSide.Left);
         this.attachChild(treeA);
 
         this.windStrengthLabel = new Label(theme, 400, 300, 400, 100, "");
