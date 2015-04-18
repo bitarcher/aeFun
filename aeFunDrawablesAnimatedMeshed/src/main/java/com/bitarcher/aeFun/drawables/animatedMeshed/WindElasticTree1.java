@@ -95,6 +95,12 @@ public class WindElasticTree1 extends WindElasticCompositeMeshes {
             this.leavesBMesh = null;
         }
 
+        if(this.leavesABorder != null)
+        {
+            this.detachChild(this.leavesABorder);
+            this.leavesABorder = null;
+        }
+
         ArrayList<IPoint> rootPoints = new ArrayList<>();
 
         rootPoints.add(new Point(13, 0));
