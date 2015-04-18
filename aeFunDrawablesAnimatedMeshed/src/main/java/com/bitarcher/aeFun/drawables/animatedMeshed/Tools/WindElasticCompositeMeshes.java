@@ -15,7 +15,7 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 /**
  * Created by michel on 17/04/15.
  */
-public class WindElasticCompositeMeshes extends CompositeMeshesBase {
+public abstract class WindElasticCompositeMeshes extends CompositeMeshesBase {
     float windStrength = 0;
     EnumSide windSide = EnumSide.Right;
 
@@ -24,7 +24,9 @@ public class WindElasticCompositeMeshes extends CompositeMeshesBase {
     }
 
     public void setWindStrength(float windStrength) {
+
         this.windStrength = windStrength;
+        this.computeMeshes();
     }
 
     public EnumSide getWindSide() {
@@ -32,7 +34,9 @@ public class WindElasticCompositeMeshes extends CompositeMeshesBase {
     }
 
     public void setWindSide(EnumSide windSide) {
+
         this.windSide = windSide;
+        this.computeMeshes();
     }
 
     public WindElasticCompositeMeshes(float pX, float pY, float pWidth, float pHeight, VertexBufferObjectManager vertexBufferObjectManager, ISize paperModelSize, float windStrength, EnumSide windSide) {
@@ -40,4 +44,7 @@ public class WindElasticCompositeMeshes extends CompositeMeshesBase {
         this.windStrength = windStrength;
         this.windSide = windSide;
     }
+
+    protected abstract void computeMeshes();
+
 }

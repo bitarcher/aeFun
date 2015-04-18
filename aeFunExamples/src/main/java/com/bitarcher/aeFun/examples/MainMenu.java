@@ -27,6 +27,7 @@ public class MainMenu extends ManagedMenuScene implements IMainMenu{
     TextButton resourceManagerTextButton;
     TextButton primitivesTextButton;
     TextButton characterTextButton;
+    TextButton animatedMeshedTextButton;
 
 
 
@@ -91,8 +92,16 @@ public class MainMenu extends ManagedMenuScene implements IMainMenu{
             }
         });
 
-        this.resourceManagerTextButton = new TextButton(this.getSceneManager().getTheme(), 0, 0, 10, 10, "Resource manager");
-        this.table.attachChild(this.resourceManagerTextButton);
+        this.animatedMeshedTextButton = new TextButton(this.getSceneManager().getTheme(), 0, 0, 10, 10, "Animated meshed");
+        this.table.attachChild(this.animatedMeshedTextButton);
+        this.animatedMeshedTextButton.addButtonListener(new IButtonListener() {
+            @Override
+            public void onClicked(IButton button) {
+                AnimatedMeshedMenu animatedMeshedMenu = new AnimatedMeshedMenu(sceneManager);
+
+                sceneManager.showScene(animatedMeshedMenu);
+            }
+        });
 
         this.primitivesTextButton = new TextButton(this.getSceneManager().getTheme(), 0, 0, 10, 10, "Primitives");
         this.table.attachChild(this.primitivesTextButton);
