@@ -12,6 +12,7 @@ import com.bitarcher.aeFun.drawables.animatedMeshed.Tools.WindElasticCompositeMe
 import com.bitarcher.aeFun.geometry.Point;
 import com.bitarcher.aeFun.geometry.Size;
 import com.bitarcher.aeFun.geometry.pointsTransformation.Pipeline;
+import com.bitarcher.aeFun.geometry.primitives.BezierEllipsoid;
 import com.bitarcher.aeFun.geometry.primitives.BezierFilledEllipsoid;
 import com.bitarcher.aeFun.geometry.primitives.BezierFilledEllipsoidHelper;
 import com.bitarcher.aeFun.interfaces.geometry.EnumSide;
@@ -33,11 +34,13 @@ public class WindElasticTree1 extends WindElasticCompositeMeshes {
 
     Color rootColor = new Color(0.475f, 0.322f, 0.153f);
     Color leavesColorA = new Color(0.525f, 0.498f, 0.153f);
-    Color leavesColorB;
+    Color leavesColorABorder = new Color(0.425f, 0.398f, 0.143f);
+    Color leavesColorB = new Color(0.5f, 0.8f, 0.4f);
 
     Mesh rootMesh;
-    Mesh leavesAMesh;
-    Mesh leavesBMesh;
+    BezierFilledEllipsoid leavesAMesh;
+    BezierEllipsoid leavesABorder;
+    BezierFilledEllipsoid leavesBMesh;
 
     public Color getRootColor() {
         return rootColor;
@@ -53,10 +56,11 @@ public class WindElasticTree1 extends WindElasticCompositeMeshes {
     }
 
 
-    public WindElasticTree1(float pX, float pY, float pWidth, float pHeight, VertexBufferObjectManager vertexBufferObjectManager, float windStrength, EnumSide windSide, Color rootColor, Color leavesColorA, Color leavesColorB) {
+    public WindElasticTree1(float pX, float pY, float pWidth, float pHeight, VertexBufferObjectManager vertexBufferObjectManager, float windStrength, EnumSide windSide, Color rootColor, Color leavesColorA, Color leavesColorABorder, Color leavesColorB) {
         super(pX, pY, pWidth, pHeight, vertexBufferObjectManager, new Size(21, 54), windStrength, windSide);
         this.rootColor = rootColor;
         this.leavesColorA = leavesColorA;
+        this.leavesColorABorder = leavesColorABorder;
         this.leavesColorB = leavesColorB;
 
         this.computeMeshes();
@@ -103,19 +107,6 @@ public class WindElasticTree1 extends WindElasticCompositeMeshes {
 
         ArrayList<IPoint> leavesAPoints = new ArrayList<>();
 
-        /*
-        leavesAPoints.add(new Point(12, 16)); //p0
-        leavesAPoints.add(new Point(8, 16));  // p1
-        leavesAPoints.add(new Point(21, 38)); // p2
-        leavesAPoints.add(new Point(2, 21));  // p3
-        leavesAPoints.add(new Point(20, 49));   // p4
-        leavesAPoints.add(new Point(0, 34)); // P5
-        leavesAPoints.add(new Point(15, 55)); //p6
-        leavesAPoints.add(new Point(3, 47)); // p7
-        leavesAPoints.add(new Point(9, 54));  // p8
-        */
-
-
         leavesAPoints.add(new Point(8, 16));  // p1
         leavesAPoints.add(new Point(2, 21));  // p3
         leavesAPoints.add(new Point(0, 34)); // P5
@@ -124,46 +115,42 @@ public class WindElasticTree1 extends WindElasticCompositeMeshes {
         leavesAPoints.add(new Point(15, 55)); //p6
         leavesAPoints.add(new Point(20, 49));   // p4
         leavesAPoints.add(new Point(21, 38)); // p2
-        leavesAPoints.add(new Point(12, 16)); //p0
+        leavesAPoints.add(new Point(20, 31));
+        leavesAPoints.add(new Point(16, 25));
+        leavesAPoints.add(new Point(12, 14)); //p0
+        leavesAPoints.add(new Point(10, 15));
 
-/*
-        leavesAPoints.add(new Point(0, 10));
-        leavesAPoints.add(new Point(0, 50));
-        leavesAPoints.add(new Point(10, 50));
-        leavesAPoints.add(new Point(20, 50));
-        leavesAPoints.add(new Point(20, 10));
-*/
         Point designCenterPoint = new Point(10, 30);
 
-        this.leavesAMesh = this.getNewMesh(this.leavesColorA, leavesAPoints);
-
-        this.leavesAMesh = this.getBezierFilledEllipsoid(this.leavesColorA, leavesAPoints, designCenterPoint, 2);
+        this.leavesAMesh = this.getBezierFilledEllipsoid(this.leavesColorA, leavesAPoints, designCenterPoint, 25);
         this.attachChild(this.leavesAMesh);
 
-        Pipeline pipeline = this.getNewPipeline();
+        this.leavesABorder = this.getBezierEllipsoid(this.leavesColorABorder, leavesAPoints, 25);
+        this.attachChild(this.leavesABorder);
 
-        IPoint centerTransformed = pipeline.getYByX(designCenterPoint);
-        SmartList<IPoint> transformedList = pipeline.applyOnList(leavesAPoints);
-
-        BezierFilledEllipsoidHelper bezierFilledEllipsoidHelper = new BezierFilledEllipsoidHelper(centerTransformed, transformedList, 5);
-        SmartList<IPoint> bezierPoints = bezierFilledEllipsoidHelper.getBezierPoints();
-
-        float[] fPoints = new float[3 * bezierPoints.size()];
-        float UNUSED = 0;
-
-        int i=0;
-        for(IPoint iPoint : bezierPoints)
-        {
-            fPoints[i] = iPoint.getX();
-            fPoints[i + 1] = iPoint.getY();
-            fPoints[i + 2] = UNUSED;
-            i+=3;
-        }
-
-        Mesh mesh = new Mesh(0, 0, fPoints, fPoints.length / 3, DrawMode.LINE_LOOP, this.vertexBufferObjectManager);
-        mesh.setColor(Color.RED);
+        float lineWidth = (float)(Math.sqrt(this.getWidth() * this.getHeight()) / 25.0);
+        this.leavesABorder.setLineWidth(5);
 
 
-        this.attachChild(mesh);
+        ArrayList<IPoint> leavesBPoints = new ArrayList<>();
+
+        leavesBPoints.add(new Point(11, 18));
+        leavesBPoints.add(new Point(10, 20));
+        leavesBPoints.add(new Point(9.5f, 26));
+        leavesBPoints.add(new Point(10, 30));
+        leavesBPoints.add(new Point(11, 32));
+        leavesBPoints.add(new Point(12, 42));
+        leavesBPoints.add(new Point(13, 45));
+        leavesBPoints.add(new Point(14, 47));
+        leavesBPoints.add(new Point(15, 48));
+        leavesBPoints.add(new Point(18, 46));
+        leavesBPoints.add(new Point(19, 38));
+        leavesBPoints.add(new Point(18, 34));
+        leavesBPoints.add(new Point(16, 28));
+        leavesBPoints.add(new Point(13, 21));
+        leavesBPoints.add(new Point(12, 19));
+
+        this.leavesBMesh = this.getBezierFilledEllipsoid(this.leavesColorB, leavesBPoints, new Point(13, 34), 20);
+        this.attachChild(this.leavesBMesh);
     }
 }

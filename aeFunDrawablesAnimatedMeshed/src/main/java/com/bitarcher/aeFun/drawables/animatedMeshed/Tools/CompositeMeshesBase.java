@@ -9,6 +9,7 @@ package com.bitarcher.aeFun.drawables.animatedMeshed.Tools;
 import com.bitarcher.aeFun.geometry.Size;
 import com.bitarcher.aeFun.geometry.pointsTransformation.Pipeline;
 import com.bitarcher.aeFun.geometry.pointsTransformation.SizeAdapterFunction;
+import com.bitarcher.aeFun.geometry.primitives.BezierEllipsoid;
 import com.bitarcher.aeFun.geometry.primitives.BezierFilledEllipsoid;
 import com.bitarcher.aeFun.interfaces.geometry.IPoint;
 import com.bitarcher.aeFun.interfaces.geometry.ISize;
@@ -92,6 +93,19 @@ public abstract class CompositeMeshesBase extends Entity {
         SmartList<IPoint> transformedList = pipeline.applyOnList(twoDPaperCoordinates);
 
         BezierFilledEllipsoid retval = new BezierFilledEllipsoid(0, 0, centerTransformed, transformedList, numOfAdditionnalPointsBetweenPoints, this.vertexBufferObjectManager);
+
+        retval.setColor(meshColor);
+
+        return retval;
+    }
+
+    protected BezierEllipsoid getBezierEllipsoid(Color meshColor, List<IPoint> twoDPaperCoordinates, int numOfAdditionnalPointsBetweenPoints)
+    {
+        Pipeline pipeline = this.getNewPipeline();
+
+        SmartList<IPoint> transformedList = pipeline.applyOnList(twoDPaperCoordinates);
+
+        BezierEllipsoid retval = new BezierEllipsoid(0, 0, transformedList, numOfAdditionnalPointsBetweenPoints, this.vertexBufferObjectManager);
 
         retval.setColor(meshColor);
 

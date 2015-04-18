@@ -6,6 +6,8 @@ package com.bitarcher.aeFun.geometry.primitives;
  * bitarcher.com
  */
 
+import android.util.Log;
+
 import com.bitarcher.aeFun.geometry.Point;
 import com.bitarcher.aeFun.interfaces.geometry.IPoint;
 
@@ -25,11 +27,14 @@ public class BezierFilledEllipsoidHelper {
         this.numOfAdditionnalPointsBetweenPoints = numOfAdditionnalPointsBetweenPoints;
     }
 
-    public float[] computeBufferData()
+    public float[] computeBufferDataForFan()
     {
         float UNUSED = 0;
 
-        float[] retval = new float[this.getVertexCount() * 3];
+        SmartList<IPoint> allPoints = this.getBezierPoints(true);
+        int vertexCount = allPoints.size() + 1;
+
+        float[] retval = new float[vertexCount * 3];
 
         retval[0] = ellipsoidTriangleFanCenter.getX();
         retval[1] = ellipsoidTriangleFanCenter.getY();
@@ -37,39 +42,58 @@ public class BezierFilledEllipsoidHelper {
 
         int i = 3;
 
-        SmartList<IPoint> allPoints = this.getBezierPoints();
+        int allPointsSize = allPoints.size();
+
+
 
         for(IPoint point : allPoints)
         {
             retval[i] = point.getX();
             retval[i + 1] = point.getY();
             retval[i + 2] = UNUSED;
-            i+= 2;
+            i+= 3;
         }
 
         return retval;
     }
 
-    public int getVertexCount()
+    public float[] computeBufferDataForLineLoop()
     {
-        int retval = 0;
+        float UNUSED = 0;
 
-        retval += 1; // center
+        SmartList<IPoint> allPoints = this.getBezierPoints(false);
+        int vertexCount = allPoints.size();
 
-        int numOfStrongPoints = this.points.size();
-        retval += numOfStrongPoints;
-        retval += (numOfStrongPoints -1) * this.numOfAdditionnalPointsBetweenPoints;
+        float[] retval = new float[vertexCount * 3];
+
+        int i = 0;
+
+        int allPointsSize = allPoints.size();
+
+        for(IPoint point : allPoints)
+        {
+            retval[i] = point.getX();
+            retval[i + 1] = point.getY();
+            retval[i + 2] = UNUSED;
+            i+= 3;
+        }
 
         return retval;
     }
 
-    public SmartList<IPoint> getBezierPoints()
+
+    public SmartList<IPoint> getBezierPoints(boolean plusOne)
     {
         SmartList<IPoint> retval = new SmartList<>();
 
         int controlPointsSize = this.points.size();
 
-        for(int i=0 ; i < (controlPointsSize ) ; i+=3)
+        int limit = controlPointsSize;
+
+        if(plusOne)
+            limit ++;
+
+        for(int i=0 ; i < limit ; i+=3)
         {
             IPoint p0 = this.points.get((i + 0 ) % controlPointsSize);
             IPoint p1 = this.points.get((i + 1 ) % controlPointsSize);
@@ -87,7 +111,7 @@ public class BezierFilledEllipsoidHelper {
         float t = 0;
         int numOfSegments = this.numOfAdditionnalPointsBetweenPoints + 1;
 
-        for(int i = 0; i <= numOfSegments; i++)
+        for(int i = 0; i < numOfSegments; i++)
         {
             t = i / (float) numOfSegments;
             IPoint newPoint = this.calculateBezierPoint(t, p0, p1, p2, p3);
