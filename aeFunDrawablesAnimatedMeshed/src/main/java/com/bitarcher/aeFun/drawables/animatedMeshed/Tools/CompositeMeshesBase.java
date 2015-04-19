@@ -9,6 +9,8 @@ package com.bitarcher.aeFun.drawables.animatedMeshed.Tools;
 import com.bitarcher.aeFun.geometry.Point;
 import com.bitarcher.aeFun.geometry.PositionAndSizeOwner;
 import com.bitarcher.aeFun.geometry.Size;
+
+import com.bitarcher.aeFun.geometry.Vector;
 import com.bitarcher.aeFun.geometry.pointsTransformation.Pipeline;
 import com.bitarcher.aeFun.geometry.pointsTransformation.SizeAdapterFunction;
 import com.bitarcher.aeFun.geometry.primitives.BezierEllipsoid;
@@ -17,7 +19,8 @@ import com.bitarcher.aeFun.geometry.primitives.DiskOrXGon;
 import com.bitarcher.aeFun.interfaces.geometry.IPoint;
 import com.bitarcher.aeFun.interfaces.geometry.IPositionAndSizeOwner;
 import com.bitarcher.aeFun.interfaces.geometry.ISize;
-import com.bitarcher.aeFun.interfaces.geometry.pointsTransformation.IPointToPointFunction;
+import com.bitarcher.aeFun.interfaces.geometry.IVector;
+
 
 import org.andengine.entity.Entity;
 import org.andengine.entity.primitive.DrawMode;
@@ -28,6 +31,7 @@ import org.andengine.util.adt.color.Color;
 import org.andengine.util.adt.list.SmartList;
 
 import java.util.List;
+
 
 /**
  * Created by michel on 17/04/15.
@@ -154,6 +158,20 @@ public abstract class CompositeMeshesBase extends Entity {
 
 
 
+
+        float epsilon = 0.0000001f;
+        Vector originalVector = new Vector(vectorX, vectorY);
+        IVector reducedNormVector = originalVector.getNewVectorWithSameDirectionAndWuthTheFollowingNorm(epsilon);
+        Point oCenter = new Point(centerX, centerY);
+
+        IPoint oCenterPlusVector = oCenter.translate(reducedNormVector);
+
+        IPoint tCenter = pipeline.getYByX(oCenter);
+        IPoint tCenterPlusVector = pipeline.getYByX(oCenterPlusVector);
+
+        IVector tVector = tCenterPlusVector.substract(tCenter);
+
+        retval.setGradientVector(tVector.getX(), tVector.getY());
 
         retval.setFromColor(fromColor);
         retval.setToColor(toColor);

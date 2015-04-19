@@ -10,4 +10,7 @@ package com.bitarcher.aeFun.interfaces.geometry;
  * Created by michel on 19/04/15.
  */
 public interface IVector extends IPosition {
+    IVector getNewVectorWithSameDirectionAndWuthTheFollowingNorm(float norm);
+
+    float getNorm();
 }

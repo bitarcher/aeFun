@@ -29,4 +29,19 @@ public class Vector implements IVector {
     public float getY() {
         return y;
     }
+
+    @Override
+    public float getNorm() {
+        return (float)Math.sqrt(this.x * this.x + this.y * this.y);
+    }
+
+    @Override
+    public IVector getNewVectorWithSameDirectionAndWuthTheFollowingNorm(float norm) {
+        float myNorm = this.getNorm();
+        float normFactor = myNorm / norm;
+
+        Vector retval = new Vector(this.x * normFactor, this.y * normFactor);
+
+        return retval;
+    }
 }
