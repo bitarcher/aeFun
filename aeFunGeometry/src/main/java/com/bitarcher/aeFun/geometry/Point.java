@@ -34,4 +34,9 @@ public class Point implements IPoint {
     public IPoint translate(IVector vector) {
         return new Point(this.getX() + vector.getX(), this.getY() + vector.getY());
     }
+
+    @Override
+    public IVector substract(IPoint point) {
+        return new Vector(this.getX() - point.getX(), this.getY() - point.getY());
+    }
 }

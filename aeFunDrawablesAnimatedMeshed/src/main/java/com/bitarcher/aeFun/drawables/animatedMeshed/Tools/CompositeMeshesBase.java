@@ -154,6 +154,7 @@ public abstract class CompositeMeshesBase extends Entity {
 
 
 
+
         retval.setFromColor(fromColor);
         retval.setToColor(toColor);
 

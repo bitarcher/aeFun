@@ -11,4 +11,5 @@ package com.bitarcher.aeFun.interfaces.geometry;
  */
 public interface IPoint extends IPosition {
     IPoint translate(IVector vector);
+    IVector substract(IPoint point);
 }
