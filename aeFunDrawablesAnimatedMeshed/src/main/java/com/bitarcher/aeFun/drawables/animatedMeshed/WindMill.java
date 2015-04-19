@@ -10,9 +10,9 @@ import com.bitarcher.aeFun.drawables.animatedMeshed.Tools.CompositeMeshesBase;
 import com.bitarcher.aeFun.drawables.animatedMeshed.Tools.WindMillPales;
 import com.bitarcher.aeFun.geometry.Point;
 import com.bitarcher.aeFun.geometry.Size;
-import com.bitarcher.aeFun.geometry.pointsTransformation.SizeAdapterFunction;
 import com.bitarcher.aeFun.interfaces.drawables.animatedMeshed.IWindStrength;
 import com.bitarcher.aeFun.interfaces.geometry.IPoint;
+import com.bitarcher.aeFun.interfaces.geometry.IPositionAndSizeOwner;
 
 import org.andengine.entity.primitive.Gradient;
 import org.andengine.entity.primitive.Mesh;
@@ -84,21 +84,22 @@ public class WindMill extends CompositeMeshesBase implements IWindStrength {
             this.pales = null;
         }
 
-        /*SizeAdapterFunction sizeAdapterFunction = new SizeAdapterFunction(new Size(20, 25), new Size(this.getWidth(), this.getHeight()));
-        IPoint stonesCenter = sizeAdapterFunction.getYByX(new Point(10, 9));
-        IPoint stonesSize = sizeAdapterFunction.getYByX(new Point(20, 18));
-*/
-  /*      this.stones = new Gradient(stonesCenter.getX(), stonesCenter.getY(), stonesSize.getX(), stonesSize.getY(), vertexBufferObjectManager);
-        this.stones.setFromColor(this.stonesGradientColor1);
-        this.stones.setToColor(this.stonesGradientColor2);*/
-
         this.stones = this.getNewGradient(this.stonesGradientColor1, this.stonesGradientColor2, 10, 9, 20, 18, 1, 0);
         this.attachChild(this.stones);
 
         this.roof = this.getNewMesh(this.roofColor, this.roofPaperCoords);
         this.attachChild(this.roof);
 
-        //this.pales = new WindMillPales(10)
+        IPositionAndSizeOwner palePositionAndSize = this.getTransformedPositionAndSize(10, 15, 20, 20);
+
+        this.pales = new WindMillPales(palePositionAndSize.getPosition().getX(),
+                palePositionAndSize.getPosition().getY(),
+                palePositionAndSize.getSize().getWidth(),
+                palePositionAndSize.getSize().getHeight(),
+                this.vertexBufferObjectManager,
+                this.bladesColor);
+
+        this.attachChild(this.pales);
     }
 
     @Override

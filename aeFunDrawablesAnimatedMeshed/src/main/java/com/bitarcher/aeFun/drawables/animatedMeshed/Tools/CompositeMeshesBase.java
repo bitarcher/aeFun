@@ -108,6 +108,13 @@ public abstract class CompositeMeshesBase extends Entity {
         return retval;
     }
 
+    protected IPositionAndSizeOwner getTransformedPositionAndSize(float centerX, float centerY, float width, float height)
+    {
+        Pipeline pipeline = this.getNewPipeline();
+
+        return this.getTransformedPositionAndSize(pipeline, centerX, centerY, width, height);
+    }
+
     protected IPositionAndSizeOwner getTransformedPositionAndSize(Pipeline pipeline, float centerX, float centerY, float width, float height)
     {
         IPoint centerTransformed = pipeline.getYByX(new Point(centerX, centerY));
@@ -145,6 +152,8 @@ public abstract class CompositeMeshesBase extends Entity {
 
         return retval;
     }
+
+
 
     protected Gradient getNewGradient(Color fromColor, Color toColor, float centerX, float centerY, float width, float height, float vectorX, float vectorY)
     {
