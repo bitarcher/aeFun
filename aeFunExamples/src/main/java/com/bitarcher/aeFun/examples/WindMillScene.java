@@ -1,6 +1,7 @@
 package com.bitarcher.aeFun.examples;
 
 import com.bitarcher.aeFun.drawables.animatedMeshed.WindElasticTree1;
+import com.bitarcher.aeFun.drawables.animatedMeshed.WindMill;
 import com.bitarcher.aeFun.interfaces.drawables.animatedMeshed.IWindStrength;
 import com.bitarcher.aeFun.interfaces.gui.andEngine.IScene;
 import com.bitarcher.aeFun.interfaces.gui.theme.EnumFontSize;
@@ -27,6 +28,7 @@ public class WindMillScene extends ManagedGameScene implements IWindStrength {
     float windStrength = 1;
     Label windStrengthLabel;
     double totalElapsedTime = 0;
+    WindMill windMill;
 
 	public WindMillScene(ITSceneManager sceneManager) {
         super(sceneManager, 0); // no loading screen
@@ -68,9 +70,10 @@ public class WindMillScene extends ManagedGameScene implements IWindStrength {
 
         Font textFont = theme.getFontThemeSection().getFont(EnumFontSize.Medium);
 
-        // TODO
+        this.windMill = new WindMill(250, 100, 200, 250, vertexBufferObjectManager);
+        this.attachChild(this.windMill);
 
-        this.windStrengthLabel = new Label(theme, 400, 300, 400, 100, "");
+        this.windStrengthLabel = new Label(theme, 600, 100, 200, 80, "");
         this.attachChild(this.windStrengthLabel);
     }
 

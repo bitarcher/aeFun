@@ -7,7 +7,7 @@ import com.bitarcher.aeFun.interfaces.gui.theme.layout.IImageButtonLayout;
 import com.bitarcher.aeFun.interfaces.gui.theme.widgetSections.IButtonSection;
 import com.bitarcher.aeFun.interfaces.gui.widgets.IImageButton;
 import com.bitarcher.aeFun.interfaces.mvc.IImage;
-import com.bitarcher.aeFun.geometry.ContainedPositionAndSizeComputerByAspectRatio;
+import com.bitarcher.aeFun.geometry.containers.ContainedPositionAndSizeComputerByAspectRatio;
 
 import org.andengine.entity.Entity;
 import org.andengine.entity.sprite.Sprite;

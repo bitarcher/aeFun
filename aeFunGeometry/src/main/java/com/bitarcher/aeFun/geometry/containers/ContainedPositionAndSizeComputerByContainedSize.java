@@ -1,4 +1,4 @@
-package com.bitarcher.aeFun.geometry;
+package com.bitarcher.aeFun.geometry.containers;
 
 import com.bitarcher.aeFun.interfaces.geometry.EnumAlignStyle;
 import com.bitarcher.aeFun.interfaces.geometry.IContainedPositionAndSizeComputerByContainedSize;

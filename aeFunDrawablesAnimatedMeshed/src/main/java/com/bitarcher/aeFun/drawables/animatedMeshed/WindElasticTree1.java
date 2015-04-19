@@ -7,23 +7,17 @@ package com.bitarcher.aeFun.drawables.animatedMeshed;
  */
 
 
-import com.bitarcher.aeFun.drawables.animatedMeshed.Tools.CompositeMeshesBase;
 import com.bitarcher.aeFun.drawables.animatedMeshed.Tools.WindElasticCompositeMeshes;
 import com.bitarcher.aeFun.geometry.Point;
 import com.bitarcher.aeFun.geometry.Size;
-import com.bitarcher.aeFun.geometry.pointsTransformation.Pipeline;
 import com.bitarcher.aeFun.geometry.primitives.BezierEllipsoid;
 import com.bitarcher.aeFun.geometry.primitives.BezierFilledEllipsoid;
-import com.bitarcher.aeFun.geometry.primitives.BezierFilledEllipsoidHelper;
 import com.bitarcher.aeFun.interfaces.geometry.EnumSide;
 import com.bitarcher.aeFun.interfaces.geometry.IPoint;
-import com.bitarcher.aeFun.interfaces.geometry.ISize;
 
-import org.andengine.entity.primitive.DrawMode;
 import org.andengine.entity.primitive.Mesh;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.adt.color.Color;
-import org.andengine.util.adt.list.SmartList;
 
 import java.util.ArrayList;
 
@@ -131,7 +125,7 @@ public class WindElasticTree1 extends WindElasticCompositeMeshes {
         this.leavesAMesh = this.getBezierFilledEllipsoid(this.leavesColorA, leavesAPoints, designCenterPoint, 25);
         this.attachChild(this.leavesAMesh);
 
-        this.leavesABorder = this.getBezierEllipsoid(this.leavesColorABorder, leavesAPoints, 25);
+        this.leavesABorder = this.getNewBezierEllipsoid(this.leavesColorABorder, leavesAPoints, 25);
         this.attachChild(this.leavesABorder);
 
         float lineWidth = (float)(Math.sqrt(this.getWidth() * this.getHeight()) / 25.0);

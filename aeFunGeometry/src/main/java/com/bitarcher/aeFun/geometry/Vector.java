@@ -1,6 +1,6 @@
 package com.bitarcher.aeFun.geometry;
 
-import com.bitarcher.aeFun.interfaces.geometry.IPoint;
+
 import com.bitarcher.aeFun.interfaces.geometry.IVector;
 
 /*
@@ -12,10 +12,10 @@ import com.bitarcher.aeFun.interfaces.geometry.IVector;
 /**
  * Created by michel on 25/03/15.
  */
-public class Point implements IPoint {
+public class Vector implements IVector {
     float x, y;
 
-    public Point(float x, float y) {
+    public Vector(float x, float y) {
         this.x = x;
         this.y = y;
     }
@@ -28,10 +28,5 @@ public class Point implements IPoint {
     @Override
     public float getY() {
         return y;
-    }
-
-    @Override
-    public IPoint translate(IVector vector) {
-        return new Point(this.getX() + vector.getX(), this.getY() + vector.getY());
     }
 }

@@ -7,8 +7,7 @@ package com.bitarcher.aeFun.interfaces.geometry;
  */
 
 /**
- * Created by michel on 17/04/15.
+ * Created by michel on 19/04/15.
  */
-public interface IPoint extends IPosition {
-    IPoint translate(IVector vector);
+public interface IVector extends IPosition {
 }

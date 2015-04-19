@@ -1,4 +1,4 @@
-package com.bitarcher.aeFun.geometry;
+package com.bitarcher.aeFun.geometry.containers;
 
 /*
  * Copyright (c) 2015.
