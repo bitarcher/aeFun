@@ -1,4 +1,4 @@
-package com.bitarcher.aeFun.drawables.cliparts.ArchitectureF.MedievalF.Door;
+package com.bitarcher.aeFun.drawables.cliparts.ArchitectureF.MedievalF;
 
 /*
  * Copyright (c) 2015.

@@ -4,3 +4,6 @@
             wood_door_0.png : http://www.clipartpanda.com/clipart_images/free-lds-wooden-door-clipart-2163948
             wood_door_1.png : http://www.vectorhq.com/search/castle-door
             wood_door_2.png : http://www.gifs-animes.net/images-image/Fantastique/Medieval/Medieval-57.gif
+        /wall
+            timbered1.png : http://www.escargot-archi.eu/enimreppoc/thumbnails.php?album=22
+            timbered2.png : http://www.escargot-archi.eu/enimreppoc/thumbnails.php?album=22

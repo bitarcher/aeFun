@@ -7,7 +7,6 @@ package com.bitarcher.aeFun.drawables.cliparts.ArchitectureF.MedievalF;
  */
 
 import com.bitarcher.aeFun.drawables.cliparts.ArchitectureF.Architecture;
-import com.bitarcher.aeFun.drawables.cliparts.ArchitectureF.MedievalF.Door.Doors;
 
 /**
  * Created by michel on 20/04/15.
