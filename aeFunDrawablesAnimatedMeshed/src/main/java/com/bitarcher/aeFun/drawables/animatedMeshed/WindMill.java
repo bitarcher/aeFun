@@ -13,19 +13,27 @@ import com.bitarcher.aeFun.geometry.Size;
 import com.bitarcher.aeFun.interfaces.drawables.animatedMeshed.IWindStrength;
 import com.bitarcher.aeFun.interfaces.geometry.IPoint;
 import com.bitarcher.aeFun.interfaces.geometry.IPositionAndSizeOwner;
+import com.bitarcher.aeFun.interfaces.mvc.IImage;
+import com.bitarcher.aeFun.interfaces.resourcemanagement.IResourceInfoListGotter;
+import com.bitarcher.aeFun.interfaces.resourcemanagement.IResourceManager;
+import com.bitarcher.aeFun.interfaces.resourcemanagement.ResourceInfo.IResourceInfo;
 
+
+import org.andengine.entity.Entity;
 import org.andengine.entity.primitive.Gradient;
 import org.andengine.entity.primitive.Mesh;
-import org.andengine.opengl.vbo.VertexBufferObjectManager;
+import org.andengine.entity.sprite.Sprite;
 import org.andengine.util.adt.color.Color;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by michel on 18/04/15.
  */
-public class WindMill extends CompositeMeshesBase implements IWindStrength {
+public class WindMill extends CompositeMeshesBase implements IWindStrength, IResourceInfoListGotter {
 
+    IResourceManager resourceManager;
     float windStrength = 0;
     Color stonesGradientColor1 = new Color(0.9f, 0.85f, 0.8f);
     Color stonesGradientColor2 = new Color(0.7f, 0.7f, 0.7f);
@@ -34,19 +42,34 @@ public class WindMill extends CompositeMeshesBase implements IWindStrength {
     Gradient stones;
     Mesh roof;
     WindMillPales pales;
+    int woodDoorNum;
+    Entity doorLayer;
+    Sprite doorSprite;
 
+    public int getWoodDoorNum() {
+        return woodDoorNum;
+    }
+
+    public IResourceManager getResourceManager() {
+        return resourceManager;
+    }
 
     ArrayList<IPoint> roofPaperCoords = new ArrayList<>();
 
-    public WindMill(float pX, float pY, float pWidth, float pHeight, VertexBufferObjectManager vertexBufferObjectManager) {
-        super(pX, pY, pWidth, pHeight, vertexBufferObjectManager, new Size(20, 25));
+    public WindMill(IResourceManager resourceManager, float pX, float pY, float pWidth, float pHeight, int woodDoorNum) {
+        super(pX, pY, pWidth, pHeight, resourceManager.getEngine().getVertexBufferObjectManager(), new Size(20, 25));
+
+        this.resourceManager = resourceManager;
 
         this.setRoofPaperCoords();
         this.computeStableMeshes();
+        this.woodDoorNum = woodDoorNum;
     }
 
-    public WindMill(float pX, float pY, float pWidth, float pHeight, VertexBufferObjectManager vertexBufferObjectManager, Color stonesGradientColor1, Color stonesGradientColor2, Color roofColor, Color bladesColor) {
-        super(pX, pY, pWidth, pHeight, vertexBufferObjectManager, new Size(20, 25));
+    public WindMill(IResourceManager resourceManager, float pX, float pY, float pWidth, float pHeight, Color stonesGradientColor1, Color stonesGradientColor2, Color roofColor, Color bladesColor, int woodDoorNum) {
+        super(pX, pY, pWidth, pHeight, resourceManager.getEngine().getVertexBufferObjectManager(), new Size(20, 25));
+        this.resourceManager = resourceManager;
+
         this.stonesGradientColor1 = stonesGradientColor1;
         this.stonesGradientColor2 = stonesGradientColor2;
         this.roofColor = roofColor;
@@ -54,6 +77,8 @@ public class WindMill extends CompositeMeshesBase implements IWindStrength {
 
         this.setRoofPaperCoords();
         this.computeStableMeshes();
+
+        this.woodDoorNum = woodDoorNum;
     }
 
     void setRoofPaperCoords()
@@ -84,6 +109,14 @@ public class WindMill extends CompositeMeshesBase implements IWindStrength {
             this.pales = null;
         }
 
+        this.unloadSprites();
+
+        if(this.doorLayer != null)
+        {
+            this.detachChild(this.doorLayer);
+            this.doorLayer = null;
+        }
+
         this.stones = this.getNewGradient(this.stonesGradientColor1, this.stonesGradientColor2, 10, 9, 20, 18, 1, 0);
         this.attachChild(this.stones);
 
@@ -91,6 +124,13 @@ public class WindMill extends CompositeMeshesBase implements IWindStrength {
         this.attachChild(this.roof);
 
         IPositionAndSizeOwner palePositionAndSize = this.getTransformedPositionAndSize(10, 15, 20, 20);
+
+        this.doorLayer = new Entity();
+        this.attachChild(this.doorLayer);
+
+        if(this.isResourcesPushed()) {
+            this.loadSprites();
+        }
 
         this.pales = new WindMillPales(palePositionAndSize.getPosition().getX(),
                 palePositionAndSize.getPosition().getY(),
@@ -140,5 +180,72 @@ public class WindMill extends CompositeMeshesBase implements IWindStrength {
     public void setHeight(float pHeight) {
         super.setHeight(pHeight);
         this.onSizeChanged();
+    }
+
+    @Override
+    public void pushResourceRequirements() {
+        super.pushResourceRequirements();
+
+        this.resourceManager.pushRequirement(this);
+    }
+
+    @Override
+    public void popResourceRequirements() {
+        super.popResourceRequirements();
+
+        this.resourceManager.popRequirement(this);
+    }
+
+    IImage getDoorImage()
+    {
+        IImage retval = com.bitarcher.aeFun.drawables.cliparts.ResourceInfosSingleton.getInstance().getArchitecture().getMedieval().getDoors().getWoodDoor(this.woodDoorNum);
+
+        return retval;
+    }
+
+
+    @Override
+    public List<IResourceInfo> getResourceInfoList() {
+        ArrayList<IResourceInfo> retval = new ArrayList<>();
+
+        IImage doorImage = this.getDoorImage();
+        retval.add(doorImage.getTextureSetResourceInfo());
+
+        return retval;
+    }
+
+    void unloadSprites()
+    {
+        if(this.doorLayer != null)
+        {
+            if(this.doorSprite != null) {
+                this.doorLayer.detachChild(this.doorSprite);
+            }
+        }
+
+        this.doorSprite = null;
+    }
+
+    void loadSprites()
+    {
+        if(this.doorLayer != null)
+        {
+            this.doorSprite = this.getNewSprite(this.resourceManager, this.getDoorImage(), true, 10, 4, 8, 6);
+            this.doorLayer.attachChild(this.doorSprite);
+        }
+    }
+
+    @Override
+    public void onAttached() {
+        super.onAttached();
+
+        this.loadSprites();
+    }
+
+    @Override
+    public void onDetached() {
+        this.unloadSprites();
+
+        super.onDetached();
     }
 }

@@ -8,6 +8,8 @@ package com.bitarcher.aeFun.drawables.cliparts;
 
 import com.bitarcher.aeFun.drawables.cliparts.ArchitectureF.Architecture;
 
+import org.andengine.opengl.texture.TextureManager;
+
 /**
  * Created by michel on 20/04/15.
  */
@@ -21,5 +23,15 @@ public class ResourceInfosSingleton {
     private ResourceInfosSingleton() {
     }
 
-    Architecture architecture = new Architecture();
+    Architecture architecture;
+
+    public Architecture getArchitecture()
+    {
+        if(architecture == null)
+        {
+            this.architecture = new Architecture();
+        }
+
+        return this.architecture;
+    }
 }

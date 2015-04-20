@@ -1,3 +1,4 @@
+/*
 package com.bitarcher.aeFun.resourceManagement.ResourcesInfos;
 
 import com.bitarcher.aeFun.interfaces.resourcemanagement.ResourceInfo.IBuildableBitmapTextureAtlasResourceInfo;
@@ -5,16 +6,18 @@ import com.bitarcher.aeFun.interfaces.resourcemanagement.ResourceInfo.IResourceI
 
 import org.andengine.opengl.texture.TextureManager;
 
+*/
 /**
  * Created by michel on 08/01/15.
- */
+ *//*
+
 public class BuildableBitmapTextureAtlasResourceInfo extends ResourceInfo implements IBuildableBitmapTextureAtlasResourceInfo {
 
     int _pWidth;
     int _pHeight;
     String _name;
 
-    public BuildableBitmapTextureAtlasResourceInfo(TextureManager textureManager, int pWidth, int pHeight, String name) {
+    public BuildableBitmapTextureAtlasResourceInfo(int pWidth, int pHeight, String name) {
         super(name);
         this._pWidth = pWidth;
         this._pHeight = pHeight;
@@ -59,3 +62,4 @@ public class BuildableBitmapTextureAtlasResourceInfo extends ResourceInfo implem
 
 
 }
+*/

@@ -6,6 +6,7 @@ import com.bitarcher.aeFun.interfaces.drawables.animatedMeshed.IWindStrength;
 import com.bitarcher.aeFun.interfaces.gui.andEngine.IScene;
 import com.bitarcher.aeFun.interfaces.gui.theme.EnumFontSize;
 import com.bitarcher.aeFun.interfaces.gui.theme.ITheme;
+import com.bitarcher.aeFun.interfaces.resourcemanagement.IResourceManager;
 import com.bitarcher.aeFun.interfaces.sceneManagement.ITSceneManager;
 import com.bitarcher.aeFun.sceneManagement.ManagedGameScene;
 import com.bitarcher.aeFun.widgetToolkit.widget.Label;
@@ -61,6 +62,7 @@ public class WindMillScene extends ManagedGameScene implements IWindStrength {
         this.setBackground(new Background(1, 1, 1));
 
         ITheme theme = this.getSceneManager().getTheme();
+        IResourceManager resourceManager = theme.getThemeManager().getResourceManager();
         Camera camera = theme.getThemeManager().getResourceManager().getEngine().getCamera();
         VertexBufferObjectManager vertexBufferObjectManager = theme.getThemeManager().getResourceManager().getEngine().getVertexBufferObjectManager();
 
@@ -70,7 +72,7 @@ public class WindMillScene extends ManagedGameScene implements IWindStrength {
 
         Font textFont = theme.getFontThemeSection().getFont(EnumFontSize.Medium);
 
-        this.windMill = new WindMill(250, 100, 200, 250, vertexBufferObjectManager);
+        this.windMill = new WindMill(resourceManager, 250, 100, 200, 250, 1);
         this.attachChild(this.windMill);
 
         this.windStrengthLabel = new Label(theme, 600, 100, 200, 80, "");

@@ -20,12 +20,17 @@ import com.bitarcher.aeFun.interfaces.geometry.IPoint;
 import com.bitarcher.aeFun.interfaces.geometry.IPositionAndSizeOwner;
 import com.bitarcher.aeFun.interfaces.geometry.ISize;
 import com.bitarcher.aeFun.interfaces.geometry.IVector;
+import com.bitarcher.aeFun.interfaces.mvc.IImage;
+import com.bitarcher.aeFun.interfaces.resourcemanagement.IResourceManager;
+import com.bitarcher.aeFun.interfaces.resourcemanagement.IResourceRequirementsStackUser;
 
 
 import org.andengine.entity.Entity;
 import org.andengine.entity.primitive.DrawMode;
 import org.andengine.entity.primitive.Gradient;
 import org.andengine.entity.primitive.Mesh;
+import org.andengine.entity.sprite.Sprite;
+import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.adt.color.Color;
 import org.andengine.util.adt.list.SmartList;
@@ -36,9 +41,14 @@ import java.util.List;
 /**
  * Created by michel on 17/04/15.
  */
-public abstract class CompositeMeshesBase extends Entity {
+public abstract class CompositeMeshesBase extends Entity implements IResourceRequirementsStackUser{
     protected ISize paperModelSize;
     protected VertexBufferObjectManager vertexBufferObjectManager;
+    boolean resourcesPushed = false;
+
+    public boolean isResourcesPushed() {
+        return resourcesPushed;
+    }
 
     protected CompositeMeshesBase(VertexBufferObjectManager vertexBufferObjectManager, ISize paperModelSize) {
         this.vertexBufferObjectManager = vertexBufferObjectManager;
@@ -156,7 +166,42 @@ public abstract class CompositeMeshesBase extends Entity {
         return retval;
     }
 
+    /**
+     *
+     * @param resourceManager
+     * @param image
+     * @param conserveAspectRatio
+     * @param centerX
+     * @param centerY
+     * @param width
+     * @param height not used if conserveAspectRatio = true
+     * @return
+     */
+    protected Sprite getNewSprite(IResourceManager resourceManager, IImage image, boolean conserveAspectRatio, float centerX, float centerY, float width, float height)
+    {
+        Pipeline pipeline = this.getNewPipeline();
 
+        IPositionAndSizeOwner transformedPositionAndSize = this.getTransformedPositionAndSize(pipeline, centerX, centerY, width, height);
+        float tw = transformedPositionAndSize.getSize().getWidth();
+        float th = transformedPositionAndSize.getSize().getHeight();
+
+        ITextureRegion textureRegion = resourceManager.getTextureRegionFromTextureSetByName(image.getTextureSetResourceInfo(), image.getTextureName());
+
+        float usedHeight = th;
+
+        if(conserveAspectRatio)
+        {
+            usedHeight = tw / image.getAspectRatio();
+        }
+
+        Sprite retval = new Sprite(
+                transformedPositionAndSize.getPosition().getX(),
+                transformedPositionAndSize.getPosition().getY(),
+                tw, usedHeight, textureRegion, resourceManager.getEngine().getVertexBufferObjectManager()
+                );
+
+        return retval;
+    }
 
     protected Gradient getNewGradient(Color fromColor, Color toColor, float centerX, float centerY, float width, float height, float vectorX, float vectorY)
     {
@@ -204,5 +249,59 @@ public abstract class CompositeMeshesBase extends Entity {
         retval.setColor(meshColor);
 
         return retval;
+    }
+
+    @Override
+    public void pushResourceRequirements() {
+
+    }
+
+    @Override
+    public void popResourceRequirements() {
+
+    }
+
+    @Override
+    public void onAttached() {
+        super.onAttached();
+
+        if(!this.resourcesPushed)
+        {
+            this.pushResourceRequirements();
+            this.resourcesPushed = true;
+        }
+    }
+
+    @Override
+    public void onDetached() {
+        super.onDetached();
+
+        if(this.resourcesPushed)
+        {
+            this.popResourceRequirements();
+            this.resourcesPushed = false;
+        }
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+
+        if(this.resourcesPushed)
+        {
+            this.popResourceRequirements();
+            this.resourcesPushed = false;
+        }
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+
+        if(this.resourcesPushed)
+        {
+            this.popResourceRequirements();
+            this.resourcesPushed = false;
+        }
     }
 }
