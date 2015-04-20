@@ -1,6 +1,7 @@
 package com.bitarcher.aeFun.geometry;
 
 
+import com.bitarcher.aeFun.interfaces.geometry.IPosition;
 import com.bitarcher.aeFun.interfaces.geometry.IVector;
 
 /*
@@ -20,6 +21,16 @@ public class Vector implements IVector {
         this.y = y;
     }
 
+    public Vector(IPosition position) {
+        this.x = position.getX();
+        this.y = position.getY();
+    }
+
+    @Override
+    public IVector getNeg() {
+        return new Vector(-this.x, -this.y);
+    }
+
     @Override
     public float getX() {
         return x;
@@ -29,6 +40,8 @@ public class Vector implements IVector {
     public float getY() {
         return y;
     }
+
+
 
     @Override
     public float getNorm() {

@@ -143,9 +143,12 @@ public abstract class CompositeMeshesBase extends Entity {
         Pipeline pipeline = this.getNewPipeline();
 
         IPositionAndSizeOwner transformedPositionAndSize = this.getTransformedPositionAndSize(pipeline, centerX, centerY, width, height);
+        float tw = transformedPositionAndSize.getSize().getWidth();
+        float th = transformedPositionAndSize.getSize().getHeight();
+        float length = (float)Math.sqrt(tw * tw + th * th);
 
         DiskOrXGon retval = new DiskOrXGon(transformedPositionAndSize.getPosition().getX(), transformedPositionAndSize.getPosition().getY(),
-                transformedPositionAndSize.getSize().getWidth(), transformedPositionAndSize.getSize().getHeight(),
+                length, length,
                 numOfFanSectors, this.vertexBufferObjectManager);
 
         retval.setColor(meshColor);

@@ -6,6 +6,7 @@ package com.bitarcher.aeFun.geometry.pointsTransformation;
  * bitarcher.com
  */
 
+import com.bitarcher.aeFun.geometry.Point;
 import com.bitarcher.aeFun.geometry.Vector;
 import com.bitarcher.aeFun.interfaces.geometry.IPoint;
 import com.bitarcher.aeFun.interfaces.geometry.IVector;
@@ -19,6 +20,8 @@ public class RotationFunction implements IPointToPointFunction {
     float radianAngle;
     double cosAngle;
     double sinAngle;
+    IVector centerPointPlusVector;
+    IVector centerPointMinusVector;
 
     public IPoint getCenterPoint() {
         return centerPoint;
@@ -33,22 +36,31 @@ public class RotationFunction implements IPointToPointFunction {
         this.radianAngle = radianAngle;
         this.cosAngle = Math.cos(radianAngle);
         this.sinAngle = Math.sin(radianAngle);
+        this.centerPointPlusVector = new Vector(centerPoint);
+        this.centerPointMinusVector = this.centerPointPlusVector.getNeg();
     }
 
     @Override
     public IPoint getYByX(IPoint xValue) {
-        // @see http://homeomath.imingo.net/rotation.htm
+        // @see http://fr.wikipedia.org/wiki/Rotation_plane
 
-        IVector v = xValue.substract(centerPoint);
 
-        double x = v.getX();
-        double y = v.getY();
+        IPoint tPoint = xValue.translate(this.centerPointMinusVector);
 
-        double xPrime = x * this.cosAngle - y * this.sinAngle;
-        double yPrime = y * this.cosAngle + y * this.sinAngle;
+        double x = tPoint.getX();
+        double y = tPoint.getY();
 
-        // TODO
+        double xPrime = x * this.cosAngle + y * this.sinAngle;
+        double yPrime = -x * this.sinAngle + y * this.cosAngle;
 
-        return null;
+
+        Point point = new Point((float)xPrime, (float)yPrime);
+
+
+        IPoint retval = point.translate(this.centerPointPlusVector);
+
+        //IPoint retval = point;
+
+        return retval;
     }
 }

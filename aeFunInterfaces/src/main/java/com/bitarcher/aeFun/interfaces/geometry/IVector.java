@@ -13,4 +13,6 @@ public interface IVector extends IPosition {
     IVector getNewVectorWithSameDirectionAndWuthTheFollowingNorm(float norm);
 
     float getNorm();
+
+    IVector getNeg();
 }

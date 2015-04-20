@@ -85,7 +85,7 @@ public class WindMillScene extends ManagedGameScene implements IWindStrength {
 
         //this.windStrength = 0;
         this.windStrength = (float)(Math.abs(Math.cos(this.totalElapsedTime / 30)));
-        // TODO
+        this.windMill.setWindStrength(this.windStrength);
 
 
 
