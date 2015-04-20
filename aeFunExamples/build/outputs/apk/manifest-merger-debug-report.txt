@@ -119,6 +119,19 @@ MERGED from Abc:AndEngine:unspecified:11:5
 MERGED from Abc:AndEngineSVGTextureRegionExtension:unspecified:11:5
 MERGED from Abc:AndEngine:unspecified:11:5
 MERGED from Abc.aeFun:aeFunDrawablesAnimatedMeshed:unspecified:16:5
+MERGED from Abc:AndEngine:unspecified:11:5
+MERGED from Abc.aeFun:aeFunInterfaces:unspecified:11:5
+MERGED from Abc:AndEngine:unspecified:11:5
+MERGED from Abc:AndEngineSVGTextureRegionExtension:unspecified:11:5
+MERGED from Abc:AndEngine:unspecified:11:5
+MERGED from Abc.aeFun:aeFunGeometry:unspecified:16:5
+MERGED from Abc.aeFun:aeFunInterfaces:unspecified:11:5
+MERGED from Abc:AndEngine:unspecified:11:5
+MERGED from Abc:AndEngineSVGTextureRegionExtension:unspecified:11:5
+MERGED from Abc:AndEngine:unspecified:11:5
+MERGED from Abc.aeFun:aeFunDrawablesCliparts:unspecified:16:5
+MERGED from com.android.support:appcompat-v7:21.0.3:16:5
+MERGED from com.android.support:support-v4:21.0.3:16:5
 	android:debuggable
 		ADDED from Abc:AndEngine:unspecified:11:18
 	android:label
@@ -251,6 +264,19 @@ MERGED from Abc:AndEngine:unspecified:7:5
 MERGED from Abc:AndEngineSVGTextureRegionExtension:unspecified:7:5
 MERGED from Abc:AndEngine:unspecified:7:5
 MERGED from Abc.aeFun:aeFunDrawablesAnimatedMeshed:unspecified:12:5
+MERGED from Abc:AndEngine:unspecified:7:5
+MERGED from Abc.aeFun:aeFunInterfaces:unspecified:7:5
+MERGED from Abc:AndEngine:unspecified:7:5
+MERGED from Abc:AndEngineSVGTextureRegionExtension:unspecified:7:5
+MERGED from Abc:AndEngine:unspecified:7:5
+MERGED from Abc.aeFun:aeFunGeometry:unspecified:12:5
+MERGED from Abc.aeFun:aeFunInterfaces:unspecified:7:5
+MERGED from Abc:AndEngine:unspecified:7:5
+MERGED from Abc:AndEngineSVGTextureRegionExtension:unspecified:7:5
+MERGED from Abc:AndEngine:unspecified:7:5
+MERGED from Abc.aeFun:aeFunDrawablesCliparts:unspecified:12:5
+MERGED from com.android.support:appcompat-v7:21.0.3:15:5
+MERGED from com.android.support:support-v4:21.0.3:15:5
 	android:targetSdkVersion
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0

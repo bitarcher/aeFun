@@ -1,0 +1,4 @@
+/architecture
+    /medieval
+        /door
+            wood_door_1.png : http://www.clipartpanda.com/clipart_images/free-lds-wooden-door-clipart-2163948
