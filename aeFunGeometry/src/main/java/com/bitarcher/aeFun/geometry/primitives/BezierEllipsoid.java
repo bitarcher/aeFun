@@ -1,12 +1,12 @@
 package com.bitarcher.aeFun.geometry.primitives;
 
 import com.bitarcher.aeFun.geometry.Point;
+import com.bitarcher.aeFun.geometry.primitives.Helpers.BezierEllipsoidHelper;
 import com.bitarcher.aeFun.interfaces.geometry.IPoint;
 
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.Entity;
 import org.andengine.entity.primitive.DrawMode;
-import org.andengine.entity.primitive.Line;
 import org.andengine.entity.primitive.Mesh;
 import org.andengine.opengl.util.GLState;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
@@ -37,7 +37,7 @@ public class BezierEllipsoid extends Entity {
         this.numOfAdditionalPointsBetweenPoints = numOfAdditionalPointsBetweenPoints;
         this.vertexBufferObjectManager = vertexBufferObjectManager;
 
-        BezierFilledEllipsoidHelper helper = new BezierFilledEllipsoidHelper(new Point(0, 0) /* not used */, points, numOfAdditionalPointsBetweenPoints);
+        BezierEllipsoidHelper helper = new BezierEllipsoidHelper(new Point(0, 0) /* not used */, points, numOfAdditionalPointsBetweenPoints);
         float[] fanPoints = helper.computeBufferDataForLineLoop();
 
         int vertexCount = fanPoints.length / 3;

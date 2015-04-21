@@ -1,4 +1,4 @@
-package com.bitarcher.aeFun.geometry.primitives;
+package com.bitarcher.aeFun.geometry.primitives.Helpers;
 
 /*
  * Copyright (c) 2015.
@@ -16,12 +16,12 @@ import org.andengine.util.adt.list.SmartList;
 /**
  * Created by michel on 17/04/15.
  */
-public class BezierFilledEllipsoidHelper {
+public class BezierEllipsoidHelper {
     IPoint ellipsoidTriangleFanCenter;
     SmartList<IPoint> points;
     int numOfAdditionnalPointsBetweenPoints;
 
-    public BezierFilledEllipsoidHelper(IPoint ellipsoidTriangleFanCenter, SmartList<IPoint> points, int numOfAdditionnalPointsBetweenPoints) {
+    public BezierEllipsoidHelper(IPoint ellipsoidTriangleFanCenter, SmartList<IPoint> points, int numOfAdditionnalPointsBetweenPoints) {
         this.ellipsoidTriangleFanCenter = ellipsoidTriangleFanCenter;
         this.points = points;
         this.numOfAdditionnalPointsBetweenPoints = numOfAdditionnalPointsBetweenPoints;
