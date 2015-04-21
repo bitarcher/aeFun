@@ -1,12 +1,10 @@
-package com.bitarcher.aeFun.geometry.primitives.Helpers;
+package com.bitarcher.aeFun.geometry.primitives.helpers;
 
 /*
  * Copyright (c) 2015.
  * Michel Strasser
  * bitarcher.com
  */
-
-import android.util.Log;
 
 import com.bitarcher.aeFun.geometry.Point;
 import com.bitarcher.aeFun.interfaces.geometry.IPoint;
@@ -68,7 +66,7 @@ public class BezierEllipsoidHelper {
 
         int i = 0;
 
-        int allPointsSize = allPoints.size();
+        //int allPointsSize = allPoints.size();
 
         for(IPoint point : allPoints)
         {

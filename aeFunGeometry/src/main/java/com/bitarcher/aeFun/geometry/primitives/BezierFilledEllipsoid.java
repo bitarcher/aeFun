@@ -6,7 +6,7 @@ package com.bitarcher.aeFun.geometry.primitives;
  * bitarcher.com
  */
 
-import com.bitarcher.aeFun.geometry.primitives.Helpers.BezierEllipsoidHelper;
+import com.bitarcher.aeFun.geometry.primitives.helpers.BezierEllipsoidHelper;
 import com.bitarcher.aeFun.interfaces.geometry.IPoint;
 
 import org.andengine.entity.Entity;

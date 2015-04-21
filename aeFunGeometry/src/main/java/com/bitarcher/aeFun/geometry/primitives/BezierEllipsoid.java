@@ -1,7 +1,7 @@
 package com.bitarcher.aeFun.geometry.primitives;
 
 import com.bitarcher.aeFun.geometry.Point;
-import com.bitarcher.aeFun.geometry.primitives.Helpers.BezierEllipsoidHelper;
+import com.bitarcher.aeFun.geometry.primitives.helpers.BezierEllipsoidHelper;
 import com.bitarcher.aeFun.interfaces.geometry.IPoint;
 
 import org.andengine.engine.camera.Camera;

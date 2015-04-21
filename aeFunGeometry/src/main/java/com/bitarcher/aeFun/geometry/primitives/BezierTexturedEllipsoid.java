@@ -1,14 +1,14 @@
 package com.bitarcher.aeFun.geometry.primitives;
 
-import com.bitarcher.aeFun.geometry.primitives.Helpers.BezierEllipsoidHelper;
+import com.bitarcher.aeFun.geometry.primitives.helpers.BezierEllipsoidHelper;
 import com.bitarcher.aeFun.geometry.primitives.nazgees.TexturedMesh;
 import com.bitarcher.aeFun.interfaces.geometry.IPoint;
 
 import org.andengine.entity.Entity;
 import org.andengine.entity.primitive.DrawMode;
 
+import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
-import org.andengine.util.adt.color.Color;
 import org.andengine.util.adt.list.SmartList;
 
 /*
@@ -26,11 +26,12 @@ public class BezierTexturedEllipsoid extends Entity {
     SmartList<IPoint> points;
     int numOfAdditionalPointsBetweenPoints;
     VertexBufferObjectManager vertexBufferObjectManager;
-    //eu.nazgee.sunflower.primitives.
     TexturedMesh texturedMesh;
+    ITextureRegion textureRegion;
 
-    public BezierTexturedEllipsoid(float pX, float pY, IPoint ellipsoidTriangleFanCenter, SmartList<IPoint> points, int numOfAdditionalPointsBetweenPoints, VertexBufferObjectManager vertexBufferObjectManager) {
+    public BezierTexturedEllipsoid(float pX, float pY, IPoint ellipsoidTriangleFanCenter, SmartList<IPoint> points, int numOfAdditionalPointsBetweenPoints, VertexBufferObjectManager vertexBufferObjectManager, ITextureRegion textureRegion) {
         super(pX, pY);
+        this.textureRegion = textureRegion;
         this.ellipsoidTriangleFanCenter = ellipsoidTriangleFanCenter;
         this.points = points;
         this.numOfAdditionalPointsBetweenPoints = numOfAdditionalPointsBetweenPoints;
@@ -41,7 +42,8 @@ public class BezierTexturedEllipsoid extends Entity {
 
         int vertexCount = fanPoints.length / 3;
 
-        //this.texturedMesh = new TexturedMesh(0, 0, fanPoints, vertexCount, DrawMode.TRIANGLE_FAN, vertexBufferObjectManager);
-        //this.attachChild(this.texturedMesh);
+        this.texturedMesh = new TexturedMesh(0, 0, fanPoints, vertexCount, DrawMode.TRIANGLE_FAN, textureRegion, vertexBufferObjectManager);
+        this.attachChild(this.texturedMesh);
     }
 }
+
