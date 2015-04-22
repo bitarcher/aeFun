@@ -16,6 +16,9 @@ import com.bitarcher.aeFun.geometry.pointsTransformation.SizeAdapterFunction;
 import com.bitarcher.aeFun.geometry.primitives.BezierEllipsoid;
 import com.bitarcher.aeFun.geometry.primitives.BezierFilledEllipsoid;
 import com.bitarcher.aeFun.geometry.primitives.DiskOrXGon;
+import com.bitarcher.aeFun.geometry.primitives.helpers.OneColumnMeshedRectangleHelper;
+import com.bitarcher.aeFun.geometry.primitives.helpers.TexturedMeshHelper;
+import com.bitarcher.aeFun.geometry.primitives.nazgees.TexturedMesh;
 import com.bitarcher.aeFun.interfaces.geometry.IPoint;
 import com.bitarcher.aeFun.interfaces.geometry.IPositionAndSizeOwner;
 import com.bitarcher.aeFun.interfaces.geometry.ISize;
@@ -100,6 +103,54 @@ public abstract class CompositeMeshesBase extends Entity implements IResourceReq
 
         retval = new Mesh(0, 0, transformedPoints, transformedPoints.length / 3, DrawMode.TRIANGLE_STRIP, this.vertexBufferObjectManager);
         retval.setColor(meshColor);
+
+        return retval;
+    }
+
+    /*
+    protected TexturedMesh getNewTexturedMesh(ITextureRegion textureRegion, List<IPoint> twoDPaperCoordinates) {
+
+        return this.getNewTexturedMesh(this.getNewPipeline(), textureRegion, twoDPaperCoordinates);
+    }
+
+
+
+    protected TexturedMesh getNewTexturedMesh(Pipeline pipeline, ITextureRegion textureRegion, List<IPoint> twoDPaperCoordinates)
+    {
+        TexturedMesh retval =null;
+
+        float[] transformedPoints = pipeline.applyAndGet2VfPoints(twoDPaperCoordinates);
+
+        retval = new TexturedMesh(0, 0, transformedPoints, transformedPoints.length / 3, DrawMode.TRIANGLE_STRIP, textureRegion, this.vertexBufferObjectManager);
+
+        return retval;
+    }
+    */
+
+    protected TexturedMesh getNewOneColumnTextureMeshed(ITextureRegion textureRegion, float x, float y, float width, float height, int numOfTriangles)
+    {
+        OneColumnMeshedRectangleHelper helper = new OneColumnMeshedRectangleHelper(x, y, width, height);
+
+        Pipeline pipeline = this.getNewPipeline();
+
+        List<IPoint> notTransformedVertices = helper.getTrianglesModePoints(numOfTriangles);
+        SmartList<IPoint> transformedList = pipeline.applyOnList(notTransformedVertices);
+
+        float[] verticesPoints = new float[transformedList.size() * 2];
+
+        int i = 0;
+        for(IPoint point : transformedList)
+        {
+            verticesPoints[i] = point.getX();
+            i++;
+            verticesPoints[i] = point.getY();
+            i++;
+        }
+
+        TexturedMeshHelper texturedMeshHelper = new TexturedMeshHelper();
+        float[] data = texturedMeshHelper.getMeshBufferDataFromVertices(verticesPoints);
+
+        TexturedMesh retval = new TexturedMesh(0, 0, data, verticesPoints.length / 2, DrawMode.TRIANGLES, textureRegion, vertexBufferObjectManager);
 
         return retval;
     }

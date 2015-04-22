@@ -55,7 +55,13 @@ public class HighPerformanceTexturedMeshVertexBufferObject extends HighPerforman
 		final float packedColor = pMesh.getColor().getABGRPackedFloat();
 
 		for(int i = 0; i < this.mVertexCount; i++) {
-			bufferData[(i * TexturedMesh.VERTEX_SIZE) + TexturedMesh.COLOR_INDEX] = packedColor;
+            try {
+			    bufferData[(i * TexturedMesh.VERTEX_SIZE) + TexturedMesh.COLOR_INDEX] = packedColor;
+            }
+            catch(ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException)
+            {
+
+            }
 		}
 
 		this.setDirtyOnHardware();
@@ -85,24 +91,30 @@ public class HighPerformanceTexturedMeshVertexBufferObject extends HighPerforman
 		float y0 = 0; // pMesh.getY0();
 
 		for (int i = 0; i < this.mVertexCount; i++) {
-			float x = bufferData[(i * TexturedMesh.VERTEX_SIZE)
-					+ TexturedMesh.VERTEX_INDEX_X];
-			float y = bufferData[(i * TexturedMesh.VERTEX_SIZE)
-					+ TexturedMesh.VERTEX_INDEX_Y];
+            try {
+                float x = bufferData[(i * TexturedMesh.VERTEX_SIZE)
+                        + TexturedMesh.VERTEX_INDEX_X];
+                float y = bufferData[(i * TexturedMesh.VERTEX_SIZE)
+                        + TexturedMesh.VERTEX_INDEX_Y];
 
-			float u = (x - x0) / textureWidth;
-			float v = (y - y0) / textureHeight;
+                float u = (x - x0) / textureWidth;
+                float v = (y - y0) / textureHeight;
 
-			Debug.d("u = " + u);
-			Debug.d("v = " + v);
+                Debug.d("u = " + u);
+                Debug.d("v = " + v);
 
-			Debug.d("x = " + x);
-			Debug.d("y = " + y);
+                Debug.d("x = " + x);
+                Debug.d("y = " + y);
 
-			bufferData[(i * TexturedMesh.VERTEX_SIZE)
-					+ TexturedMesh.TEXTURECOORDINATES_INDEX_U] = u;
-			bufferData[(i * TexturedMesh.VERTEX_SIZE)
-					+ TexturedMesh.TEXTURECOORDINATES_INDEX_V] = v;
+                bufferData[(i * TexturedMesh.VERTEX_SIZE)
+                        + TexturedMesh.TEXTURECOORDINATES_INDEX_U] = u;
+                bufferData[(i * TexturedMesh.VERTEX_SIZE)
+                        + TexturedMesh.TEXTURECOORDINATES_INDEX_V] = v;
+            }
+            catch(ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException)
+            {
+
+            }
 		}
 
 		Debug.d("v ---");

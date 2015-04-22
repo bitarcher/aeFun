@@ -44,7 +44,7 @@ public class Trees {
         this.nature = nature;
 
 
-        this.bitmapTexturesSetFromAssetResourceInfo = new BitmapTexturesSetFromAssetResourceInfo("aeFun/drawables/cliparts/nature/tree", 128, 512, BitmapTextureFormat.RGBA_4444, TextureOptions.DEFAULT, "nature/tree");
+        this.bitmapTexturesSetFromAssetResourceInfo = new BitmapTexturesSetFromAssetResourceInfo("aeFun/drawables/cliparts/nature/tree", 128, 512, BitmapTextureFormat.RGBA_4444, TextureOptions.DEFAULT, "nature/tree/");
 
         this.treeOneTexture = new OneAssetBitmapTexture[this.numOfDoors];
         this.treeMvcImageTuple = new MvcImageTuple[this.numOfDoors];

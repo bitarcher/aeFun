@@ -41,6 +41,26 @@ public class Pipeline extends TPipeline<IPoint> implements IPipeline {
     }
 
     @Override
+    public float[] applyAndGet2VfPoints(List<IPoint> inputPoints)
+    {
+        float UNUSED = 0;
+        float[] retval = new float[inputPoints.size() * 2];
+
+        int index = 0;
+
+        for(IPoint point : inputPoints)
+        {
+            IPoint transformedPoint = this.getYByX(point);
+
+            retval[index] = transformedPoint.getX();
+            retval[index + 1] = transformedPoint.getY();
+            index+=2;
+        }
+
+        return retval;
+    }
+
+    @Override
     public SmartList<IPoint> applyOnList(List<IPoint> inputPoints) {
         SmartList<IPoint> retval = new SmartList<>();
 

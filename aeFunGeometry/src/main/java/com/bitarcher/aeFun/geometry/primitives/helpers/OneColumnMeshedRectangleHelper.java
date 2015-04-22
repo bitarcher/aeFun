@@ -6,8 +6,13 @@ package com.bitarcher.aeFun.geometry.primitives.helpers;
  * bitarcher.com
  */
 
+import com.bitarcher.aeFun.geometry.Point;
 import com.bitarcher.aeFun.geometry.PositionAndSizeOwner;
+import com.bitarcher.aeFun.interfaces.geometry.IPoint;
 import com.bitarcher.aeFun.interfaces.geometry.IPositionAndSizeOwner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by michel on 21/04/15.
@@ -27,56 +32,129 @@ public class OneColumnMeshedRectangleHelper {
         this(new PositionAndSizeOwner(x, y, width, height));
     }
 
-    public float[] getBufferData(int numOfTriangles)
+    public float[] getBufferDataForTriangleStripMode(int numOfTriangles)
     {
+        List<IPoint> points = this.getTriangleStripModePoints(numOfTriangles);
+        float[] retval = new float[points.size() * 3];
+
         float UNUSED = 0;
+        int i = 0;
+        for(IPoint point : points)
+        {
+            retval[i] = point.getX();
+            i++;
+            retval[i] = point.getY();
+            i++;
+            retval[i] = UNUSED;
+            i++;
+        }
+
+        return retval;
+    }
+
+    public float[] getVerticesBufferData2VForTrianglesMode(int numOfTriangles)
+    {
+        List<IPoint> points = this.getTrianglesModePoints(numOfTriangles);
+        float[] retval = new float[points.size() * 2];
+
+        float UNUSED = 0;
+        int i = 0;
+        for(IPoint point : points)
+        {
+            retval[i] = point.getX();
+            i++;
+            retval[i] = point.getY();
+            i++;
+        }
+
+        return retval;
+    }
+
+    public List<IPoint> getTriangleStripModePoints(int numOfTriangles)
+    {
         int numOfVertices = this.getNumOfVertices(numOfTriangles);
         int numOfLines = numOfVertices / 2;
-        int numOfRows = numOfLines - 2;
-        float[] retval = new float[numOfVertices * 3];
+        int numOfRows = numOfLines - 1;
+        ArrayList<IPoint> retval = new ArrayList<>();
 
 
         float w2 = this.positionAndSizeOwner.getSize().getWidth() / 2;
         float h2 = this.positionAndSizeOwner.getSize().getHeight() / 2;
         float startX = this.positionAndSizeOwner.getPosition().getX() - w2;
         float endX = this.positionAndSizeOwner.getPosition().getX() + w2;
-        float startY = this.positionAndSizeOwner.getPosition().getX() - h2;
-        float endY = this.positionAndSizeOwner.getPosition().getX() + h2;
+        float startY = this.positionAndSizeOwner.getPosition().getY() - h2;
+        //float endY = this.positionAndSizeOwner.getPosition().getY() + h2;  // not used
 
         float yIncrement = this.getPositionAndSizeOwner().getSize().getHeight() / numOfRows;
 
         // first two points have special order
 
-        // p0
-        retval[0] = startX;
-        retval[1] = startY;
-        retval[2] = UNUSED;
-
-        // p1
-        retval[3] = endX;
-        retval[4] = startY;
-        retval[5] = UNUSED;
+        retval.add(new Point(startX, startY));
+        retval.add(new Point(endX, startY));
 
 
         float currentY = startY + yIncrement;
 
-        for(int i = 6; i < retval.length ; i+=6)
+        for(int i = 2; i < numOfVertices ; i+=2)
         {
             // right
-            retval[i] = endX;
-            retval[i+1] = currentY;
-            retval[i+2] = UNUSED;
+            retval.add(new Point(endX, currentY));
 
             // left
-            retval[i+3] = startX;
-            retval[i+4] = currentY;
-            retval[i+5] = UNUSED;
+            retval.add(new Point(startX, currentY));
 
             currentY += yIncrement;
         }
 
         return retval;
     }
+
+
+    public List<IPoint> getTrianglesModePoints(int numOfTriangles)
+    {
+        int numOfVertices = this.getNumOfVertices(numOfTriangles);
+        int numOfLines = numOfVertices / 2;
+        int numOfRows = numOfLines - 1;
+        ArrayList<IPoint> retval = new ArrayList<>();
+
+
+        float w2 = this.positionAndSizeOwner.getSize().getWidth() / 2;
+        float h2 = this.positionAndSizeOwner.getSize().getHeight() / 2;
+        float startX = this.positionAndSizeOwner.getPosition().getX() - w2;
+        float endX = this.positionAndSizeOwner.getPosition().getX() + w2;
+        float startY = this.positionAndSizeOwner.getPosition().getY() - h2;
+        //float endY = this.positionAndSizeOwner.getPosition().getY() + h2;  // not used
+
+        float yIncrement = this.getPositionAndSizeOwner().getSize().getHeight() / numOfRows;
+
+
+        float currentY = startY;
+
+        for(int i = 0; i < numOfRows ; i++)
+        {
+            float nextY = currentY + yIncrement;
+
+            Point p0 = new Point(startX, currentY);
+            Point p1 = new Point(endX, currentY);
+            Point p2 = new Point(endX, nextY);
+            Point p3 = new Point(startX, nextY);
+
+            // triangle bottom right
+            retval.add(p0);
+            retval.add(p1);
+            retval.add(p2);
+
+            // triangle top left
+            retval.add(p0);
+            retval.add(p2);
+            retval.add(p3);
+
+            currentY = nextY;
+        }
+
+        return retval;
+    }
+
 
     public int getNumOfVertices(int numOfTriangles)
     {

@@ -7,6 +7,7 @@ package com.bitarcher.aeFun.drawables.cliparts;
  */
 
 import com.bitarcher.aeFun.drawables.cliparts.ArchitectureF.Architecture;
+import com.bitarcher.aeFun.drawables.cliparts.NatureF.Nature;
 
 import org.andengine.opengl.texture.TextureManager;
 
@@ -33,5 +34,17 @@ public class ResourceInfosSingleton {
         }
 
         return this.architecture;
+    }
+
+    Nature nature;
+
+    public Nature getNature()
+    {
+        if(this.nature == null)
+        {
+            this.nature = new Nature();
+        }
+
+        return this.nature;
     }
 }
