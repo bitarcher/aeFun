@@ -95,7 +95,7 @@ public class WindElasticTreeScene extends ManagedGameScene {
         this.totalElapsedTime += pSecondsElapsed;
 
         //this.windStrength = 0;
-        this.windStrength = (float)(Math.abs(Math.cos(Math.cos(this.totalElapsedTime) * Math.PI)));
+        this.windStrength = (float)(Math.abs(Math.cos(Math.cos(this.totalElapsedTime) * Math.PI))) / 3;
         this.windElasticTree1.setWindStrength(this.windStrength);
         this.windElasticTree2.setWindStrength(this.windStrength);
 

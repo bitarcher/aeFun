@@ -1,5 +1,6 @@
 package com.bitarcher.aeFun.drawables.animatedMeshed;
 
+import com.bitarcher.aeFun.colors.GradientMaker;
 import com.bitarcher.aeFun.drawables.animatedMeshed.Tools.WindElasticCompositeMeshes;
 import com.bitarcher.aeFun.geometry.Point;
 import com.bitarcher.aeFun.geometry.Size;
@@ -124,6 +125,11 @@ public class WindElasticTree2 extends WindElasticCompositeMeshes {
         this.attachChild(this.rootMesh);
 
         this.stagesMesh = new Mesh[(this.numOfStages - 1) * 2];
+        float colorDistanceIncrement = 1f / (this.numOfStages - 1);
+        float currentColorDistance = 0;
+
+        GradientMaker leftGradientMaker = new GradientMaker(this.leftColor, this.topColor);
+        GradientMaker rightGradientMaker = new GradientMaker(this.rightColor, this.topColor);
 
         float currentY = 3;
         // last stage is for the top
@@ -142,7 +148,7 @@ public class WindElasticTree2 extends WindElasticCompositeMeshes {
             stageUpLeftPointsList.add(p2);
             stageUpLeftPointsList.add(p3);
 
-            Color stageUpLeftColor = this.leftColor;
+            Color stageUpLeftColor = leftGradientMaker.getColor(currentColorDistance);
             Mesh stageUpLeftMesh = this.getNewMesh(stageUpLeftColor, stageUpLeftPointsList, DrawMode.TRIANGLES);
             this.attachChild(stageUpLeftMesh);
             this.stagesMesh[i * 2] = stageUpLeftMesh;
@@ -152,13 +158,14 @@ public class WindElasticTree2 extends WindElasticCompositeMeshes {
             stageDownRightPointsList.add(p1);
             stageDownRightPointsList.add(p2);
 
-            Color stageDownRightColor = this.rightColor;
+            Color stageDownRightColor = rightGradientMaker.getColor(currentColorDistance);
             Mesh stageDownRightMesh = this.getNewMesh(stageDownRightColor, stageDownRightPointsList, DrawMode.TRIANGLES);
             this.attachChild(stageDownRightMesh);
             this.stagesMesh[i * 2 + 1] = stageDownRightMesh;
 
 
             currentY = nextY;
+            currentColorDistance += colorDistanceIncrement;
         }
 
         Point p0 = new Point(this.outerLeftFiber(currentY), currentY);
