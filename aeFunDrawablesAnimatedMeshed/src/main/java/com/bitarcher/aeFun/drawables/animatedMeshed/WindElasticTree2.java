@@ -3,11 +3,13 @@ package com.bitarcher.aeFun.drawables.animatedMeshed;
 import com.bitarcher.aeFun.drawables.animatedMeshed.Tools.WindElasticCompositeMeshes;
 import com.bitarcher.aeFun.geometry.Point;
 import com.bitarcher.aeFun.geometry.Size;
+import com.bitarcher.aeFun.geometry.pointsTransformation.Pipeline;
 import com.bitarcher.aeFun.geometry.primitives.BezierEllipsoid;
 import com.bitarcher.aeFun.geometry.primitives.BezierFilledEllipsoid;
 import com.bitarcher.aeFun.interfaces.geometry.EnumSide;
 import com.bitarcher.aeFun.interfaces.geometry.IPoint;
 
+import org.andengine.entity.primitive.DrawMode;
 import org.andengine.entity.primitive.Mesh;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.adt.color.Color;
@@ -22,18 +24,24 @@ import java.util.ArrayList;
 
 /**
  * Created by michel on 17/04/15.
+ * similar to a fir
  */
 public class WindElasticTree2 extends WindElasticCompositeMeshes {
 
-    Color rootColor = new Color(0.475f, 0.322f, 0.153f);
-    Color leftColor = new Color(0.525f, 0.498f, 0.153f);
-    Color rightColor = new Color(0.425f, 0.398f, 0.143f);
-    Color topColor = new Color(0.5f, 0.8f, 0.4f);
+    Color rootColor;
+    Color leftColor;
+    Color rightColor;
+    Color topColor;
+    int numOfStages;
+    float yIncrement;
+    Mesh[] stagesMesh;
 
     Mesh rootMesh;
-    BezierFilledEllipsoid leavesAMesh;
-    BezierEllipsoid leavesABorder;
-    BezierFilledEllipsoid leavesBMesh;
+    Mesh topMesh;
+
+    public int getNumOfStages() {
+        return numOfStages;
+    }
 
     public Color getRootColor() {
         return rootColor;
@@ -52,23 +60,36 @@ public class WindElasticTree2 extends WindElasticCompositeMeshes {
         return rightColor;
     }
 
-    public WindElasticTree2(float pX, float pY, float pWidth, float pHeight, VertexBufferObjectManager vertexBufferObjectManager, float windStrength, EnumSide windSide, Color rootColor, Color leftColor, Color rightColor, Color topColor) {
-        super(pX, pY, pWidth, pHeight, vertexBufferObjectManager, new Size(21, 54), windStrength, windSide);
+    public WindElasticTree2(float pX, float pY, float pWidth, float pHeight, VertexBufferObjectManager vertexBufferObjectManager, float windStrength, EnumSide windSide, Color rootColor, Color leftColor, Color rightColor, Color topColor, int numOfStages) {
+        super(pX, pY, pWidth, pHeight, vertexBufferObjectManager, new Size(20, 30), windStrength, windSide);
         this.rootColor = rootColor;
         this.leftColor = leftColor;
         this.rightColor = rightColor;
         this.topColor = topColor;
+        this.numOfStages = numOfStages;
+        this.stagesMesh = new Mesh[numOfStages * 2];
+
+        if(numOfStages < 2)
+        {
+            throw new IllegalArgumentException("numOfStages < 2");
+        }
+
+        this.yIncrement = 27 / (numOfStages + 1); // one more stages for the top
 
         this.computeMeshes();
     }
-
 
     public WindElasticTree2(float pX, float pY, float pWidth, float pHeight, VertexBufferObjectManager vertexBufferObjectManager) {
-        super(pX, pY, pWidth, pHeight, vertexBufferObjectManager, new Size(21, 54), 0, EnumSide.Right);
+        this(pX, pY, pWidth, pHeight, vertexBufferObjectManager, 0, EnumSide.Right,
+                new Color(0.475f, 0.322f, 0.153f),
+                new Color(0.525f, 0.498f, 0.153f),
+                new Color(0.425f, 0.398f, 0.143f),
+                new Color(0.5f, 0.8f, 0.4f),
+                8
+        );
 
         this.computeMeshes();
     }
-
 
     @Override
     protected void computeMeshes()
@@ -79,80 +100,107 @@ public class WindElasticTree2 extends WindElasticCompositeMeshes {
             this.rootMesh = null;
         }
 
-        if(this.leavesAMesh != null)
+        if(this.topMesh != null)
         {
-            this.detachChild(this.leavesAMesh);
-            this.leavesAMesh = null;
+            this.detachChild(this.topMesh);
+            this.topMesh = null;
         }
 
-        if(this.leavesBMesh != null)
+        for(int i = 0 ; i < this.stagesMesh.length ; i++)
         {
-            this.detachChild(this.leavesBMesh);
-            this.leavesBMesh = null;
-        }
-
-        if(this.leavesABorder != null)
-        {
-            this.detachChild(this.leavesABorder);
-            this.leavesABorder = null;
+            this.detachChild(this.stagesMesh[i]);
+            this.stagesMesh[i] = null;
         }
 
         ArrayList<IPoint> rootPoints = new ArrayList<>();
 
-        rootPoints.add(new Point(13, 0));
-        rootPoints.add(new Point(8, 0));
-        rootPoints.add(new Point(12, 16));
-        rootPoints.add(new Point(8, 16));
+        rootPoints.add(new Point(9, 0));
+        rootPoints.add(new Point(11, 0));
+
+        rootPoints.add(new Point(9, 3));
+        rootPoints.add(new Point(11, 3));
 
         this.rootMesh = this.getNewMesh(this.rootColor, rootPoints);
         this.attachChild(this.rootMesh);
 
-        ArrayList<IPoint> leavesAPoints = new ArrayList<>();
+        this.stagesMesh = new Mesh[(this.numOfStages - 1) * 2];
 
-        leavesAPoints.add(new Point(8, 16));  // p1
-        leavesAPoints.add(new Point(2, 21));  // p3
-        leavesAPoints.add(new Point(0, 34)); // P5
-        leavesAPoints.add(new Point(3, 47)); // p7
-        leavesAPoints.add(new Point(9, 54));  // p8
-        leavesAPoints.add(new Point(15, 55)); //p6
-        leavesAPoints.add(new Point(20, 49));   // p4
-        leavesAPoints.add(new Point(21, 38)); // p2
-        leavesAPoints.add(new Point(20, 31));
-        leavesAPoints.add(new Point(16, 25));
-        leavesAPoints.add(new Point(12, 14)); //p0
-        leavesAPoints.add(new Point(10, 15));
+        float currentY = 3;
+        // last stage is for the top
+        for(int i = 0; i < (this.numOfStages - 1); i++)
+        {
+            float nextY = currentY + this.yIncrement;
 
-        Point designCenterPoint = new Point(10, 30);
+            Point p0 = new Point(this.outerLeftFiber(currentY), currentY);
+            Point p1 = new Point(this.outerRightFiber(currentY), currentY);
 
-        this.leavesAMesh = this.getBezierFilledEllipsoid(this.leftColor, leavesAPoints, designCenterPoint, 25);
-        this.attachChild(this.leavesAMesh);
+            Point p2 = new Point(this.innerRightFiber(nextY), nextY);
+            Point p3 = new Point(this.innerLeftFiber(nextY), nextY);
 
-        this.leavesABorder = this.getNewBezierEllipsoid(this.rightColor, leavesAPoints, 25);
-        this.attachChild(this.leavesABorder);
+            ArrayList<IPoint> stageUpLeftPointsList = new ArrayList<>();
+            stageUpLeftPointsList.add(p0);
+            stageUpLeftPointsList.add(p2);
+            stageUpLeftPointsList.add(p3);
 
-        float lineWidth = (float)(Math.sqrt(this.getWidth() * this.getHeight()) / 25.0);
-        this.leavesABorder.setLineWidth(5);
+            Color stageUpLeftColor = this.leftColor;
+            Mesh stageUpLeftMesh = this.getNewMesh(stageUpLeftColor, stageUpLeftPointsList, DrawMode.TRIANGLES);
+            this.attachChild(stageUpLeftMesh);
+            this.stagesMesh[i * 2] = stageUpLeftMesh;
+
+            ArrayList<IPoint> stageDownRightPointsList = new ArrayList<>();
+            stageDownRightPointsList.add(p0);
+            stageDownRightPointsList.add(p1);
+            stageDownRightPointsList.add(p2);
+
+            Color stageDownRightColor = this.rightColor;
+            Mesh stageDownRightMesh = this.getNewMesh(stageDownRightColor, stageDownRightPointsList, DrawMode.TRIANGLES);
+            this.attachChild(stageDownRightMesh);
+            this.stagesMesh[i * 2 + 1] = stageDownRightMesh;
 
 
-        ArrayList<IPoint> leavesBPoints = new ArrayList<>();
+            currentY = nextY;
+        }
 
-        leavesBPoints.add(new Point(11, 18));
-        leavesBPoints.add(new Point(10, 20));
-        leavesBPoints.add(new Point(9.5f, 26));
-        leavesBPoints.add(new Point(10, 30));
-        leavesBPoints.add(new Point(11, 32));
-        leavesBPoints.add(new Point(12, 42));
-        leavesBPoints.add(new Point(13, 45));
-        leavesBPoints.add(new Point(14, 47));
-        leavesBPoints.add(new Point(15, 48));
-        leavesBPoints.add(new Point(18, 46));
-        leavesBPoints.add(new Point(19, 38));
-        leavesBPoints.add(new Point(18, 34));
-        leavesBPoints.add(new Point(16, 28));
-        leavesBPoints.add(new Point(13, 21));
-        leavesBPoints.add(new Point(12, 19));
+        Point p0 = new Point(this.outerLeftFiber(currentY), currentY);
+        Point p1 = new Point(this.outerRightFiber(currentY), currentY);
 
-        this.leavesBMesh = this.getBezierFilledEllipsoid(this.topColor, leavesBPoints, new Point(13, 34), 20);
-        this.attachChild(this.leavesBMesh);
+        Point p2 = new Point(10, 30);
+
+        // top
+        ArrayList<IPoint> topPointsList = new ArrayList<>();
+        topPointsList.add(p0);
+        topPointsList.add(p1);
+        topPointsList.add(p2);
+
+
+        this.topMesh = this.getNewMesh(this.topColor, topPointsList, DrawMode.TRIANGLES);
+        this.attachChild(this.topMesh);
     }
+
+    float outerLeftFiber(float y)
+    {
+        // y = 3x + 3  => x = (y - 3) / 3 = y/ 3 - 1
+
+        return y / 3 - 1;
+    }
+
+    float innerLeftFiber(float y)
+    {
+        // y = 4x - 12 => x = (y + 12) / 4 = y / 4 + 3
+        return y / 4 + 3;
+    }
+
+    float innerRightFiber(float y)
+    {
+        // y = -4x + 68 => y - 68 = -4x => -y + 68 = 4x => x = -y / 4 + 17
+        return - y / 4 + 17;
+    }
+
+    float outerRightFiber(float y)
+    {
+        // y = -3x + 63 =>  y - 63 = -3x => x = -y/3 + 21
+        return -y/3 + 21;
+    }
+
 }
+

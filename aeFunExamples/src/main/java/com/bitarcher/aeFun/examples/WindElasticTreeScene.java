@@ -1,11 +1,7 @@
 package com.bitarcher.aeFun.examples;
 
-import com.bitarcher.aeFun.drawables.animatedMeshed.TexturedWindElasticTree;
-import com.bitarcher.aeFun.drawables.animatedMeshed.Tools.WindElasticCompositeMeshes;
 import com.bitarcher.aeFun.drawables.animatedMeshed.WindElasticTree1;
-import com.bitarcher.aeFun.geometry.primitives.CheckSymbol;
-import com.bitarcher.aeFun.geometry.primitives.DiskOrXGon;
-import com.bitarcher.aeFun.interfaces.geometry.EnumSide;
+import com.bitarcher.aeFun.drawables.animatedMeshed.WindElasticTree2;
 import com.bitarcher.aeFun.interfaces.gui.andEngine.IScene;
 import com.bitarcher.aeFun.interfaces.gui.theme.EnumFontSize;
 import com.bitarcher.aeFun.interfaces.gui.theme.ITheme;
@@ -16,10 +12,8 @@ import com.bitarcher.aeFun.widgetToolkit.widget.Label;
 
 import org.andengine.engine.camera.Camera;
 import org.andengine.entity.scene.background.Background;
-import org.andengine.entity.text.Text;
 import org.andengine.opengl.font.Font;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
-import org.andengine.util.adt.color.Color;
 
 /*
  * Copyright (c) 2015.
@@ -30,7 +24,8 @@ import org.andengine.util.adt.color.Color;
 public class WindElasticTreeScene extends ManagedGameScene {
 
     BannerCtrl bannerCtrl;
-    WindElasticTree1 treeA;
+    WindElasticTree1 windElasticTree1;
+    WindElasticTree2 windElasticTree2;
     //TexturedWindElasticTree treeB;
     float windStrength = 0;
     Label windStrengthLabel;
@@ -77,11 +72,13 @@ public class WindElasticTreeScene extends ManagedGameScene {
 
         Font textFont = theme.getFontThemeSection().getFont(EnumFontSize.Medium);
 
-        this.treeA = new WindElasticTree1(150, 150, 200, 300, vertexBufferObjectManager);
-        //this.treeA.setWindSide(EnumSide.Left);
-        this.attachChild(treeA);
+        this.windElasticTree1 = new WindElasticTree1(150, 150, 200, 300, vertexBufferObjectManager);
+        //this.windElasticTree1.setWindSide(EnumSide.Left);
+        this.attachChild(windElasticTree1);
 
 
+        this.windElasticTree2 = new WindElasticTree2(300, 150, 200, 300, vertexBufferObjectManager);
+        this.attachChild(this.windElasticTree2);
 
         //this.treeB = new TexturedWindElasticTree(resourceManager, 450, 150, 200, 300, 0, EnumSide.Right, 1);
         //this.attachChild(this.treeB);
@@ -98,8 +95,9 @@ public class WindElasticTreeScene extends ManagedGameScene {
         this.totalElapsedTime += pSecondsElapsed;
 
         //this.windStrength = 0;
-        this.windStrength = (float)(Math.abs(Math.cos(this.totalElapsedTime)));
-        this.treeA.setWindStrength(this.windStrength);
+        this.windStrength = (float)(Math.abs(Math.cos(Math.cos(this.totalElapsedTime) * Math.PI)));
+        this.windElasticTree1.setWindStrength(this.windStrength);
+        this.windElasticTree2.setWindStrength(this.windStrength);
 
         //this.treeB.setWindStrength(this.windStrength);
 

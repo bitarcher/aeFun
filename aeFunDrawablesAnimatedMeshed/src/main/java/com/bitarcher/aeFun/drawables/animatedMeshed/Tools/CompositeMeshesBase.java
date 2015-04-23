@@ -88,6 +88,20 @@ public abstract class CompositeMeshesBase extends Entity implements IResourceReq
     }
 
 
+
+    protected Mesh getNewMesh(Color meshColor, List<IPoint> twoDPaperCoordinates, DrawMode drawMode)
+    {
+        Mesh retval =null;
+
+        Pipeline pipeline = this.getNewPipeline();
+        float[] transformedPoints = pipeline.applyAndGet3VfPoints(twoDPaperCoordinates);
+
+        retval = new Mesh(0, 0, transformedPoints, transformedPoints.length / 3, drawMode, this.vertexBufferObjectManager);
+        retval.setColor(meshColor);
+
+        return retval;
+    }
+
     /**
      *
      * @param meshColor
@@ -96,15 +110,7 @@ public abstract class CompositeMeshesBase extends Entity implements IResourceReq
      */
     protected Mesh getNewMesh(Color meshColor, List<IPoint> twoDPaperCoordinates)
     {
-        Mesh retval =null;
-
-        Pipeline pipeline = this.getNewPipeline();
-        float[] transformedPoints = pipeline.applyAndGet3VfPoints(twoDPaperCoordinates);
-
-        retval = new Mesh(0, 0, transformedPoints, transformedPoints.length / 3, DrawMode.TRIANGLE_STRIP, this.vertexBufferObjectManager);
-        retval.setColor(meshColor);
-
-        return retval;
+        return this.getNewMesh(meshColor, twoDPaperCoordinates, DrawMode.TRIANGLE_STRIP);
     }
 
     /*
