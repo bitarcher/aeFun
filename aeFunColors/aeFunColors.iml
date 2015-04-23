@@ -3,7 +3,7 @@
   <component name="FacetManager">
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
-        <option name="GRADLE_PROJECT_PATH" value=":aeFun:aeFunDrawablesAnimatedMeshed" />
+        <option name="GRADLE_PROJECT_PATH" value=":aeFun:aeFunColors" />
       </configuration>
     </facet>
     <facet type="android" name="Android">
@@ -86,13 +86,9 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 21 Platform (1)" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="annotations-12.0" level="project" />
+    <orderEntry type="library" exported="" name="appcompat-v7-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
-    <orderEntry type="module" module-name="aeFunInterfaces" exported="" />
-    <orderEntry type="module" module-name="aeFunGeometry" exported="" />
-    <orderEntry type="module" module-name="AndEngine" exported="" />
-    <orderEntry type="module" module-name="aeFunDrawablesCliparts" exported="" />
-    <orderEntry type="module" module-name="aeFunColors" exported="" />
+    <orderEntry type="library" exported="" name="support-v4-21.0.3" level="project" />
   </component>
 </module>
 
