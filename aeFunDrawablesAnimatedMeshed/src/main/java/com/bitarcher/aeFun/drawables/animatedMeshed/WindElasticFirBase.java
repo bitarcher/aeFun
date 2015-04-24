@@ -4,9 +4,6 @@ import com.bitarcher.aeFun.colors.GradientMaker;
 import com.bitarcher.aeFun.drawables.animatedMeshed.Tools.WindElasticCompositeMeshes;
 import com.bitarcher.aeFun.geometry.Point;
 import com.bitarcher.aeFun.geometry.Size;
-import com.bitarcher.aeFun.geometry.pointsTransformation.Pipeline;
-import com.bitarcher.aeFun.geometry.primitives.BezierEllipsoid;
-import com.bitarcher.aeFun.geometry.primitives.BezierFilledEllipsoid;
 import com.bitarcher.aeFun.interfaces.geometry.EnumSide;
 import com.bitarcher.aeFun.interfaces.geometry.IPoint;
 
@@ -27,7 +24,7 @@ import java.util.ArrayList;
  * Created by michel on 17/04/15.
  * similar to a fir
  */
-public class WindElasticTree2 extends WindElasticCompositeMeshes {
+public abstract class WindElasticFirBase extends WindElasticCompositeMeshes {
 
     Color rootColor;
     Color leftColor;
@@ -35,7 +32,7 @@ public class WindElasticTree2 extends WindElasticCompositeMeshes {
     Color topColor;
     int numOfStages;
     float yIncrement;
-    Mesh[] stagesMesh;
+    ArrayList<Mesh> stagesMeshArrayList;
 
     Mesh rootMesh;
     Mesh topMesh;
@@ -61,14 +58,14 @@ public class WindElasticTree2 extends WindElasticCompositeMeshes {
         return rightColor;
     }
 
-    public WindElasticTree2(float pX, float pY, float pWidth, float pHeight, VertexBufferObjectManager vertexBufferObjectManager, float windStrength, EnumSide windSide, Color rootColor, Color leftColor, Color rightColor, Color topColor, int numOfStages) {
+    public WindElasticFirBase(float pX, float pY, float pWidth, float pHeight, VertexBufferObjectManager vertexBufferObjectManager, float windStrength, EnumSide windSide, Color rootColor, Color leftColor, Color rightColor, Color topColor, int numOfStages) {
         super(pX, pY, pWidth, pHeight, vertexBufferObjectManager, new Size(20, 30), windStrength, windSide);
         this.rootColor = rootColor;
         this.leftColor = leftColor;
         this.rightColor = rightColor;
         this.topColor = topColor;
         this.numOfStages = numOfStages;
-        this.stagesMesh = new Mesh[numOfStages * 2];
+        this.stagesMeshArrayList = new ArrayList<>();
 
         if(numOfStages < 2)
         {
@@ -80,7 +77,7 @@ public class WindElasticTree2 extends WindElasticCompositeMeshes {
         this.computeMeshes();
     }
 
-    public WindElasticTree2(float pX, float pY, float pWidth, float pHeight, VertexBufferObjectManager vertexBufferObjectManager) {
+    public WindElasticFirBase(float pX, float pY, float pWidth, float pHeight, VertexBufferObjectManager vertexBufferObjectManager) {
         this(pX, pY, pWidth, pHeight, vertexBufferObjectManager, 0, EnumSide.Right,
                 new Color(0.475f, 0.322f, 0.153f),
                 new Color(0.525f, 0.498f, 0.153f),
@@ -90,6 +87,16 @@ public class WindElasticTree2 extends WindElasticCompositeMeshes {
         );
 
         this.computeMeshes();
+    }
+
+    protected void customiseLeftAndRightMesh(Mesh leftMesh, Mesh righMesh)
+    {
+
+    }
+
+    protected void customiseTopMesh(Mesh topMesh)
+    {
+
     }
 
     @Override
@@ -107,24 +114,20 @@ public class WindElasticTree2 extends WindElasticCompositeMeshes {
             this.topMesh = null;
         }
 
-        for(int i = 0 ; i < this.stagesMesh.length ; i++)
+        for(Mesh stagesMesh : this.stagesMeshArrayList)
         {
-            this.detachChild(this.stagesMesh[i]);
-            this.stagesMesh[i] = null;
+            this.detachChild(stagesMesh);
         }
 
-        ArrayList<IPoint> rootPoints = new ArrayList<>();
+        this.stagesMeshArrayList.clear();
 
-        rootPoints.add(new Point(9, 0));
-        rootPoints.add(new Point(11, 0));
 
-        rootPoints.add(new Point(9, 3));
-        rootPoints.add(new Point(11, 3));
+
+        ArrayList<IPoint>  rootPoints = this.getRootPoints();
 
         this.rootMesh = this.getNewMesh(this.rootColor, rootPoints);
         this.attachChild(this.rootMesh);
 
-        this.stagesMesh = new Mesh[(this.numOfStages - 1) * 2];
         float colorDistanceIncrement = 1f / (this.numOfStages - 1);
         float currentColorDistance = 0;
 
@@ -151,7 +154,7 @@ public class WindElasticTree2 extends WindElasticCompositeMeshes {
             Color stageUpLeftColor = leftGradientMaker.getColor(currentColorDistance);
             Mesh stageUpLeftMesh = this.getNewMesh(stageUpLeftColor, stageUpLeftPointsList, DrawMode.TRIANGLES);
             this.attachChild(stageUpLeftMesh);
-            this.stagesMesh[i * 2] = stageUpLeftMesh;
+            this.stagesMeshArrayList.add(stageUpLeftMesh);
 
             ArrayList<IPoint> stageDownRightPointsList = new ArrayList<>();
             stageDownRightPointsList.add(p0);
@@ -161,7 +164,10 @@ public class WindElasticTree2 extends WindElasticCompositeMeshes {
             Color stageDownRightColor = rightGradientMaker.getColor(currentColorDistance);
             Mesh stageDownRightMesh = this.getNewMesh(stageDownRightColor, stageDownRightPointsList, DrawMode.TRIANGLES);
             this.attachChild(stageDownRightMesh);
-            this.stagesMesh[i * 2 + 1] = stageDownRightMesh;
+            this.stagesMeshArrayList.add(stageDownRightMesh);
+
+            this.customiseLeftAndRightMesh(stageUpLeftMesh, stageDownRightMesh);
+            this.addAdditionalStagesMesh(stageUpLeftColor, stageDownRightColor, nextY, currentY, p0, p1, p2, p3);
 
 
             currentY = nextY;
@@ -182,28 +188,36 @@ public class WindElasticTree2 extends WindElasticCompositeMeshes {
 
         this.topMesh = this.getNewMesh(this.topColor, topPointsList, DrawMode.TRIANGLES);
         this.attachChild(this.topMesh);
+
+        this.customiseTopMesh(this.topMesh);
     }
 
-    float outerLeftFiber(float y)
+    protected void addAdditionalStagesMesh(Color stageUpLeftColor, Color stageDownRightColor, float nextY, float currentY, IPoint p0, IPoint p1, IPoint p2, IPoint p3)
+    {
+    }
+
+    protected abstract ArrayList<IPoint> getRootPoints();
+
+    protected float outerLeftFiber(float y)
     {
         // y = 3x + 3  => x = (y - 3) / 3 = y/ 3 - 1
 
         return y / 3 - 1;
     }
 
-    float innerLeftFiber(float y)
+    protected float innerLeftFiber(float y)
     {
         // y = 4x - 12 => x = (y + 12) / 4 = y / 4 + 3
         return y / 4 + 3;
     }
 
-    float innerRightFiber(float y)
+    protected float innerRightFiber(float y)
     {
         // y = -4x + 68 => y - 68 = -4x => -y + 68 = 4x => x = -y / 4 + 17
         return - y / 4 + 17;
     }
 
-    float outerRightFiber(float y)
+    protected float outerRightFiber(float y)
     {
         // y = -3x + 63 =>  y - 63 = -3x => x = -y/3 + 21
         return -y/3 + 21;

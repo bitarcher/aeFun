@@ -1,7 +1,9 @@
 package com.bitarcher.aeFun.examples;
 
+import com.bitarcher.aeFun.drawables.animatedMeshed.WindElasticFirBase;
+import com.bitarcher.aeFun.drawables.animatedMeshed.WindElasticFirFast;
+import com.bitarcher.aeFun.drawables.animatedMeshed.WindElasticFirPretty;
 import com.bitarcher.aeFun.drawables.animatedMeshed.WindElasticTree1;
-import com.bitarcher.aeFun.drawables.animatedMeshed.WindElasticTree2;
 import com.bitarcher.aeFun.interfaces.gui.andEngine.IScene;
 import com.bitarcher.aeFun.interfaces.gui.theme.EnumFontSize;
 import com.bitarcher.aeFun.interfaces.gui.theme.ITheme;
@@ -25,7 +27,8 @@ public class WindElasticTreeScene extends ManagedGameScene {
 
     BannerCtrl bannerCtrl;
     WindElasticTree1 windElasticTree1;
-    WindElasticTree2 windElasticTree2;
+    WindElasticFirFast windElasticTree2;
+    WindElasticFirPretty windElasticTree3;
     //TexturedWindElasticTree treeB;
     float windStrength = 0;
     Label windStrengthLabel;
@@ -77,8 +80,11 @@ public class WindElasticTreeScene extends ManagedGameScene {
         this.attachChild(windElasticTree1);
 
 
-        this.windElasticTree2 = new WindElasticTree2(300, 150, 200, 300, vertexBufferObjectManager);
+        this.windElasticTree2 = new WindElasticFirFast(300, 150, 200, 300, vertexBufferObjectManager);
         this.attachChild(this.windElasticTree2);
+
+        this.windElasticTree3 = new WindElasticFirPretty(450, 150, 200, 300, vertexBufferObjectManager);
+        this.attachChild(this.windElasticTree3);
 
         //this.treeB = new TexturedWindElasticTree(resourceManager, 450, 150, 200, 300, 0, EnumSide.Right, 1);
         //this.attachChild(this.treeB);
@@ -98,6 +104,7 @@ public class WindElasticTreeScene extends ManagedGameScene {
         this.windStrength = (float)(Math.abs(Math.cos(Math.cos(this.totalElapsedTime) * Math.PI))) / 3;
         this.windElasticTree1.setWindStrength(this.windStrength);
         this.windElasticTree2.setWindStrength(this.windStrength);
+        this.windElasticTree3.setWindStrength(this.windStrength);
 
         //this.treeB.setWindStrength(this.windStrength);
 
