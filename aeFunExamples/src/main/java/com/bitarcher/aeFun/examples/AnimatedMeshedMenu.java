@@ -26,6 +26,7 @@ public class AnimatedMeshedMenu extends ManagedMenuScene implements IManagedMenu
     TextButton windTree1Button;
     TextButton windMillButton;
     TextButton housesButton;
+    TextButton flowersButton;
 
 	public AnimatedMeshedMenu(ITSceneManager sceneManager) {
         super(sceneManager);
@@ -96,6 +97,15 @@ public class AnimatedMeshedMenu extends ManagedMenuScene implements IManagedMenu
             @Override
             public void onClicked(IButton button) {
                 animatedMeshedMenu.getSceneManager().showScene(new HousesScene(animatedMeshedMenu.getSceneManager()));
+            }
+        });
+
+        this.flowersButton = new TextButton(this.getSceneManager().getTheme(), 0, 0, 10, 10, "Flowers");
+        this.table.attachChild(this.flowersButton);
+        this.flowersButton.addButtonListener(new IButtonListener() {
+            @Override
+            public void onClicked(IButton button) {
+                animatedMeshedMenu.getSceneManager().showScene(new FlowersScene(animatedMeshedMenu.getSceneManager()));
             }
         });
 

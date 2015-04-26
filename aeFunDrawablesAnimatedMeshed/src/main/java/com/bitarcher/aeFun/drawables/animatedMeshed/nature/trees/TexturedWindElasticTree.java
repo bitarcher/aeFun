@@ -1,4 +1,4 @@
-package com.bitarcher.aeFun.drawables.animatedMeshed.trees;
+package com.bitarcher.aeFun.drawables.animatedMeshed.nature.trees;
 
 import com.bitarcher.aeFun.drawables.animatedMeshed.tools.WindElasticCompositeMeshes;
 import com.bitarcher.aeFun.drawables.cliparts.ResourceInfosSingleton;

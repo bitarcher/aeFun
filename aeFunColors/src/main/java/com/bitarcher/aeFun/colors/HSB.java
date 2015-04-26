@@ -21,6 +21,13 @@ public class HSB implements IHSB {
     }
 
     public void setHue(float hue) {
+
+        if(hue > 1)
+            hue = 1;
+
+        if(hue < 0)
+            hue = 0;
+
         this.hue = hue;
     }
 
@@ -28,7 +35,13 @@ public class HSB implements IHSB {
         return saturation;
     }
 
-    public void setSaturation(float saturation) {
+    public void setSaturation(float saturation)
+    {
+        if(saturation > 1)
+            saturation = 1;
+
+        if(saturation < 0)
+            saturation = 0;
         this.saturation = saturation;
     }
 
@@ -37,6 +50,13 @@ public class HSB implements IHSB {
     }
 
     public void setBrightness(float brightness) {
+
+        if(brightness > 1)
+            brightness = 1;
+
+        if(brightness < 0)
+            brightness = 0;
+
         this.brightness = brightness;
     }
 
@@ -47,5 +67,12 @@ public class HSB implements IHSB {
     }
 
     public HSB() {
+    }
+
+    public HSB(IHSB hsb)
+    {
+        this.hue = hsb.getHue();
+        this.saturation = hsb.getSaturation();
+        this.brightness = hsb.getBrightness();
     }
 }

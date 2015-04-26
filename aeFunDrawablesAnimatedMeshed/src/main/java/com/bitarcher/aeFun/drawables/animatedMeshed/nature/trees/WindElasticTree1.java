@@ -1,4 +1,4 @@
-package com.bitarcher.aeFun.drawables.animatedMeshed.trees;
+package com.bitarcher.aeFun.drawables.animatedMeshed.nature.trees;
 
 /*
  * Copyright (c) 2015.
