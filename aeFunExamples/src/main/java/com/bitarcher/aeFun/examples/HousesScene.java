@@ -2,6 +2,7 @@ package com.bitarcher.aeFun.examples;
 
 import com.bitarcher.aeFun.drawables.animatedMeshed.architecture.medieval.houses.TimberedHouse0;
 import com.bitarcher.aeFun.drawables.animatedMeshed.architecture.medieval.houses.TimberedHouse1;
+import com.bitarcher.aeFun.drawables.animatedMeshed.architecture.medieval.houses.TimberedHouse2;
 import com.bitarcher.aeFun.interfaces.gui.andEngine.IScene;
 import com.bitarcher.aeFun.interfaces.gui.theme.ITheme;
 import com.bitarcher.aeFun.interfaces.resourcemanagement.IResourceManager;
@@ -25,6 +26,7 @@ public class HousesScene extends ManagedGameScene{
 
     TimberedHouse0 timberedHouse0;
     TimberedHouse1 timberedHouse1;
+    TimberedHouse2 timberedHouse2;
 
 	public HousesScene(ITSceneManager sceneManager) {
         super(sceneManager, 0); // no loading screen
@@ -70,6 +72,9 @@ public class HousesScene extends ManagedGameScene{
 
         this.timberedHouse1 = new TimberedHouse1(resourceManager, 300, 100, 200, 200,  Color.YELLOW);
         this.attachChild(this.timberedHouse1);
+
+        this.timberedHouse2 = new TimberedHouse2(resourceManager, 600, 100, 400, 200,  Color.YELLOW);
+        this.attachChild(this.timberedHouse2);
     }
 
     @Override
