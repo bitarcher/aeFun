@@ -1,4 +1,4 @@
-package com.bitarcher.aeFun.drawables.animatedMeshed;
+package com.bitarcher.aeFun.drawables.animatedMeshed.trees;
 
 /*
  * Copyright (c) 2015.
@@ -7,7 +7,7 @@ package com.bitarcher.aeFun.drawables.animatedMeshed;
  */
 
 
-import com.bitarcher.aeFun.drawables.animatedMeshed.Tools.WindElasticCompositeMeshes;
+import com.bitarcher.aeFun.drawables.animatedMeshed.tools.WindElasticCompositeMeshes;
 import com.bitarcher.aeFun.geometry.Point;
 import com.bitarcher.aeFun.geometry.Size;
 import com.bitarcher.aeFun.geometry.primitives.BezierEllipsoid;

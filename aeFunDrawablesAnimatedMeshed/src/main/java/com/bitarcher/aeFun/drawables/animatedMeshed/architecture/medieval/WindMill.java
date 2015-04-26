@@ -1,4 +1,4 @@
-package com.bitarcher.aeFun.drawables.animatedMeshed;
+package com.bitarcher.aeFun.drawables.animatedMeshed.architecture.medieval;
 
 /*
  * Copyright (c) 2015.
@@ -6,8 +6,8 @@ package com.bitarcher.aeFun.drawables.animatedMeshed;
  * bitarcher.com
  */
 
-import com.bitarcher.aeFun.drawables.animatedMeshed.Tools.CompositeMeshesBase;
-import com.bitarcher.aeFun.drawables.animatedMeshed.Tools.WindMillPales;
+import com.bitarcher.aeFun.drawables.animatedMeshed.tools.CompositeMeshesBase;
+import com.bitarcher.aeFun.drawables.animatedMeshed.tools.WindMillPales;
 import com.bitarcher.aeFun.geometry.Point;
 import com.bitarcher.aeFun.geometry.Size;
 import com.bitarcher.aeFun.interfaces.drawables.animatedMeshed.IWindStrength;
@@ -111,11 +111,13 @@ public class WindMill extends CompositeMeshesBase implements IWindStrength, IRes
 
         this.unloadSprites();
 
+        /*
+        // redondant
         if(this.doorLayer != null)
         {
             this.detachChild(this.doorLayer);
             this.doorLayer = null;
-        }
+        }*/
 
         this.stones = this.getNewGradient(this.stonesGradientColor1, this.stonesGradientColor2, 10, 9, 20, 18, 1, 0);
         this.attachChild(this.stones);

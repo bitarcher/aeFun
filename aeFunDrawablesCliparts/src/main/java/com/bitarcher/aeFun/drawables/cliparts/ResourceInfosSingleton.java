@@ -6,10 +6,8 @@ package com.bitarcher.aeFun.drawables.cliparts;
  * bitarcher.com
  */
 
-import com.bitarcher.aeFun.drawables.cliparts.ArchitectureF.Architecture;
-import com.bitarcher.aeFun.drawables.cliparts.NatureF.Nature;
-
-import org.andengine.opengl.texture.TextureManager;
+import com.bitarcher.aeFun.drawables.cliparts.architecture.Architecture;
+import com.bitarcher.aeFun.drawables.cliparts.nature.Nature;
 
 /**
  * Created by michel on 20/04/15.

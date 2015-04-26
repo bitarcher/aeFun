@@ -25,6 +25,7 @@ public class AnimatedMeshedMenu extends ManagedMenuScene implements IManagedMenu
     BannerCtrl bannerCtrl;
     TextButton windTree1Button;
     TextButton windMillButton;
+    TextButton housesButton;
 
 	public AnimatedMeshedMenu(ITSceneManager sceneManager) {
         super(sceneManager);
@@ -70,7 +71,7 @@ public class AnimatedMeshedMenu extends ManagedMenuScene implements IManagedMenu
         this.bannerCtrl = new BannerCtrl(theme, camera.getWidth() / 2,  camera.getHeight() / 6, camera.getWidth(), camera.getHeight() / 3, "Widget gallery");
         this.table.attachChild(this.bannerCtrl, 0, 0, 2, 1); // two columns span
 
-        this.windTree1Button = new TextButton(this.getSceneManager().getTheme(), 0, 0, 10, 10, "Wind elastic tree 1");
+        this.windTree1Button = new TextButton(this.getSceneManager().getTheme(), 0, 0, 10, 10, "Wind elastic trees");
         this.table.attachChild(this.windTree1Button);
         this.windTree1Button.addButtonListener(new IButtonListener() {
             @Override
@@ -89,7 +90,17 @@ public class AnimatedMeshedMenu extends ManagedMenuScene implements IManagedMenu
             }
         });
 
+        this.housesButton = new TextButton(this.getSceneManager().getTheme(), 0, 0, 10, 10, "Houses");
+        this.table.attachChild(this.housesButton);
+        this.housesButton.addButtonListener(new IButtonListener() {
+            @Override
+            public void onClicked(IButton button) {
+                animatedMeshedMenu.getSceneManager().showScene(new HousesScene(animatedMeshedMenu.getSceneManager()));
+            }
+        });
+
         this.attachChild(this.table);
+
     }
 
 

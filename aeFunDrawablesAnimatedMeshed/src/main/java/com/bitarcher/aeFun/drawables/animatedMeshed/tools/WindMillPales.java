@@ -1,4 +1,4 @@
-package com.bitarcher.aeFun.drawables.animatedMeshed.Tools;
+package com.bitarcher.aeFun.drawables.animatedMeshed.tools;
 
 /*
  * Copyright (c) 2015.
@@ -13,7 +13,6 @@ import com.bitarcher.aeFun.geometry.pointsTransformation.RotationFunction;
 import com.bitarcher.aeFun.geometry.primitives.DiskOrXGon;
 import com.bitarcher.aeFun.interfaces.drawables.animatedMeshed.IWindStrength;
 import com.bitarcher.aeFun.interfaces.geometry.IPoint;
-import com.bitarcher.aeFun.interfaces.geometry.ISize;
 
 import org.andengine.entity.primitive.Mesh;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;

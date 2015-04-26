@@ -1,7 +1,6 @@
 package com.bitarcher.aeFun.examples;
 
-import com.bitarcher.aeFun.drawables.animatedMeshed.WindElasticTree1;
-import com.bitarcher.aeFun.drawables.animatedMeshed.WindMill;
+import com.bitarcher.aeFun.drawables.animatedMeshed.architecture.medieval.WindMill;
 import com.bitarcher.aeFun.interfaces.drawables.animatedMeshed.IWindStrength;
 import com.bitarcher.aeFun.interfaces.gui.andEngine.IScene;
 import com.bitarcher.aeFun.interfaces.gui.theme.EnumFontSize;

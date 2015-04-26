@@ -1,0 +1,3 @@
+timbered0 : 0.747
+timbered1 : 0.994
+timbered2 : 1.739

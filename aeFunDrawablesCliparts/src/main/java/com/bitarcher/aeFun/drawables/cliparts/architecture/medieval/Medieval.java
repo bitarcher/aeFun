@@ -1,4 +1,4 @@
-package com.bitarcher.aeFun.drawables.cliparts.ArchitectureF.MedievalF;
+package com.bitarcher.aeFun.drawables.cliparts.architecture.medieval;
 
 /*
  * Copyright (c) 2015.
@@ -6,7 +6,8 @@ package com.bitarcher.aeFun.drawables.cliparts.ArchitectureF.MedievalF;
  * bitarcher.com
  */
 
-import com.bitarcher.aeFun.drawables.cliparts.ArchitectureF.Architecture;
+import com.bitarcher.aeFun.drawables.cliparts.architecture.Architecture;
+import com.bitarcher.aeFun.drawables.cliparts.architecture.medieval.houses.Houses;
 
 /**
  * Created by michel on 20/04/15.
@@ -15,6 +16,7 @@ public class Medieval {
 
     Architecture architecture;
     Doors doors;
+    Houses houses;
 
     public Doors getDoors() {
         if(this.doors == null)
@@ -23,6 +25,15 @@ public class Medieval {
         }
 
         return this.doors;
+    }
+
+    public Houses getHouses() {
+        if(this.houses == null)
+        {
+            this.houses = new Houses(this);
+        }
+
+        return this.houses;
     }
 
     public Architecture getArchitecture() {

@@ -1,6 +1,6 @@
-package com.bitarcher.aeFun.drawables.animatedMeshed;
+package com.bitarcher.aeFun.drawables.animatedMeshed.trees;
 
-import com.bitarcher.aeFun.drawables.animatedMeshed.Tools.WindElasticCompositeMeshes;
+import com.bitarcher.aeFun.drawables.animatedMeshed.tools.WindElasticCompositeMeshes;
 import com.bitarcher.aeFun.drawables.cliparts.ResourceInfosSingleton;
 import com.bitarcher.aeFun.geometry.Size;
 import com.bitarcher.aeFun.geometry.primitives.nazgees.TexturedMesh;
@@ -11,7 +11,6 @@ import com.bitarcher.aeFun.interfaces.resourcemanagement.IResourceManager;
 import com.bitarcher.aeFun.interfaces.resourcemanagement.ResourceInfo.IResourceInfo;
 
 import org.andengine.opengl.texture.region.ITextureRegion;
-import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 import java.util.ArrayList;
 import java.util.List;

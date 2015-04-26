@@ -1,4 +1,4 @@
-package com.bitarcher.aeFun.drawables.animatedMeshed.Tools;
+package com.bitarcher.aeFun.drawables.animatedMeshed.tools;
 
 /*
  * Copyright (c) 2015.

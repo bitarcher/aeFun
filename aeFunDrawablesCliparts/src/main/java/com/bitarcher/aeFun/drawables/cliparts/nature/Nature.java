@@ -1,4 +1,4 @@
-package com.bitarcher.aeFun.drawables.cliparts.NatureF;
+package com.bitarcher.aeFun.drawables.cliparts.nature;
 
 /*
  * Copyright (c) 2015.

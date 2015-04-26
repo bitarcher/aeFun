@@ -1,9 +1,8 @@
 package com.bitarcher.aeFun.examples;
 
-import com.bitarcher.aeFun.drawables.animatedMeshed.WindElasticFirBase;
-import com.bitarcher.aeFun.drawables.animatedMeshed.WindElasticFirFast;
-import com.bitarcher.aeFun.drawables.animatedMeshed.WindElasticFirPretty;
-import com.bitarcher.aeFun.drawables.animatedMeshed.WindElasticTree1;
+import com.bitarcher.aeFun.drawables.animatedMeshed.trees.WindElasticFirFast;
+import com.bitarcher.aeFun.drawables.animatedMeshed.trees.WindElasticFirPretty;
+import com.bitarcher.aeFun.drawables.animatedMeshed.trees.WindElasticTree1;
 import com.bitarcher.aeFun.interfaces.gui.andEngine.IScene;
 import com.bitarcher.aeFun.interfaces.gui.theme.EnumFontSize;
 import com.bitarcher.aeFun.interfaces.gui.theme.ITheme;

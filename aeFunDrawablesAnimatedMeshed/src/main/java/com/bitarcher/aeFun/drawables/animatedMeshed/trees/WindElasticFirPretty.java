@@ -1,4 +1,4 @@
-package com.bitarcher.aeFun.drawables.animatedMeshed;
+package com.bitarcher.aeFun.drawables.animatedMeshed.trees;
 
 import com.bitarcher.aeFun.colors.GradientMaker;
 import com.bitarcher.aeFun.geometry.Point;

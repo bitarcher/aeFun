@@ -1,4 +1,4 @@
-package com.bitarcher.aeFun.drawables.cliparts.ArchitectureF.MedievalF;
+package com.bitarcher.aeFun.drawables.cliparts.architecture.medieval;
 
 /*
  * Copyright (c) 2015.
@@ -6,7 +6,6 @@ package com.bitarcher.aeFun.drawables.cliparts.ArchitectureF.MedievalF;
  * bitarcher.com
  */
 
-import com.bitarcher.aeFun.drawables.cliparts.ArchitectureF.MedievalF.Medieval;
 import com.bitarcher.aeFun.interfaces.mvc.IImage;
 import com.bitarcher.aeFun.interfaces.mvc.MvcImageTuple;
 import com.bitarcher.aeFun.resourceManagement.ResourcesInfos.BitmapTexturesSetFromAssetResourceInfo;
@@ -48,7 +47,7 @@ public class Doors {
 
         for(int i = 0 ; i < this.numOfDoors ; i++) {
             String iStr = new Integer(i).toString();
-            this.woodDoorOneTexture[i] = new OneAssetBitmapTexture("1", "wood_door_" + iStr + ".png");
+            this.woodDoorOneTexture[i] = new OneAssetBitmapTexture(iStr, "wood_door_" + iStr + ".png");
             this.bitmapTexturesSetFromAssetResourceInfo.addOneTexture(this.woodDoorOneTexture[i]);
             this.woodDoorMvcImageTuple[i] = new MvcImageTuple(this.bitmapTexturesSetFromAssetResourceInfo, iStr, ratios[i]);
         }

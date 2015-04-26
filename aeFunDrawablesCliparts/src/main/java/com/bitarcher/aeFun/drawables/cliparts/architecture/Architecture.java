@@ -1,4 +1,4 @@
-package com.bitarcher.aeFun.drawables.cliparts.ArchitectureF;
+package com.bitarcher.aeFun.drawables.cliparts.architecture;
 
 /*
  * Copyright (c) 2015.
@@ -6,9 +6,7 @@ package com.bitarcher.aeFun.drawables.cliparts.ArchitectureF;
  * bitarcher.com
  */
 
-import com.bitarcher.aeFun.drawables.cliparts.ArchitectureF.MedievalF.Medieval;
-
-import org.andengine.opengl.texture.TextureManager;
+import com.bitarcher.aeFun.drawables.cliparts.architecture.medieval.Medieval;
 
 /**
  * Created by michel on 20/04/15.
