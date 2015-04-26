@@ -38,13 +38,18 @@ public class WindMill extends CompositeMeshesBase implements IWindStrength, IRes
     Color stonesGradientColor1 = new Color(0.9f, 0.85f, 0.8f);
     Color stonesGradientColor2 = new Color(0.7f, 0.7f, 0.7f);
     Color roofColor = new Color(0.95f, 0.4f, 0.45f);
-    Color bladesColor = new Color(0.804f, 0.522f, 0.247f); // peru beige
+    //Color bladesColor = new Color(0.804f, 0.522f, 0.247f); // peru beige
     Gradient stones;
     Mesh roof;
-    WindMillPales pales;
+    Entity palesSpriteLayers;
+    Sprite palesSprite;
+    //WindMillPales pales;
     int woodDoorNum;
     Entity doorLayer;
     Sprite doorSprite;
+    Entity stoneSpriteLayer;
+    Sprite stoneSprite;
+    float angle = 0;
 
     public int getWoodDoorNum() {
         return woodDoorNum;
@@ -66,14 +71,13 @@ public class WindMill extends CompositeMeshesBase implements IWindStrength, IRes
         this.woodDoorNum = woodDoorNum;
     }
 
-    public WindMill(IResourceManager resourceManager, float pX, float pY, float pWidth, float pHeight, Color stonesGradientColor1, Color stonesGradientColor2, Color roofColor, Color bladesColor, int woodDoorNum) {
+    public WindMill(IResourceManager resourceManager, float pX, float pY, float pWidth, float pHeight, Color stonesGradientColor1, Color stonesGradientColor2, Color roofColor, int woodDoorNum) {
         super(pX, pY, pWidth, pHeight, resourceManager.getEngine().getVertexBufferObjectManager(), new Size(20, 25));
         this.resourceManager = resourceManager;
 
         this.stonesGradientColor1 = stonesGradientColor1;
         this.stonesGradientColor2 = stonesGradientColor2;
         this.roofColor = roofColor;
-        this.bladesColor = bladesColor;
 
         this.setRoofPaperCoords();
         this.computeStableMeshes();
@@ -103,11 +107,6 @@ public class WindMill extends CompositeMeshesBase implements IWindStrength, IRes
             this.roof = null;
         }
 
-        if(this.pales != null)
-        {
-            this.detachChild(this.pales);
-            this.pales = null;
-        }
 
         this.unloadSprites();
 
@@ -122,6 +121,9 @@ public class WindMill extends CompositeMeshesBase implements IWindStrength, IRes
         this.stones = this.getNewGradient(this.stonesGradientColor1, this.stonesGradientColor2, 10, 9, 20, 18, 1, 0);
         this.attachChild(this.stones);
 
+        this.stoneSpriteLayer = new Entity();
+        this.attachChild(this.stoneSpriteLayer);
+
         this.roof = this.getNewMesh(this.roofColor, this.roofPaperCoords);
         this.attachChild(this.roof);
 
@@ -134,31 +136,29 @@ public class WindMill extends CompositeMeshesBase implements IWindStrength, IRes
             this.loadSprites();
         }
 
-        this.pales = new WindMillPales(palePositionAndSize.getPosition().getX(),
+        this.palesSpriteLayers = new Entity();
+        this.attachChild(this.palesSpriteLayers);
+
+        /*this.pales = new WindMillPales(palePositionAndSize.getPosition().getX(),
                 palePositionAndSize.getPosition().getY(),
                 palePositionAndSize.getSize().getWidth(),
                 palePositionAndSize.getSize().getHeight(),
                 this.vertexBufferObjectManager,
                 this.bladesColor);
 
-        this.attachChild(this.pales);
+        this.attachChild(this.pales);*/
     }
 
     @Override
     public float getWindStrength()
     {
-        return this.pales != null?this.pales.getWindStrength():this.windStrength;
+        return this.windStrength;
     }
 
     @Override
     public void setWindStrength(float windStrength) {
 
         this.windStrength = windStrength;
-
-        if(this.pales != null)
-        {
-            this.pales.setWindStrength(windStrength);
-        }
     }
 
     void onSizeChanged()
@@ -205,13 +205,28 @@ public class WindMill extends CompositeMeshesBase implements IWindStrength, IRes
         return retval;
     }
 
+    IImage getStoneImage()
+    {
+        IImage retval = com.bitarcher.aeFun.drawables.cliparts.ResourceInfosSingleton.getInstance().getArchitecture().getMedieval().getArchitecture().getMedieval().getWalls().getWall(0);
+
+        return retval;
+    }
+
+    IImage getPalesImage()
+    {
+        IImage retval = com.bitarcher.aeFun.drawables.cliparts.ResourceInfosSingleton.getInstance().getArchitecture().getMedieval().getArchitecture().getMedieval().getWindMillFan();
+
+        return retval;
+    }
+
 
     @Override
     public List<IResourceInfo> getResourceInfoList() {
         ArrayList<IResourceInfo> retval = new ArrayList<>();
 
-        IImage doorImage = this.getDoorImage();
-        retval.add(doorImage.getTextureSetResourceInfo());
+        retval.add(this.getDoorImage().getTextureSetResourceInfo());
+        retval.add(this.getStoneImage().getTextureSetResourceInfo());
+        retval.add(this.getPalesImage().getTextureSetResourceInfo());
 
         return retval;
     }
@@ -226,6 +241,26 @@ public class WindMill extends CompositeMeshesBase implements IWindStrength, IRes
         }
 
         this.doorSprite = null;
+
+        if(this.stoneSpriteLayer != null)
+        {
+            if(this.stoneSprite != null)
+            {
+                this.stoneSpriteLayer.detachChild(this.stoneSprite);
+            }
+        }
+
+        this.stoneSprite = null;
+
+        if(this.palesSpriteLayers != null)
+        {
+            if(this.palesSprite != null)
+            {
+                this.palesSpriteLayers.detachChild(this.palesSprite);
+            }
+        }
+
+        this.palesSprite = null;
     }
 
     void loadSprites()
@@ -234,6 +269,19 @@ public class WindMill extends CompositeMeshesBase implements IWindStrength, IRes
         {
             this.doorSprite = this.getNewSprite(this.resourceManager, this.getDoorImage(), true, 10, 4, 8, 6);
             this.doorLayer.attachChild(this.doorSprite);
+        }
+
+        if(this.stoneSpriteLayer != null)
+        {
+            this.stoneSprite = this.getNewSprite(this.resourceManager, this.getStoneImage(), false, 10, 9, 20, 18);
+            this.stoneSpriteLayer.attachChild(this.stoneSprite);
+            this.stoneSprite.setAlpha(0.8f);
+        }
+
+        if(this.palesSpriteLayers != null)
+        {
+            this.palesSprite = this.getNewSprite(this.resourceManager, this.getPalesImage(), false, 10, 17, 26, 26);
+            this.palesSpriteLayers.attachChild(this.palesSprite);
         }
     }
 
@@ -250,4 +298,16 @@ public class WindMill extends CompositeMeshesBase implements IWindStrength, IRes
 
         super.onDetached();
     }
+
+    @Override
+    protected void onManagedUpdate(float pSecondsElapsed) {
+        super.onManagedUpdate(pSecondsElapsed);
+
+        this.angle += - pSecondsElapsed * this.windStrength * 30;
+
+
+        this.palesSprite.setRotation(this.angle);
+    }
+
+
 }
