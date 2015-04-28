@@ -12,6 +12,7 @@ import com.bitarcher.aeFun.sceneManagement.ManagedGameScene;
 import com.bitarcher.aeFun.widgetToolkit.widget.Label;
 
 import org.andengine.engine.camera.Camera;
+import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.background.Background;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.adt.color.Color;
@@ -61,7 +62,7 @@ public class FlowersScene extends ManagedGameScene{
 	@Override
     public void onLoadScene() {
         this.setBackgroundEnabled(true);
-        this.setBackground(new Background(1, 1, 1));
+        this.setBackground(new Background(0.3f, 1, 0.3f));
 
         ITheme theme = this.getSceneManager().getTheme();
         IResourceManager resourceManager = theme.getThemeManager().getResourceManager();

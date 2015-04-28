@@ -28,7 +28,7 @@ import java.util.ArrayList;
 /**
  * Created by michel on 17/04/15.
  */
-public class WindElasticFlowerBase extends WindElasticCompositeMeshes {
+public abstract class WindElasticFlowerBase extends WindElasticCompositeMeshes {
 
     Color stemColor;
     Color colorRight;
@@ -57,7 +57,7 @@ public class WindElasticFlowerBase extends WindElasticCompositeMeshes {
         hsbLeft.setBrightness(stemHsb.getBrightness() + 0.1f);
         this.colorLeft = colorSpaces.HSB_to_Color(hsbLeft);
 
-        this.computeMeshes();
+
     }
 
 
