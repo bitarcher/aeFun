@@ -4,6 +4,7 @@ import com.bitarcher.aeFun.drawables.animatedMeshed.architecture.medieval.houses
 import com.bitarcher.aeFun.drawables.animatedMeshed.architecture.medieval.houses.TimberedHouse1;
 import com.bitarcher.aeFun.drawables.animatedMeshed.architecture.medieval.houses.TimberedHouse2;
 import com.bitarcher.aeFun.drawables.animatedMeshed.nature.flowers.WindElasticFlower0;
+import com.bitarcher.aeFun.drawables.animatedMeshed.nature.flowers.WindElasticFlower1;
 import com.bitarcher.aeFun.interfaces.gui.andEngine.IScene;
 import com.bitarcher.aeFun.interfaces.gui.theme.ITheme;
 import com.bitarcher.aeFun.interfaces.resourcemanagement.IResourceManager;
@@ -33,6 +34,7 @@ public class FlowersScene extends ManagedGameScene{
 
 
     WindElasticFlower0 windElasticFlower0;
+    WindElasticFlower1 windElasticFlower1;
 
 	public FlowersScene(ITSceneManager sceneManager) {
         super(sceneManager, 0); // no loading screen
@@ -77,6 +79,9 @@ public class FlowersScene extends ManagedGameScene{
         this.windElasticFlower0 = new WindElasticFlower0(100, 100, 200, 330, vertexBufferObjectManager);
         this.attachChild(this.windElasticFlower0);
 
+        this.windElasticFlower1 = new WindElasticFlower1(300, 100, 200, 330, vertexBufferObjectManager);
+        this.attachChild(this.windElasticFlower1);
+
         this.windStrengthLabel = new Label(theme, 400, 300, 400, 100, "");
         this.attachChild(this.windStrengthLabel);
     }
@@ -95,6 +100,7 @@ public class FlowersScene extends ManagedGameScene{
         //this.windStrength = 0;
         this.windStrength = (float)(Math.abs(Math.cos(Math.cos(this.totalElapsedTime) * Math.PI))) / 3;
         this.windElasticFlower0.setWindStrength(this.windStrength);
+        this.windElasticFlower1.setWindStrength(this.windStrength);
 
         //this.treeB.setWindStrength(this.windStrength);
 
