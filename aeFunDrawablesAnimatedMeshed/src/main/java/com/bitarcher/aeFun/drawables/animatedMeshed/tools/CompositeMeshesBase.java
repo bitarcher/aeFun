@@ -38,6 +38,7 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.adt.color.Color;
 import org.andengine.util.adt.list.SmartList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -171,6 +172,42 @@ public abstract class CompositeMeshesBase extends Entity implements IResourceReq
         BezierFilledEllipsoid retval = new BezierFilledEllipsoid(0, 0, centerTransformed, transformedList, numOfAdditionnalPointsBetweenPoints, this.vertexBufferObjectManager);
 
         retval.setColor(meshColor);
+
+        return retval;
+    }
+
+    // usefull if some strange pipeline are applied
+    protected Mesh getMeshedDisk(Color meshColor, IPositionAndSizeOwner positionAndSizeOwner, int numOfFanSectors)
+    {
+        Pipeline pipeline = this.getNewPipeline();
+
+        ArrayList<IPoint> twoDPaperCoordinates = new ArrayList<>();
+
+        // center
+        twoDPaperCoordinates.add(new Point(positionAndSizeOwner.getPosition()));
+
+        float cX = positionAndSizeOwner.getPosition().getX();
+        float cY = positionAndSizeOwner.getPosition().getY();
+        float w2= positionAndSizeOwner.getSize().getWidth() / 2;
+        float h2 = positionAndSizeOwner.getSize().getHeight() / 2;
+
+        int i3;
+        for(int i= 1 ; i <= numOfFanSectors ; i++)
+        {
+
+            double angle = (i - 1) * 2 * Math.PI / numOfFanSectors ;
+            float x = (float)Math.cos(angle) * w2 + cX;
+            float y = (float)Math.sin(angle) * h2 + cY;
+
+            twoDPaperCoordinates.add(new Point(x, y));
+        }
+
+
+        // close the disk
+
+        twoDPaperCoordinates.add(new Point(cX + w2, cY));
+
+        Mesh retval = this.getNewMesh(meshColor, twoDPaperCoordinates, DrawMode.TRIANGLE_FAN);
 
         return retval;
     }

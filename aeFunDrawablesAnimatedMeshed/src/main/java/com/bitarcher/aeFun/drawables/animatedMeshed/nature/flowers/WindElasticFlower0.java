@@ -9,12 +9,15 @@ package com.bitarcher.aeFun.drawables.animatedMeshed.nature.flowers;
 import com.bitarcher.aeFun.colors.ColorSpaces;
 import com.bitarcher.aeFun.colors.HSB;
 import com.bitarcher.aeFun.geometry.Point;
+import com.bitarcher.aeFun.geometry.PositionAndSizeOwner;
+import com.bitarcher.aeFun.geometry.Size;
 import com.bitarcher.aeFun.geometry.primitives.BezierFilledEllipsoid;
 import com.bitarcher.aeFun.geometry.primitives.DiskOrXGon;
 import com.bitarcher.aeFun.interfaces.colors.IHSB;
 import com.bitarcher.aeFun.interfaces.geometry.EnumSide;
 import com.bitarcher.aeFun.interfaces.geometry.IPoint;
 
+import org.andengine.entity.primitive.Mesh;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.adt.color.Color;
 
@@ -29,7 +32,8 @@ public class WindElasticFlower0 extends WindElasticFlowerBase {
     Color[] petalColors = new Color[8];
     ArrayList<BezierFilledEllipsoid> petalsArrayList = new ArrayList<>();
     Color middleDiskColor = Color.YELLOW;
-    DiskOrXGon middleDisk;
+    //DiskOrXGon middleDisk;
+    Mesh middleDisk;
 
     void computePetalColors()
     {
@@ -276,8 +280,8 @@ public class WindElasticFlower0 extends WindElasticFlowerBase {
 
         // middle disk
 
-        this.middleDisk = this.getNewDiskOrXGon(this.middleDiskColor, filledEllipsoidCenter.getX(), filledEllipsoidCenter.getY(),
-                52, 52, 14);
+        this.middleDisk = this.getMeshedDisk(this.middleDiskColor, new PositionAndSizeOwner(filledEllipsoidCenter,
+                new Size(52, 52)), 14);
         this.attachChild(this.middleDisk);
     }
 }

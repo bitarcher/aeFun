@@ -1,6 +1,7 @@
 package com.bitarcher.aeFun.geometry;
 
 import com.bitarcher.aeFun.interfaces.geometry.IPoint;
+import com.bitarcher.aeFun.interfaces.geometry.IPosition;
 import com.bitarcher.aeFun.interfaces.geometry.IVector;
 
 /*
@@ -19,6 +20,12 @@ public class Point implements IPoint {
         this.x = x;
         this.y = y;
     }
+
+    public Point(IPosition position) {
+        this.x = position.getX();
+        this.y = position.getY();
+    }
+
 
     @Override
     public float getX() {
