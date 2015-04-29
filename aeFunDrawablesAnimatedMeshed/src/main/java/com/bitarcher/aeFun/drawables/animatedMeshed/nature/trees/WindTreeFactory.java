@@ -141,7 +141,7 @@ public class WindTreeFactory implements ITFactory<WindElasticCompositeMeshes, IP
 
         if(this.autumnColorScheme)
         {
-            leavesAColor = this.randomColors.getRandomColor(leavesAColor, Color.RED);
+            leavesAColor = this.randomColors.getRandomColor(leavesAColor, Color.RED, Color.YELLOW);
         }
 
 
@@ -165,7 +165,8 @@ public class WindTreeFactory implements ITFactory<WindElasticCompositeMeshes, IP
                 rootColor,
                 leavesAColor,
                 leavesABorderColor,
-                leavesBColor
+                leavesBColor,
+                this.drawFast?8:20
                 );
 
         return retval;

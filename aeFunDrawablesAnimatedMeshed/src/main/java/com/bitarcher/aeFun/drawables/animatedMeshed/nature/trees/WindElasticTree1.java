@@ -26,6 +26,7 @@ import java.util.ArrayList;
  */
 public class WindElasticTree1 extends WindElasticCompositeMeshes {
 
+    int numOfBezierAdditionalPoints = 25;
     Color rootColor = new Color(0.475f, 0.322f, 0.153f);
     Color leavesColorA = new Color(0.525f, 0.498f, 0.153f);
     Color leavesColorABorder = new Color(0.425f, 0.398f, 0.143f);
@@ -50,12 +51,13 @@ public class WindElasticTree1 extends WindElasticCompositeMeshes {
     }
 
 
-    public WindElasticTree1(float pX, float pY, float pWidth, float pHeight, VertexBufferObjectManager vertexBufferObjectManager, float windStrength, EnumSide windSide, Color rootColor, Color leavesColorA, Color leavesColorABorder, Color leavesColorB) {
+    public WindElasticTree1(float pX, float pY, float pWidth, float pHeight, VertexBufferObjectManager vertexBufferObjectManager, float windStrength, EnumSide windSide, Color rootColor, Color leavesColorA, Color leavesColorABorder, Color leavesColorB, int numOfBezierAdditionalPoints) {
         super(pX, pY, pWidth, pHeight, vertexBufferObjectManager, new Size(21, 54), windStrength, windSide);
         this.rootColor = rootColor;
         this.leavesColorA = leavesColorA;
         this.leavesColorABorder = leavesColorABorder;
         this.leavesColorB = leavesColorB;
+        this.numOfBezierAdditionalPoints = numOfBezierAdditionalPoints;
 
         this.computeMeshes();
     }
@@ -122,14 +124,14 @@ public class WindElasticTree1 extends WindElasticCompositeMeshes {
 
         Point designCenterPoint = new Point(10, 30);
 
-        this.leavesAMesh = this.getBezierFilledEllipsoid(this.leavesColorA, leavesAPoints, designCenterPoint, 25);
+        this.leavesAMesh = this.getBezierFilledEllipsoid(this.leavesColorA, leavesAPoints, designCenterPoint, this.numOfBezierAdditionalPoints);
         this.attachChild(this.leavesAMesh);
 
-        this.leavesABorder = this.getNewBezierEllipsoid(this.leavesColorABorder, leavesAPoints, 25);
+        this.leavesABorder = this.getNewBezierEllipsoid(this.leavesColorABorder, leavesAPoints,  this.numOfBezierAdditionalPoints);
         this.attachChild(this.leavesABorder);
 
         float lineWidth = (float)(Math.sqrt(this.getWidth() * this.getHeight()) / 25.0);
-        this.leavesABorder.setLineWidth(5);
+        this.leavesABorder.setLineWidth(lineWidth);
 
 
         ArrayList<IPoint> leavesBPoints = new ArrayList<>();
@@ -150,7 +152,7 @@ public class WindElasticTree1 extends WindElasticCompositeMeshes {
         leavesBPoints.add(new Point(13, 21));
         leavesBPoints.add(new Point(12, 19));
 
-        this.leavesBMesh = this.getBezierFilledEllipsoid(this.leavesColorB, leavesBPoints, new Point(13, 34), 20);
+        this.leavesBMesh = this.getBezierFilledEllipsoid(this.leavesColorB, leavesBPoints, new Point(13, 34),  (int)(this.numOfBezierAdditionalPoints / 2) + 1);
         this.attachChild(this.leavesBMesh);
     }
 }

@@ -76,7 +76,7 @@ public class ForestScene extends ManagedGameScene{
 
 
 
-        WindTreeFactory treeFactory = new WindTreeFactory(vertexBufferObjectManager);
+        WindTreeFactory treeFactory = new WindTreeFactory(vertexBufferObjectManager, true, true);
 
 
         float screenWidth = 800;
@@ -117,23 +117,21 @@ public class ForestScene extends ManagedGameScene{
         this.totalElapsedTime += pSecondsElapsed;
 
         //this.windStrength = 0;
-        this.windStrength = (float)(Math.abs(Math.cos(Math.cos(this.totalElapsedTime) * Math.PI))) / 3;
+        this.windStrength = (float)(Math.abs(Math.cos(Math.cos(this.totalElapsedTime) * Math.PI))) / 4;
 
         for(WindElasticCompositeMeshes windElasticCompositeMeshes:this.windElasticCompositeMesheses)
         {
-            if(this.random.nextBoolean()) {
-                float r = (this.random.nextFloat() - 0.5f) / 15;
-                float ws = this.windStrength + r;
+            float r = (this.random.nextFloat() - 0.5f) / 20f;
+            float ws = this.windStrength + r;
 
-                if (ws > 0.4f) {
-                    ws = 0.4f;
-                }
-                if (ws < 0) {
-                    ws = 0;
-                }
-
-                windElasticCompositeMeshes.setWindStrength(ws);
+            if (ws > 0.4f) {
+                ws = 0.4f;
             }
+            if (ws < 0) {
+                ws = 0;
+            }
+
+            windElasticCompositeMeshes.setWindStrength(ws);
         }
 
 
