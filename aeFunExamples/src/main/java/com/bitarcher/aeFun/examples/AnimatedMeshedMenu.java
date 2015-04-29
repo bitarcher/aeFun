@@ -27,6 +27,7 @@ public class AnimatedMeshedMenu extends ManagedMenuScene implements IManagedMenu
     TextButton windMillButton;
     TextButton housesButton;
     TextButton flowersButton;
+    TextButton forestButton;
 
 	public AnimatedMeshedMenu(ITSceneManager sceneManager) {
         super(sceneManager);
@@ -66,7 +67,7 @@ public class AnimatedMeshedMenu extends ManagedMenuScene implements IManagedMenu
         this.table = new Table(theme, camera.getWidth() / 2,  camera.getHeight() / 2, camera.getWidth(), camera.getHeight());
         //this.table = new Table(theme, camera.getWidth() / 2,  camera.getHeight() / 3 * 2, camera.getWidth(), camera.getHeight() / 3 * 2);
 
-        this.table.addHomogeneousColumnsAndRows(2, 3, 5);
+        this.table.addHomogeneousColumnsAndRows(2, 4, 5);
         //this.table.addHomogeneousColumnsAndRows(2, 2, 5);
 
         this.bannerCtrl = new BannerCtrl(theme, camera.getWidth() / 2,  camera.getHeight() / 6, camera.getWidth(), camera.getHeight() / 3, "Widget gallery");
@@ -108,6 +109,18 @@ public class AnimatedMeshedMenu extends ManagedMenuScene implements IManagedMenu
                 animatedMeshedMenu.getSceneManager().showScene(new FlowersScene(animatedMeshedMenu.getSceneManager()));
             }
         });
+
+
+        this.forestButton = new TextButton(this.getSceneManager().getTheme(), 0, 0, 10, 10, "Forest");
+        this.table.attachChild(this.forestButton);
+        this.forestButton.addButtonListener(new IButtonListener() {
+            @Override
+            public void onClicked(IButton button) {
+                animatedMeshedMenu.getSceneManager().showScene(new ForestScene(animatedMeshedMenu.getSceneManager()));
+            }
+        });
+
+
 
         this.attachChild(this.table);
 

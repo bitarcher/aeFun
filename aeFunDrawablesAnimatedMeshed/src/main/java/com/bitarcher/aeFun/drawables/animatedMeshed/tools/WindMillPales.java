@@ -23,6 +23,7 @@ import java.util.ArrayList;
 /**
  * Created by michel on 19/04/15.
  */
+@Deprecated
 public class WindMillPales extends CompositeMeshesBase  implements IWindStrength {
     float windStrength = 0;
     Color bladesColor;
