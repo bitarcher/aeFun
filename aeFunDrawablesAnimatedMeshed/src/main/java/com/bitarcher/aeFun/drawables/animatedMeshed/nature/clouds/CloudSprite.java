@@ -10,6 +10,7 @@ import com.bitarcher.aeFun.interfaces.basicioc.INeedToSortChildrenListener;
 import com.bitarcher.aeFun.interfaces.basicioc.INeedToSortChildrenRequirer;
 import com.bitarcher.aeFun.interfaces.resourcemanagement.IResourceManager;
 
+import org.andengine.entity.IEntity;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.util.math.MathUtils;
@@ -20,10 +21,10 @@ import java.util.ArrayList;
  * Created by michel on 05/02/15.
  */
 public class CloudSprite extends Sprite implements INeedToSortChildrenRequirer{
-    float mainMenuWidth;
-    float mainMenuScaleX;
-    float mainMenuHeight;
-    float mainMenuScaleY;
+    float containerWidth;
+    float containerScaleX;
+    float containerHeight;
+    float containerScaleY;
     IResourceManager resourceManager;
 
     ArrayList<INeedToSortChildrenListener> needToSortChildrenListeners = new ArrayList<>();
@@ -31,19 +32,26 @@ public class CloudSprite extends Sprite implements INeedToSortChildrenRequirer{
     private float XSpeed = MathUtils.random(0.2f, 2f);
     private boolean initialized = false;
 
-    public CloudSprite(float mainMenuWidth, float mainMenuScaleX,
-                       float mainMenuHeight,float mainMenuScaleY,
+    public CloudSprite(IEntity container,
+                       IResourceManager resourceManager, ITextureRegion cloudTextureRegion)
+    {
+        this(container.getWidth(), container.getScaleX(), container.getHeight(), container.getScaleY(),
+                resourceManager, cloudTextureRegion);
+    }
+
+    public CloudSprite(float containerWidth, float containerScaleX,
+                       float containerHeight,float containerScaleY,
                        IResourceManager resourceManager, ITextureRegion cloudTextureRegion)
     {
         super(
-                MathUtils.random(-(mainMenuWidth * mainMenuScaleX) / 2, resourceManager.getCameraWidth() + (mainMenuWidth * mainMenuScaleX) / 2),
-                CloudSprite.getNewYRandom(mainMenuHeight, mainMenuScaleY, resourceManager),
+                MathUtils.random(-(containerWidth * containerScaleX) / 2, resourceManager.getCameraWidth() + (containerWidth * containerScaleX) / 2),
+                CloudSprite.getNewYRandom(containerHeight, containerScaleY, resourceManager),
                 cloudTextureRegion, resourceManager.getEngine().getVertexBufferObjectManager());
 
-        this.mainMenuWidth = mainMenuWidth;
-        this.mainMenuScaleX = mainMenuScaleX;
-        this.mainMenuHeight = mainMenuHeight;
-        this.mainMenuScaleY = mainMenuScaleY;
+        this.containerWidth = containerWidth;
+        this.containerScaleX = containerScaleX;
+        this.containerHeight = containerHeight;
+        this.containerScaleY = containerScaleY;
         this.resourceManager = resourceManager;
 
         this.setVisible(false);
@@ -62,7 +70,7 @@ public class CloudSprite extends Sprite implements INeedToSortChildrenRequirer{
     {
         float retval = 0;
 
-        float randomPart = CloudSprite.getNewYRandom(this.mainMenuHeight, this.mainMenuScaleY, this.resourceManager) / 4;
+        float randomPart = CloudSprite.getNewYRandom(this.containerHeight, this.containerScaleY, this.resourceManager) / 4;
         float f = this.XSpeed / 2; // from 0.1 to 1
 
         float h = resourceManager.getCameraHeight();
