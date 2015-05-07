@@ -9,11 +9,13 @@ package com.bitarcher.aeFun.widgetLayout;
 import com.bitarcher.aeFun.interfaces.gui.theme.ILayout;
 import com.bitarcher.aeFun.interfaces.gui.theme.ILayoutFactory;
 import com.bitarcher.aeFun.interfaces.gui.theme.context.IContext;
+import com.bitarcher.aeFun.interfaces.gui.theme.layout.INoLayoutDecorationImageButtonLayout;
 import com.bitarcher.aeFun.interfaces.gui.widgets.IAnalogOnScreenControl;
 import com.bitarcher.aeFun.interfaces.gui.widgets.ICheckButton;
 import com.bitarcher.aeFun.interfaces.gui.widgets.IImage;
 import com.bitarcher.aeFun.interfaces.gui.widgets.IImageButton;
 import com.bitarcher.aeFun.interfaces.gui.widgets.ILabel;
+import com.bitarcher.aeFun.interfaces.gui.widgets.INoLayoutDecorationImageButton;
 import com.bitarcher.aeFun.interfaces.gui.widgets.IRadioButton;
 import com.bitarcher.aeFun.interfaces.gui.widgets.ITextButton;
 import com.bitarcher.aeFun.interfaces.gui.widgets.IWidget;
@@ -22,6 +24,7 @@ import com.bitarcher.aeFun.widgetLayout.layouts.CheckButtonLayout;
 import com.bitarcher.aeFun.widgetLayout.layouts.ImageButtonLayout;
 import com.bitarcher.aeFun.widgetLayout.layouts.ImageLayout;
 import com.bitarcher.aeFun.widgetLayout.layouts.LabelLayout;
+import com.bitarcher.aeFun.widgetLayout.layouts.NoDecorationLayoutImageButtonLayout;
 import com.bitarcher.aeFun.widgetLayout.layouts.RadioButtonLayout;
 import com.bitarcher.aeFun.widgetLayout.layouts.TextButtonLayout;
 
@@ -37,6 +40,12 @@ public class DefaultLayoutFactory implements ILayoutFactory {
         {
             ITextButton keyS = (ITextButton)key;
             TextButtonLayout retS = new TextButtonLayout(keyS);
+            retval = (ILayout<TContext>)retS;
+        }
+        else if (key instanceof INoLayoutDecorationImageButton)
+        {
+            INoLayoutDecorationImageButton keyS = (INoLayoutDecorationImageButton)key;
+            INoLayoutDecorationImageButtonLayout retS = new NoDecorationLayoutImageButtonLayout(keyS);
             retval = (ILayout<TContext>)retS;
         }
         else if (key instanceof IImageButton)

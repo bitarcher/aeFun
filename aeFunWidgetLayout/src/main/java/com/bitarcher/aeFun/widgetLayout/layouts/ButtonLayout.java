@@ -27,6 +27,11 @@ public abstract class ButtonLayout<TButtonContext extends IButtonContext>  imple
     Rectangle backRectangle;
     Gradient gradient;
 
+    protected void setLayoutDecorationEnabled(boolean layoutDecorationEnabled)
+    {
+        this.backRectangle.setVisible(layoutDecorationEnabled);
+        this.gradient.setVisible(layoutDecorationEnabled);
+    }
 
 
     @Override
