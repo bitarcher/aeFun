@@ -110,6 +110,13 @@ public abstract class TextureSetMapValue
     protected abstract TOneTextureSV createOneTexture(IResourceManager resourceManager, TOneTextureResourceInfo oneTextureResourceInfo);
 
     public ITextureRegion getTextureRegionByName(String name) {
-        return this.hashMap.get(name).getTextureRegion();
+        TOneTextureSV oneTextureSV = this.hashMap.get(name);
+
+        if(oneTextureSV == null)
+        {
+            throw new NullPointerException("could not find oneTexture for name " + name);
+        }
+
+        return oneTextureSV.getTextureRegion();
     }
 }

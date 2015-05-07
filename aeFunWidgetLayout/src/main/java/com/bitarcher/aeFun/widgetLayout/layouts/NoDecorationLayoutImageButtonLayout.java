@@ -15,6 +15,11 @@ import com.bitarcher.aeFun.interfaces.gui.widgets.IImageButton;
 public class NoDecorationLayoutImageButtonLayout extends ImageButtonLayout implements INoLayoutDecorationImageButtonLayout {
     public NoDecorationLayoutImageButtonLayout(IImageButton imageButton) {
         super(imageButton);
+    }
+
+    @Override
+    public void onPopulate() {
+        super.onPopulate();
 
         this.setLayoutDecorationEnabled(false);
     }
