@@ -9,7 +9,7 @@ import org.andengine.entity.text.Text;
 
 public abstract class ManagedGameScene extends ManagedScene {
 	// Create an easy to manage HUD that we can attachChild/detachChild when the game scene is shown or hidden.
-	public HUD GameHud = new HUD();
+	public final HUD gameHud = new HUD();
 	public ManagedGameScene thisManagedGameScene = this;
 	
 	public ManagedGameScene(ITSceneManager sceneManager) {
@@ -26,8 +26,8 @@ public abstract class ManagedGameScene extends ManagedScene {
 		// Scale the Game Scenes according to the Camera's scale factor.
 		//this.setScale(this.sceneManager.getResourceManager().getCameraScaleX(), this.sceneManager.getResourceManager().getCameraScaleY());
 		//this.setPosition(0, this.sceneManager.getResourceManager().getCameraHeight()/2f);
-		//GameHud.setScaleCenter(0f, 0f);
-		//GameHud.setScale(this.sceneManager.getResourceManager().getCameraScaleX(), this.sceneManager.getResourceManager().getCameraScaleY());
+		//gameHud.setScaleCenter(0f, 0f);
+		//gameHud.setScale(this.sceneManager.getResourceManager().getCameraScaleX(), this.sceneManager.getResourceManager().getCameraScaleY());
 	}
 	
 	// These objects will make up our loading scene.
@@ -81,8 +81,8 @@ public abstract class ManagedGameScene extends ManagedScene {
 		
 		/*Text MainMenuButtonText = new Text(MainMenuButton.getWidth()/2,MainMenuButton.getHeight()/2, OriginalOldResourceManager.fontDefault32Bold,"MENU", OriginalOldResourceManager.getInstance().engine.getVertexBufferObjectManager());
 		MainMenuButton.attachChild(MainMenuButtonText);
-		GameHud.attachChild(MainMenuButton);
-		GameHud.registerTouchArea(MainMenuButton);
+		gameHud.attachChild(MainMenuButton);
+		gameHud.registerTouchArea(MainMenuButton);
 		
 		ButtonSprite OptionsButton = new ButtonSprite(0f,0f, 
 				OriginalOldResourceManager.buttonTiledTextureRegion.getTextureRegion(0),
@@ -102,8 +102,8 @@ public abstract class ManagedGameScene extends ManagedScene {
 		Text OptionsButtonText = new Text(0,0, OriginalOldResourceManager.fontDefault32Bold,"OPTIONS", OriginalOldResourceManager.getInstance().engine.getVertexBufferObjectManager());
 		OptionsButtonText.setPosition((OptionsButton.getWidth())/2, (OptionsButton.getHeight())/2);
 		OptionsButton.attachChild(OptionsButtonText);
-		GameHud.attachChild(OptionsButton);
-		GameHud.registerTouchArea(OptionsButton);*/
+		gameHud.attachChild(OptionsButton);
+		gameHud.registerTouchArea(OptionsButton);*/
 	}
 
 
@@ -111,7 +111,7 @@ public abstract class ManagedGameScene extends ManagedScene {
 	@Override
 	public void onShowScene() {
 		// We want to wait to set the HUD until the scene is shown because otherwise it will appear on top of the loading screen.
-		this.sceneManager.getResourceManager().getEngine().getCamera().setHUD(GameHud);
+		this.sceneManager.getResourceManager().getEngine().getCamera().setHUD(gameHud);
 	}
 	
 	@Override

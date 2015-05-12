@@ -1,5 +1,7 @@
 package com.bitarcher.aeFun.widgetToolkit.widget.Tools;
 
+import android.util.Log;
+
 import com.bitarcher.aeFun.interfaces.gui.theme.ITheme;
 import com.bitarcher.aeFun.interfaces.gui.theme.context.IButtonContext;
 import com.bitarcher.aeFun.interfaces.gui.theme.context.setter.EnumMouseEffect;
@@ -7,6 +9,8 @@ import com.bitarcher.aeFun.interfaces.gui.widgets.IButton;
 import com.bitarcher.aeFun.interfaces.gui.widgets.IButtonListener;
 import com.bitarcher.aeFun.widgetToolkit.widget.Widget;
 
+import org.andengine.engine.Engine;
+import org.andengine.engine.camera.hud.HUD;
 import org.andengine.entity.scene.Scene;
 import org.andengine.input.touch.TouchEvent;
 
@@ -19,6 +23,20 @@ public abstract class Button<TContext extends IButtonContext> extends Widget<TCo
 
     protected boolean isTouchAreaRegistered = false;
     protected boolean isMousePressedPred;
+    HUD hud;
+
+    public HUD getHud() {
+        return hud;
+    }
+
+    /**
+     * Use this so the events will be catch from the hud
+     * the hud must be set before attaching to parent
+     * @param hud
+     */
+    public void setHud(HUD hud) {
+        this.hud = hud;
+    }
 
     @Override
     public boolean isMousePressed() {
@@ -99,9 +117,16 @@ public abstract class Button<TContext extends IButtonContext> extends Widget<TCo
 
         if(!this.isTouchAreaRegistered)
         {
-            Scene scene = this.getTheme().getThemeManager().getResourceManager().getEngine().getScene();
+            Engine engine = this.getTheme().getThemeManager().getResourceManager().getEngine();
 
-            scene.registerTouchArea(this);
+            if(this.hud != null)
+            {
+                this.hud.registerTouchArea(this);
+            }
+            else {
+                Scene scene = engine.getScene();
+                scene.registerTouchArea(this);
+            }
             this.isTouchAreaRegistered = true;
         }
     }
@@ -112,10 +137,16 @@ public abstract class Button<TContext extends IButtonContext> extends Widget<TCo
 
         if(this.isTouchAreaRegistered)
         {
-            Scene scene = this.getTheme().getThemeManager().getResourceManager().getEngine().getScene();
+            Engine engine = this.getTheme().getThemeManager().getResourceManager().getEngine();
 
-            scene.unregisterTouchArea(this);
-
+            if(this.hud != null)
+            {
+                this.hud.unregisterTouchArea(this);
+            }
+            else {
+                Scene scene = engine.getScene();
+                scene.unregisterTouchArea(this);
+            }
             this.isTouchAreaRegistered = false;
         }
 
@@ -129,7 +160,6 @@ public abstract class Button<TContext extends IButtonContext> extends Widget<TCo
         {
             this.getLayout().getContext().setMouseEffect(EnumMouseEffect.None);
         }
-
     }
 
     @Override

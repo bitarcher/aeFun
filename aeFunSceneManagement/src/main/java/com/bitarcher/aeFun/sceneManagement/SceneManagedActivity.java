@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import com.bitarcher.aeFun.interfaces.gui.theme.ITheme;
 import com.bitarcher.aeFun.interfaces.resourcemanagement.IContextProvider;
 import com.bitarcher.aeFun.interfaces.resourcemanagement.IResourceManager;
+import com.bitarcher.aeFun.interfaces.sceneManagement.IGoBackSceneCapable;
 import com.bitarcher.aeFun.interfaces.sceneManagement.IMainMenu;
 import com.bitarcher.aeFun.interfaces.sceneManagement.IOptionsLayer;
 import com.bitarcher.aeFun.interfaces.sceneManagement.ISceneManagerConfigurator;
@@ -84,6 +85,12 @@ public abstract class SceneManagedActivity<TResourceManager extends IResourceMan
 						(this.sceneManager.getCurrentScene().getClass().getGenericSuperclass().equals(ManagedMenuScene.class) &!
                                 (this.sceneManager.getCurrentScene() instanceof IMainMenu)))
                     this.sceneManager.showMainMenu();
+                else if(this.sceneManager.getCurrentScene() instanceof IGoBackSceneCapable)
+                {
+                    IGoBackSceneCapable goBackSceneCapable = (IGoBackSceneCapable) this.sceneManager.getCurrentScene();
+
+                    goBackSceneCapable.goBackToPreviousScene();
+                }
 				else
 					System.exit(0);
 			}
